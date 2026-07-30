@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "repo1-plugins": {
+      "source": {
+        "source": "directory",
+        "path": "./.claude/marketplace"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "stripe@repo1-plugins": true
+  }
+}
