@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Hero</title>
+<meta name="description" content="How Hero collects, uses, and protects your information, including our SMS messaging practices and mobile opt-in policy.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
+
+<!--
+  ============================================================
+  BEFORE YOU SUBMIT THIS FOR A2P 10DLC REVIEW, fill in the
+  bracketed placeholders below (search for "[" ):
+    [LEGAL BUSINESS NAME]   — e.g. Hero Automation LLC
+    [BUSINESS MAILING ADDRESS]
+    [BUSINESS PHONE]
+  Everything else is complete. The mobile opt-in clause in the
+  "Text messaging" section is the language carriers look for —
+  do not remove or soften it.
+  ============================================================
+-->
+
+<style>
+  :root {
+    --ink: #1d1d1f;
+    --ink-soft: #6e6e73;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f7;
+    --accent: #6d28d9;
+    --accent-hover: #7c3aed;
+    --radius: 18px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 720px;
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .skip-link { position: absolute; left: -9999px; top: 0; background: var(--ink); color: #fff; padding: 12px 20px; z-index: 100; }
+  .skip-link:focus { left: 0; }
+
+  /* Nav — matches the home page */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .nav-inner {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo svg { width: 30px; height: 30px; border-radius: 8px; }
+  .nav-cta { font-size: 0.9375rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .nav-cta:hover { text-decoration: underline; }
+
+  /* Document */
+  main { padding-block: clamp(56px, 9vw, 96px); }
+
+  h1 {
+    font-size: clamp(2.25rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+  }
+  .updated {
+    margin-top: 14px;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+  }
+  .intro {
+    margin-top: 28px;
+    font-size: 1.125rem;
+    color: var(--ink-soft);
+  }
+
+  h2 {
+    font-size: 1.4375rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-top: 52px;
+    margin-bottom: 14px;
+    scroll-margin-top: 80px;
+  }
+  h3 {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 8px;
+  }
+  p { margin-bottom: 16px; }
+  a { color: var(--accent); }
+  a:hover { color: var(--accent-hover); }
+
+  ul { margin: 0 0 16px 22px; }
+  li { margin-bottom: 8px; }
+
+  strong { font-weight: 650; }
+
+  /* The clause carriers look for — visually separated so a reviewer finds it fast. */
+  .callout {
+    background: var(--surface-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 22px 24px;
+    margin: 24px 0;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .toc {
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin-top: 40px;
+  }
+  .toc h2 {
+    margin: 0 0 12px;
+    font-size: 0.8125rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .toc ol { margin: 0 0 0 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  .footer {
+    padding-block: 40px;
+    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    margin-top: 72px;
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+  .footer-links { display: flex; gap: 20px; }
+  .footer a { color: var(--ink-soft); }
+  .footer a:hover { color: var(--ink); }
+
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html" aria-label="Hero — home">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#372aac"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="logo-bolt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fcd34d"/>
+            <stop offset="1" stop-color="#f59e0b"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#logo-bg)"/>
+        <rect x="17" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
+      </svg>
+      Hero
+    </a>
+    <a class="nav-cta" href="index.html">Back to site</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="container">
+
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: July 31, 2026</p>
+
+    <p class="intro">This policy explains what information Hero collects, how we use it, and the choices you have — including how our text messaging works and what we do (and never do) with your phone number.</p>
+
+    <nav class="toc" aria-labelledby="toc-heading">
+      <h2 id="toc-heading">Contents</h2>
+      <ol>
+        <li><a href="#who-we-are">Who we are</a></li>
+        <li><a href="#what-we-collect">Information we collect</a></li>
+        <li><a href="#how-we-use">How we use your information</a></li>
+        <li><a href="#sms">Text messaging (SMS/MMS) and mobile opt-in</a></li>
+        <li><a href="#sharing">How we share information</a></li>
+        <li><a href="#cookies">Cookies and website analytics</a></li>
+        <li><a href="#retention">How long we keep information</a></li>
+        <li><a href="#security">How we protect information</a></li>
+        <li><a href="#rights">Your rights and choices</a></li>
+        <li><a href="#children">Children's privacy</a></li>
+        <li><a href="#changes">Changes to this policy</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ol>
+    </nav>
+
+    <h2 id="who-we-are">1. Who we are</h2>
+    <p>Hero ("Hero," "we," "us," or "our") is operated by [LEGAL BUSINESS NAME], located at [BUSINESS MAILING ADDRESS]. We provide done-for-you communication and automation systems to local service businesses, including missed-call text-back, automated follow-up, and lead management.</p>
+    <p>This policy applies to this website and to the messages we send from Hero's own phone numbers to people who contact us or request information about our services. If you are a customer of one of the businesses that uses Hero's systems, that business is responsible for its own privacy practices and its own consent records; we process data on that business's behalf as a service provider.</p>
+
+    <h2 id="what-we-collect">2. Information we collect</h2>
+    <p>We collect only what we need to answer your inquiry and deliver our services.</p>
+
+    <h3>Information you give us</h3>
+    <ul>
+      <li><strong>Contact details</strong> — your name, mobile phone number, email address, and business name, when you submit a form, book a call, call us, or text us.</li>
+      <li><strong>Message content</strong> — the content of texts, emails, calls, and voicemails you exchange with us, including call recordings where you have been notified and applicable law permits.</li>
+      <li><strong>Consent records</strong> — a record of when and how you agreed to receive text messages from us, including the date, time, and the wording of the disclosure you agreed to. We keep this to prove consent, as carriers and regulators require.</li>
+      <li><strong>Business details</strong> — information you share about your company when you ask about or purchase our services.</li>
+    </ul>
+
+    <h3>Information collected automatically</h3>
+    <ul>
+      <li><strong>Device and usage data</strong> — IP address, browser type, pages viewed, referring page, and approximate region, collected through standard web server logs and analytics.</li>
+      <li><strong>Message delivery data</strong> — delivery receipts, opt-out events, and error codes returned by carriers and our messaging providers, which we use to keep our messaging compliant and functioning.</li>
+    </ul>
+
+    <p>We do not collect Social Security numbers, government ID numbers, precise geolocation, or payment card numbers through this website. Payments, when applicable, are handled by our payment processor, and we never receive or store your full card number.</p>
+
+    <h2 id="how-we-use">3. How we use your information</h2>
+    <ul>
+      <li>To respond to your inquiry, schedule and confirm calls, and provide the services you request.</li>
+      <li>To send you the text messages and emails you have consented to receive, including replies, appointment confirmations, reminders, and follow-ups.</li>
+      <li>To set up, operate, support, and troubleshoot the automation systems we build for you.</li>
+      <li>To keep records that demonstrate consent and compliance with messaging rules, including the Telephone Consumer Protection Act (TCPA), CTIA messaging principles, and carrier A2P 10DLC requirements.</li>
+      <li>To secure our systems, prevent fraud and abuse, and enforce our agreements.</li>
+      <li>To meet legal, tax, and regulatory obligations.</li>
+    </ul>
+    <p>We do not sell your personal information, and we do not share it for cross-context behavioral advertising.</p>
+
+    <h2 id="sms">4. Text messaging (SMS/MMS) and mobile opt-in</h2>
+
+    <div class="callout">
+      <p><strong>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes.</strong> All of the sharing categories described in this policy exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties. Phone numbers collected for SMS purposes are used only to deliver the messages you asked for, and are disclosed only to the messaging providers that transmit those messages on our behalf.</p>
+    </div>
+
+    <h3>How you opt in</h3>
+    <p>We send text messages only to people who have given express written consent — for example, by checking an unchecked consent box on one of our forms, replying to one of our messages, or texting us first. Consent is never a condition of purchasing any product or service, and we never buy, rent, or import purchased phone number lists.</p>
+
+    <h3>What we send and how often</h3>
+    <p>Messages relate to your inquiry, appointment, or account: replies to questions, booking links, appointment confirmations and reminders, follow-ups about a request you made, and occasional service updates or offers if you opted into those. Message frequency varies based on your activity; most people receive fewer than 10 messages per month.</p>
+
+    <h3>Cost</h3>
+    <p>Message and data rates may apply. Hero does not charge for text messages, but your mobile carrier's standard rates apply. Delivery is subject to your carrier and is not guaranteed.</p>
+
+    <h3>How to stop messages</h3>
+    <p>You can opt out at any time by replying <strong>STOP</strong> to any message from us. We will send one confirmation message and then stop sending messages to that number. You can rejoin at any time by replying <strong>START</strong>. Reply <strong>HELP</strong> to any message, or contact us using the details below, for help.</p>
+
+    <h3>Who helps us deliver messages</h3>
+    <p>We use messaging platforms and telecommunications providers — such as our CRM platform and its underlying SMS carrier — solely to transmit messages on our behalf. These providers are contractually restricted to using the information only to deliver our messages and may not use your phone number for their own marketing.</p>
+
+    <h2 id="sharing">5. How we share information</h2>
+    <p>We share personal information only in these limited situations:</p>
+    <ul>
+      <li><strong>Service providers.</strong> Vendors that run our operations under contract — CRM and messaging platforms, telecommunications carriers, email delivery, calendar and scheduling tools, hosting, and analytics. They may use the information only to perform services for us.</li>
+      <li><strong>Legal requirements.</strong> When we are required to by law, subpoena, or other legal process, or to protect the rights, property, or safety of Hero, our customers, or the public.</li>
+      <li><strong>Business transfer.</strong> If Hero is involved in a merger, acquisition, or sale of assets, information may transfer as part of that transaction; the receiving party remains bound by this policy for the information it receives.</li>
+      <li><strong>With your direction.</strong> When you ask us to share information with someone else.</li>
+    </ul>
+    <p>We do not sell, rent, or trade personal information. As stated above, mobile opt-in data and consent are excluded from every sharing category in this policy and are never shared with third parties for their marketing or promotional purposes.</p>
+
+    <h2 id="cookies">6. Cookies and website analytics</h2>
+    <p>This website uses only what it needs to function and to measure basic traffic. We do not run third-party advertising trackers on this site. If we add analytics that use cookies, they collect aggregate usage data such as page views and referrers, not the content of your messages. Most browsers let you block or delete cookies in their settings; the site works without them.</p>
+
+    <h2 id="retention">7. How long we keep information</h2>
+    <p>We keep personal information for as long as needed to provide our services and for a reasonable period afterward for legal, tax, and dispute-resolution purposes. Consent and opt-out records are kept for at least four years, as recommended for compliance with messaging regulations, even if you have opted out — keeping your opt-out on record is how we make sure we do not message you again.</p>
+
+    <h2 id="security">8. How we protect information</h2>
+    <p>We use commercially reasonable safeguards, including encryption in transit, access controls, and vendors that maintain their own security programs. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.</p>
+
+    <h2 id="rights">9. Your rights and choices</h2>
+    <p>Depending on where you live, you may have the right to request access to the personal information we hold about you, request correction or deletion, opt out of marketing communications, and not be discriminated against for exercising these rights. California residents have these rights under the CCPA/CPRA, including the right to know what we collect and the right to opt out of sale or sharing — noting that we do not sell or share personal information as those terms are defined.</p>
+    <p>To make a request, contact us using the details below. We will verify your request and respond within the time required by applicable law. You can always opt out of texts by replying STOP and out of emails by using the unsubscribe link.</p>
+
+    <h2 id="children">10. Children's privacy</h2>
+    <p>Our services are intended for businesses and adults. We do not knowingly collect personal information from anyone under 16. If you believe a child has given us information, contact us and we will delete it.</p>
+
+    <h2 id="changes">11. Changes to this policy</h2>
+    <p>We may update this policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Material changes to how we handle text messaging consent will be communicated to affected users.</p>
+
+    <h2 id="contact">12. Contact us</h2>
+    <p>Questions about this policy or your information:</p>
+    <ul>
+      <li><strong>Email:</strong> <a href="mailto:Alexwilson112009@gmail.com">Alexwilson112009@gmail.com</a></li>
+      <li><strong>Phone:</strong> [BUSINESS PHONE]</li>
+      <li><strong>Mail:</strong> [LEGAL BUSINESS NAME], [BUSINESS MAILING ADDRESS]</li>
+    </ul>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>&copy; 2026 Hero. Automation for local service businesses.</span>
+    <span class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="mailto:Alexwilson112009@gmail.com">Alexwilson112009@gmail.com</a>
+    </span>
+  </div>
+</footer>
+
+</body>
+</html>
