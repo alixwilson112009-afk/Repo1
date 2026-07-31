@@ -12,12 +12,13 @@
 
 <!--
   ============================================================
-  ONE THING LEFT TO ADD (search for "SWAP"):
-    SWAP-IMAGE — add your automation screenshot at
-    assets/automation-flow.png (the <img> already points there)
-    Optional: the nav logo + favicon are inline SVG recreations
-    of the Hero mark. To use your exact PNG instead, replace the
-    <svg> in the header with <img src="assets/logo.png" alt="">.
+  Everything is wired up. Optional swaps if you want them:
+    - assets/automation-flow.png — the flow diagram in section 3.
+      Overwrite this file to update the diagram.
+    - The nav logo + favicon are inline SVG recreations of the
+      Hero mark. For your exact PNG, drop it at assets/logo.png
+      and replace the <svg> in the header with
+      <img src="assets/logo.png" alt="">.
   ============================================================
 -->
 
@@ -224,9 +225,8 @@
   }
   .steps p { color: var(--ink-soft); font-size: 1.0625rem; }
 
-  /* SWAP-IMAGE: the <img> below expects your screenshot at assets/automation-flow.png.
-     The dark frame matches the diagram's background so it sits cleanly on the page.
-     Until the file exists, the frame shows a note instead of a broken image. */
+  /* The dark frame matches the diagram's own background so it sits cleanly on the
+     page. If the image ever fails to load, the frame shows a note, not a broken icon. */
   .flow-figure { margin: 0; }
   .flow-frame {
     background: #1c1c1e;
@@ -239,6 +239,25 @@
     width: 100%;
     height: auto;
     border-radius: 8px;
+  }
+  .flow-frame a {
+    display: block;
+    border-radius: 8px;
+  }
+  .flow-frame a:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+  /* The diagram is dense; on small screens point people at the full-size view. */
+  .flow-zoom-hint { display: none; }
+  @media (max-width: 700px) {
+    .flow-zoom-hint {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.875rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
   }
   .flow-figure.is-missing .flow-frame {
     display: flex;
@@ -408,15 +427,20 @@
         <li class="reveal d2"><strong>The job stays yours</strong><p>The conversation continues by text. You reply when you're free, and the lead books with you.</p></li>
       </ol>
 
-      <!-- SWAP-IMAGE: commit your flow screenshot as assets/automation-flow.png and it appears here -->
       <figure class="flow-figure reveal">
         <div class="flow-frame">
-          <img src="assets/automation-flow.png"
-               alt="Flowchart of the Hero automation. Leads from missed calls, answered calls, or marketing forms get an instant text with a booking link, then a week of booking nudges. Booked appointments get confirmations and reminders; after the job, a review and referral request, then a reactivation text 120 days later. Unbooked leads move into long-term monthly nurture."
-               loading="lazy"
-               onerror="this.closest('.flow-figure').classList.add('is-missing')">
+          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the automation diagram at full size">
+            <img src="assets/automation-flow.png"
+                 width="1120" height="1448"
+                 alt="Flowchart of the Hero automation. Leads from missed calls, answered calls, or marketing forms get an instant text with a booking link, then a week of booking nudges. Booked appointments get confirmations and reminders; after the job, a review and referral request, then a reactivation text 120 days later. Unbooked leads move into long-term monthly nurture."
+                 loading="lazy"
+                 onerror="this.closest('.flow-figure').classList.add('is-missing')">
+          </a>
         </div>
-        <figcaption>The full Hero system: instant text-back, booking nudges, appointment reminders, review and referral requests, and long-term reactivation &mdash; every step on autopilot.</figcaption>
+        <figcaption>
+          The full Hero system: instant text-back, booking nudges, appointment reminders, review and referral requests, and long-term reactivation &mdash; every step on autopilot.
+          <span class="flow-zoom-hint">Tap the diagram to view it full size.</span>
+        </figcaption>
       </figure>
     </div>
   </section>
