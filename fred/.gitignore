@@ -1,0 +1,6 @@
+# Downloaded CSVs — regenerate these by running the script
+data/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
