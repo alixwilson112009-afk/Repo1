@@ -1,6 +1,14 @@
 # Positioning rewrite — proposed copy (v2)
 
-**Status: proposal only. No source files have been modified.**
+**Status: APPLIED to source. This file is now the record of what changed and why.**
+
+Both open questions are resolved: A2P registration is on the page (How it works
+step 02 and the closing CTA); no turnaround time is claimed anywhere, since none
+was confirmed.
+
+One wording tweak during build: the middle card's tagline became "It happens, and
+it gets paid." — the longer version wrapped to two lines and pushed that card's
+bullets out of line with the others.
 
 v2 replaces v1. The change: the site now shows the whole offer — follow-up,
 appointments, quotes and payment, reputation, and the CRM underneath — instead of
@@ -132,7 +140,7 @@ closing.
 > *How it works* · **We find the leaks, then we plug them.**
 >
 > 01 **We walk your lead path** — Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.
-> 02 **We build it on your setup** — Your number, your calendar, your service area. You don't build anything and you don't learn new software to answer a phone.
+> 02 **We build it on your setup** — Your number, your calendar, your service area — including the carrier registration a business needs before it can text customers legally. You don't build anything.
 > 03 **You just do the work** — The chasing, reminding, and asking runs itself. You pick up the ones worth your time.
 
 ### Figure caption — line 446
@@ -314,10 +322,15 @@ copy, and none should be added without proof:
 The strongest claim on the page is that replies go out in seconds — true because
 the system is configured that way, not a performance promise.
 
-### One thing to confirm
+### A2P 10DLC registration — now on the page
 
-**A2P 10DLC registration.** Getting a trades business legally texting is real work
-and a genuine differentiator, and there's evidence you handle it for client
-sub-accounts — but you didn't confirm it, so it appears nowhere in this draft. If
-you do it, it belongs in How it works step 02 and would strengthen the
-done-for-you story.
+Confirmed and included. It appears twice, worded as a capability rather than a
+result:
+
+- **How it works, step 02:** "Your number, your calendar, your service area —
+  including the carrier registration a business needs before it can text customers
+  legally. You don't build anything."
+- **Closing CTA:** "We build the whole thing, carrier registration included."
+
+The phrase "carrier registration" is used instead of "A2P 10DLC" — a plumber has
+never heard the acronym, but understands the idea of registering to text legally.

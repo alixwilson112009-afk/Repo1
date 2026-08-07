@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hero — Never Miss Another Lead</title>
-<meta name="description" content="Hero builds done-for-you automation for local service businesses. Missed-call text-back, automated follow-up, and every lead in one place — so no job slips away.">
-<meta property="og:title" content="Hero — Never Miss Another Lead">
-<meta property="og:description" content="Done-for-you automation for local service businesses. Every missed call gets a text back in seconds.">
+<title>Hero — Close More of the Leads You Already Have</title>
+<meta name="description" content="You already pay for leads — ads, SEO, referrals, the truck wrap. Hero handles the follow-up, booking, reminders, quotes, payment, and reviews that decide whether they turn into paid work. For plumbing, HVAC, tree service, and garage door companies.">
+<meta property="og:title" content="Hero — Close More of the Leads You Already Have">
+<meta property="og:description" content="Stop losing leads you already paid for. Every call answered, every quote chased, every job reminded, every review asked for — running on one system.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
 
@@ -177,8 +177,8 @@
     margin: 24px auto 40px;
   }
 
-  /* Problem band */
-  .problem { background: var(--surface-alt); }
+  /* Gray bands — the problem section and the CRM section */
+  .problem, .band { background: var(--surface-alt); }
   .problem-points {
     display: grid;
     gap: clamp(24px, 4vw, 40px);
@@ -303,6 +303,15 @@
   }
   .card h3 { margin-bottom: 10px; }
   .card p { color: var(--ink-soft); font-size: 1.0625rem; }
+  .card ul { margin: 16px 0 0; padding-left: 18px; }
+  .card li {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .card li:last-child { margin-bottom: 0; }
+  .card li::marker { color: var(--accent); }
 
   /* Final CTA */
   .cta {
@@ -397,8 +406,8 @@
   <!-- 1 · Hero -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="container">
-      <h1 id="hero-heading" class="reveal">Never miss another lead.</h1>
-      <p class="lede reveal d1">Hero texts back every missed call in seconds — so the job that would've gone to a competitor books with you instead.</p>
+      <h1 id="hero-heading" class="reveal">Stop losing the leads you already paid for.</h1>
+      <p class="lede reveal d1">Ads, SEO, referrals, the truck wrap — you paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.</p>
       <a class="btn btn-primary reveal d2" href="#book">Book a Call</a>
     </div>
   </section>
@@ -408,13 +417,16 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">The problem</span>
-        <h2 id="problem-heading">Every missed call is a paying job walking away.</h2>
-        <p class="lede">You're on a roof, under a sink, or halfway up a tree. The phone rings. It goes to voicemail. That caller doesn't wait — they dial the next company on the list.</p>
+        <h2 id="problem-heading">The leads are already coming in. They're leaking out.</h2>
+        <p class="lede">Nobody loses jobs because the phone never rings. They lose them in the gaps — the call that came in mid-crawlspace, the quote nobody followed up on, the appointment nobody confirmed.</p>
       </div>
       <ul class="problem-points">
-        <li class="reveal"><strong>Callers don't leave voicemails.</strong> They hang up and call your competitor. The first business to respond usually wins the job.</li>
-        <li class="reveal d1"><strong>Your ad spend leaks.</strong> You pay to make the phone ring — every unanswered call is marketing money down the drain.</li>
-        <li class="reveal d2"><strong>Hiring isn't the answer.</strong> A full-time receptionist costs thousands a month and still clocks out at five.</li>
+        <li class="reveal"><strong>The call you couldn't take.</strong> Both hands under a sink. It rings out, and they're already dialing the next name on the list.</li>
+        <li class="reveal d1"><strong>The callback that came too late.</strong> You call back at six. They booked someone who answered at two.</li>
+        <li class="reveal d2"><strong>The quote that went quiet.</strong> You sent the number, they said they'd think about it, and nobody followed up.</li>
+        <li class="reveal"><strong>The no-show.</strong> Booked Tuesday, forgotten by Thursday. You drove out for nothing.</li>
+        <li class="reveal d1"><strong>The leads from three months ago.</strong> A list of people who wanted work done. Nobody has touched it since.</li>
+        <li class="reveal d2"><strong>The job that never got a review request.</strong> Good work, happy customer, no review. The next person searching never hears about it.</li>
       </ul>
     </div>
   </section>
@@ -424,26 +436,26 @@
     <div class="container">
       <div class="section-head centered reveal">
         <span class="eyebrow">How it works</span>
-        <h2 id="how-heading">The moment you miss a call, Hero answers.</h2>
+        <h2 id="how-heading">We find the leaks, then we plug them.</h2>
       </div>
       <ol class="steps">
-        <li class="reveal"><strong>A call slips through</strong><p>You're on a job. The call rings out or hits voicemail.</p></li>
-        <li class="reveal d1"><strong>Hero texts them back</strong><p>Within seconds, the caller gets a text from your business number — before they can dial anyone else.</p></li>
-        <li class="reveal d2"><strong>The job stays yours</strong><p>The conversation continues by text. You reply when you're free, and the lead books with you.</p></li>
+        <li class="reveal"><strong>We walk your lead path</strong><p>Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.</p></li>
+        <li class="reveal d1"><strong>We build it on your setup</strong><p>Your number, your calendar, your service area — including the carrier registration a business needs before it can text customers legally. You don't build anything.</p></li>
+        <li class="reveal d2"><strong>You just do the work</strong><p>The chasing, reminding, and asking runs itself. You pick up the ones worth your time.</p></li>
       </ol>
 
       <figure class="flow-figure reveal">
         <div class="flow-frame">
-          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the automation diagram at full size">
+          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the lead path diagram at full size">
             <img src="assets/automation-flow.png"
                  width="1120" height="1448"
-                 alt="Flowchart of the Hero automation. Leads from missed calls, answered calls, or marketing forms get an instant text with a booking link, then a week of booking nudges. Booked appointments get confirmations and reminders; after the job, a review and referral request, then a reactivation text 120 days later. Unbooked leads move into long-term monthly nurture."
+                 alt="Flowchart of the Hero system. Leads arrive from phone calls, marketing forms, or added by hand. Missed calls get an instant text back with a booking link; answered calls are handled live. Every lead is tagged and enters a week of booking nudges. Booked appointments get confirmations and reminders 24 hours and 1 hour ahead. After the job, a review and referral request goes out, then a reactivation message 120 days later. Leads that never book move into long-term monthly nurture."
                  loading="lazy"
                  onerror="this.closest('.flow-figure').classList.add('is-missing')">
           </a>
         </div>
         <figcaption>
-          The full Hero system: instant text-back, booking nudges, appointment reminders, review and referral requests, and long-term reactivation &mdash; every step on autopilot.
+          One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Every step that used to depend on someone remembering.
           <span class="flow-zoom-hint">Tap the diagram to view it full size.</span>
         </figcaption>
       </figure>
@@ -455,38 +467,68 @@
     <div class="container">
       <div class="section-head centered reveal">
         <span class="eyebrow">What you get</span>
-        <h2 id="features-heading">Built for you. Running in days.</h2>
+        <h2 id="features-heading">The whole job, covered.</h2>
+        <p class="lede">From the first ring to the review that wins you the next one &mdash; here's what runs without you touching it.</p>
       </div>
       <div class="cards">
         <article class="card reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          <h3>Missed-call text-back</h3>
-          <p>Every unanswered call gets an instant, personal-sounding text from your number. No caller left hanging, ever.</p>
+          <h3>Before the job</h3>
+          <p>Get them in the door.</p>
+          <ul>
+            <li>Miss a call and a text goes back in seconds, with a link to book</li>
+            <li>Web and Facebook form leads get an instant reply, day or night</li>
+            <li>A booking link that keeps nudging for a week instead of asking once</li>
+            <li>Add someone by hand and they join the same track</li>
+          </ul>
         </article>
         <article class="card reveal d1">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-          <h3>Automated follow-up</h3>
-          <p>Leads that go quiet get a polite nudge automatically. No sticky notes, no "I meant to call them back."</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          <h3>The job</h3>
+          <p>It happens, and it gets paid.</p>
+          <ul>
+            <li>Confirmation when they book, reminders 24 hours and 1 hour out</li>
+            <li>Cancellations don't vanish &mdash; they drop back into follow-up</li>
+            <li>Quotes go out, and get chased when they go quiet</li>
+            <li>Invoice and payment handled in the same place as everything else</li>
+          </ul>
         </article>
         <article class="card reveal d2">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
-          <h3>Every lead in one place</h3>
-          <p>Calls, texts, and web leads land in a single inbox on your phone. See who's waiting and reply in one tap.</p>
-        </article>
-        <article class="card reveal d3">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
-          <h3>Set up done for you</h3>
-          <p>We build it, connect it to your number, and hand you the keys. You keep answering calls the way you always have.</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <h3>After the job</h3>
+          <p>Turn one job into the next.</p>
+          <ul>
+            <li>The review request goes out the day after the work wraps</li>
+            <li>Reviews get watched and answered, so your profile isn't sitting stale</li>
+            <li>Referral asks to the customers who liked the work</li>
+            <li>Monthly touches, and a nudge again at 120 days</li>
+          </ul>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- 5 · The CRM underneath it all -->
+  <section class="band" aria-labelledby="crm-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Underneath all of it</span>
+        <h2 id="crm-heading">One place for every lead, every text, every job.</h2>
+        <p class="lede">Not sticky notes on the dash and a phone full of half-finished threads. Every call, text, quote, and job sits in one system you can open from the truck.</p>
+      </div>
+      <ul class="problem-points">
+        <li class="reveal"><strong>Every conversation in one thread.</strong> Calls, texts, and form leads land together, so you can see what was already said without hunting for it.</li>
+        <li class="reveal d1"><strong>You always know where someone stands.</strong> New lead, quoted, booked, paid, past customer &mdash; tagged as it happens, not when someone remembers.</li>
+        <li class="reveal d2"><strong>It lives on your phone.</strong> Reply between jobs. Nothing to install on a desk you never sit at.</li>
+      </ul>
     </div>
   </section>
 
   <!-- 5 · Final CTA -->
   <section class="cta" id="book" aria-labelledby="cta-heading">
     <div class="container">
-      <h2 id="cta-heading" class="reveal">Stop paying for leads you never answer.</h2>
-      <p class="lede reveal d1">Fifteen minutes on a call. We'll show you exactly how many jobs you're missing — and how Hero gets them back.</p>
+      <h2 id="cta-heading" class="reveal">You already paid for these leads. Let's keep them.</h2>
+      <p class="lede reveal d1">Fifteen minutes. We'll walk your lead path together and find where jobs are falling out — then you decide whether you want it plugged. We build the whole thing, carrier registration included, and you keep answering the phone the way you always have.</p>
       <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a Call</a>
     </div>
   </section>
@@ -495,7 +537,7 @@
 
 <footer class="footer">
   <div class="container footer-inner">
-    <span>&copy; 2026 Hero. Automation for local service businesses.</span>
+    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
     <span class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms &amp; Conditions</a>
