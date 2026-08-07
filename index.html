@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hero — Never Miss Another Lead</title>
-<meta name="description" content="Hero builds done-for-you automation for local service businesses. Missed-call text-back, automated follow-up, and every lead in one place — so no job slips away.">
-<meta property="og:title" content="Hero — Never Miss Another Lead">
-<meta property="og:description" content="Done-for-you automation for local service businesses. Every missed call gets a text back in seconds.">
+<title>Hero: Close More of the Leads You Already Have</title>
+<meta name="description" content="You already pay for leads through ads, SEO, referrals, and the truck wrap. Hero handles the follow-up, booking, reminders, quotes, payment, and reviews that decide whether they turn into paid work. For plumbing, HVAC, tree service, and garage door companies.">
+<meta property="og:title" content="Hero: Close More of the Leads You Already Have">
+<meta property="og:description" content="Stop losing leads you already paid for. Every call answered, every quote chased, every job reminded, every review asked for, all running on one system.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
 
 <!--
   ============================================================
   Everything is wired up. Optional swaps if you want them:
-    - assets/automation-flow.png — the flow diagram in section 3.
+    - assets/automation-flow.png is the flow diagram in section 3.
       Overwrite this file to update the diagram.
     - The nav logo + favicon are inline SVG recreations of the
       Hero mark. For your exact PNG, drop it at assets/logo.png
@@ -28,7 +28,7 @@
     --ink-soft: #6e6e73;     /* secondary text */
     --surface: #ffffff;      /* page background */
     --surface-alt: #f5f5f7;  /* light gray bands & cards */
-    --accent: #6d28d9;       /* the one accent color — Hero brand purple */
+    --accent: #6d28d9;       /* the one accent color, Hero brand purple */
     --accent-hover: #7c3aed;
     --radius: 18px;
     --container: 1080px;
@@ -177,8 +177,8 @@
     margin: 24px auto 40px;
   }
 
-  /* Problem band */
-  .problem { background: var(--surface-alt); }
+  /* Gray bands: the problem section and the CRM section */
+  .problem, .band { background: var(--surface-alt); }
   .problem-points {
     display: grid;
     gap: clamp(24px, 4vw, 40px);
@@ -303,6 +303,173 @@
   }
   .card h3 { margin-bottom: 10px; }
   .card p { color: var(--ink-soft); font-size: 1.0625rem; }
+  .card ul { margin: 16px 0 0; padding-left: 18px; }
+  .card li {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .card li:last-child { margin-bottom: 0; }
+  .card li::marker { color: var(--accent); }
+
+  /* FAQ, native details/summary, no JS needed */
+  .faq-list {
+    max-width: 720px;
+    margin-inline: auto;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .faq-list details {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .faq-list summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after {
+    content: "";
+    flex: none;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid var(--ink-soft);
+    border-bottom: 2px solid var(--ink-soft);
+    transform: rotate(45deg) translate(-3px, -3px);
+    transition: transform 0.25s ease;
+  }
+  .faq-list details[open] summary::after {
+    transform: rotate(225deg) translate(-3px, -3px);
+  }
+  .faq-list summary:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .faq-list .answer {
+    padding: 0 0 24px;
+    max-width: 620px;
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+  }
+  .faq-list .answer p + p { margin-top: 14px; }
+  .faq-list .answer a { color: var(--accent); }
+  .faq-list .answer a:hover { color: var(--accent-hover); }
+
+  /* Survey */
+  .survey-form { max-width: 620px; margin-inline: auto; }
+  .survey-row { margin-bottom: 28px; }
+  .survey-row > label {
+    display: block;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .survey-row input[type="number"] {
+    width: 100%;
+    font: inherit;
+    font-size: 1.0625rem;
+    padding: 14px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .survey-row input[type="number"]:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .survey-row .hint {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .survey-checks {
+    display: grid;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .survey-checks label {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .survey-checks input[type="checkbox"] {
+    flex: none;
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+  .survey-form .btn { margin-top: 4px; }
+  .survey-error {
+    margin-top: 16px;
+    font-size: 0.9375rem;
+    color: #b3261e;
+  }
+  .survey-result {
+    margin-top: 36px;
+    padding: clamp(24px, 4vw, 34px);
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .survey-result h3 {
+    font-size: 1.0625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .survey-figure {
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+  }
+  .survey-math {
+    margin-top: 14px;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .survey-gaps {
+    margin: 24px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    list-style: none;
+  }
+  .survey-gaps li {
+    font-size: 1.0625rem;
+    margin-bottom: 10px;
+    padding-left: 26px;
+    position: relative;
+  }
+  .survey-gaps li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .survey-caveat {
+    margin-top: 22px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
 
   /* Final CTA */
   .cta {
@@ -368,8 +535,8 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <!-- Hero logo mark (inline SVG recreation — swap for assets/logo.png if preferred) -->
-    <a class="logo" href="#top" aria-label="Hero — home">
+    <!-- Hero logo mark (inline SVG recreation, swap for assets/logo.png if preferred) -->
+    <a class="logo" href="#top" aria-label="Hero home">
       <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
@@ -397,8 +564,8 @@
   <!-- 1 · Hero -->
   <section class="hero" aria-labelledby="hero-heading">
     <div class="container">
-      <h1 id="hero-heading" class="reveal">Never miss another lead.</h1>
-      <p class="lede reveal d1">Hero texts back every missed call in seconds — so the job that would've gone to a competitor books with you instead.</p>
+      <h1 id="hero-heading" class="reveal">Stop losing the leads you already paid for.</h1>
+      <p class="lede reveal d1">Ads, SEO, referrals, the truck wrap. You paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.</p>
       <a class="btn btn-primary reveal d2" href="#book">Book a Call</a>
     </div>
   </section>
@@ -408,13 +575,16 @@
     <div class="container">
       <div class="section-head reveal">
         <span class="eyebrow">The problem</span>
-        <h2 id="problem-heading">Every missed call is a paying job walking away.</h2>
-        <p class="lede">You're on a roof, under a sink, or halfway up a tree. The phone rings. It goes to voicemail. That caller doesn't wait — they dial the next company on the list.</p>
+        <h2 id="problem-heading">The leads are already coming in. They're leaking out.</h2>
+        <p class="lede">Nobody loses jobs because the phone never rings. They lose them in the gaps. The call that came in mid-crawlspace, the quote nobody followed up on, the appointment nobody confirmed.</p>
       </div>
       <ul class="problem-points">
-        <li class="reveal"><strong>Callers don't leave voicemails.</strong> They hang up and call your competitor. The first business to respond usually wins the job.</li>
-        <li class="reveal d1"><strong>Your ad spend leaks.</strong> You pay to make the phone ring — every unanswered call is marketing money down the drain.</li>
-        <li class="reveal d2"><strong>Hiring isn't the answer.</strong> A full-time receptionist costs thousands a month and still clocks out at five.</li>
+        <li class="reveal"><strong>The call you couldn't take.</strong> Both hands under a sink. It rings out, and they're already dialing the next name on the list.</li>
+        <li class="reveal d1"><strong>The callback that came too late.</strong> You call back at six. They booked someone who answered at two.</li>
+        <li class="reveal d2"><strong>The quote that went quiet.</strong> You sent the number, they said they'd think about it, and nobody followed up.</li>
+        <li class="reveal"><strong>The no-show.</strong> Booked Tuesday, forgotten by Thursday. You drove out for nothing.</li>
+        <li class="reveal d1"><strong>The leads from three months ago.</strong> A list of people who wanted work done. Nobody has touched it since.</li>
+        <li class="reveal d2"><strong>The job that never got a review request.</strong> Good work, happy customer, no review. The next person searching never hears about it.</li>
       </ul>
     </div>
   </section>
@@ -424,26 +594,26 @@
     <div class="container">
       <div class="section-head centered reveal">
         <span class="eyebrow">How it works</span>
-        <h2 id="how-heading">The moment you miss a call, Hero answers.</h2>
+        <h2 id="how-heading">We find the leaks, then we plug them.</h2>
       </div>
       <ol class="steps">
-        <li class="reveal"><strong>A call slips through</strong><p>You're on a job. The call rings out or hits voicemail.</p></li>
-        <li class="reveal d1"><strong>Hero texts them back</strong><p>Within seconds, the caller gets a text from your business number — before they can dial anyone else.</p></li>
-        <li class="reveal d2"><strong>The job stays yours</strong><p>The conversation continues by text. You reply when you're free, and the lead books with you.</p></li>
+        <li class="reveal"><strong>We walk your lead path</strong><p>Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.</p></li>
+        <li class="reveal d1"><strong>We build it on your setup</strong><p>Your number, your calendar, your service area, including the carrier registration a business needs before it can text customers legally. You don't build anything.</p></li>
+        <li class="reveal d2"><strong>You just do the work</strong><p>The chasing, reminding, and asking runs itself. You pick up the ones worth your time.</p></li>
       </ol>
 
       <figure class="flow-figure reveal">
         <div class="flow-frame">
-          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the automation diagram at full size">
+          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the lead path diagram at full size">
             <img src="assets/automation-flow.png"
                  width="1120" height="1448"
-                 alt="Flowchart of the Hero automation. Leads from missed calls, answered calls, or marketing forms get an instant text with a booking link, then a week of booking nudges. Booked appointments get confirmations and reminders; after the job, a review and referral request, then a reactivation text 120 days later. Unbooked leads move into long-term monthly nurture."
+                 alt="Flowchart of the Hero system. Leads arrive from phone calls, marketing forms, or added by hand. Missed calls get an instant text back with a booking link; answered calls are handled live. Every lead is tagged and enters a week of booking nudges. Booked appointments get confirmations and reminders 24 hours and 1 hour ahead. After the job, a review and referral request goes out, then a reactivation message 120 days later. Leads that never book move into long-term monthly nurture."
                  loading="lazy"
                  onerror="this.closest('.flow-figure').classList.add('is-missing')">
           </a>
         </div>
         <figcaption>
-          The full Hero system: instant text-back, booking nudges, appointment reminders, review and referral requests, and long-term reactivation &mdash; every step on autopilot.
+          One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Every step that used to depend on someone remembering.
           <span class="flow-zoom-hint">Tap the diagram to view it full size.</span>
         </figcaption>
       </figure>
@@ -455,38 +625,189 @@
     <div class="container">
       <div class="section-head centered reveal">
         <span class="eyebrow">What you get</span>
-        <h2 id="features-heading">Built for you. Running in days.</h2>
+        <h2 id="features-heading">The whole job, covered.</h2>
+        <p class="lede">From the first ring to the review that wins you the next one. Here's what runs without you touching it.</p>
       </div>
       <div class="cards">
         <article class="card reveal">
           <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          <h3>Missed-call text-back</h3>
-          <p>Every unanswered call gets an instant, personal-sounding text from your number. No caller left hanging, ever.</p>
+          <h3>Before the job</h3>
+          <p>Get them in the door.</p>
+          <ul>
+            <li>Miss a call and a text goes back in seconds, with a link to book</li>
+            <li>Web and Facebook form leads get an instant reply, day or night</li>
+            <li>A booking link that keeps nudging for a week instead of asking once</li>
+            <li>Add someone by hand and they join the same track</li>
+          </ul>
         </article>
         <article class="card reveal d1">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-          <h3>Automated follow-up</h3>
-          <p>Leads that go quiet get a polite nudge automatically. No sticky notes, no "I meant to call them back."</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+          <h3>The job</h3>
+          <p>It happens, and it gets paid.</p>
+          <ul>
+            <li>Confirmation when they book, reminders 24 hours and 1 hour out</li>
+            <li>Cancellations drop back into follow-up instead of vanishing</li>
+            <li>Quotes go out, and get chased when they go quiet</li>
+            <li>Invoice and payment handled in the same place as everything else</li>
+          </ul>
         </article>
         <article class="card reveal d2">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
-          <h3>Every lead in one place</h3>
-          <p>Calls, texts, and web leads land in a single inbox on your phone. See who's waiting and reply in one tap.</p>
-        </article>
-        <article class="card reveal d3">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg>
-          <h3>Set up done for you</h3>
-          <p>We build it, connect it to your number, and hand you the keys. You keep answering calls the way you always have.</p>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          <h3>After the job</h3>
+          <p>Turn one job into the next.</p>
+          <ul>
+            <li>The review request goes out the day after the work wraps</li>
+            <li>Reviews get watched and answered, so your profile isn't sitting stale</li>
+            <li>Referral asks to the customers who liked the work</li>
+            <li>Monthly touches, and a nudge again at 120 days</li>
+          </ul>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 5 · Final CTA -->
+  <!-- 5 · The CRM underneath it all -->
+  <section class="band" aria-labelledby="crm-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Underneath all of it</span>
+        <h2 id="crm-heading">One place for every lead, every text, every job.</h2>
+        <p class="lede">Not sticky notes on the dash and a phone full of half-finished threads. Every call, text, quote, and job sits in one system you can open from the truck.</p>
+      </div>
+      <ul class="problem-points">
+        <li class="reveal"><strong>Every conversation in one thread.</strong> Calls, texts, and form leads land together, so you can see what was already said without hunting for it.</li>
+        <li class="reveal d1"><strong>You always know where someone stands.</strong> New lead, quoted, booked, paid, past customer. Tagged as it happens, not when someone remembers.</li>
+        <li class="reveal d2"><strong>It lives on your phone.</strong> Reply between jobs. Nothing to install on a desk you never sit at.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6 · Questions -->
+  <section aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-head centered reveal">
+        <span class="eyebrow">Questions</span>
+        <h2 id="faq-heading">The things people ask on the call.</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details>
+          <summary>What does it cost?</summary>
+          <div class="answer">
+            <p>It depends on how much of the path you want covered. Someone who only wants calls answered pays less than someone who wants quotes, reminders, and reviews handled too. There's no long contract either way, so you're not buying a year to find out whether it works.</p>
+            <p>We go through the number on the call, once we know what you actually need.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Am I locked into a contract?</summary>
+          <div class="answer">
+            <p>No. It's month to month, and you can cancel any time.</p>
+          </div>
+        </details>
+        <details>
+          <summary>I already use Jobber, ServiceTitan, or Housecall Pro. Do I have to switch?</summary>
+          <div class="answer">
+            <p>Not necessarily. Some businesses keep the software they already use for scheduling and dispatch, and Hero handles the lead side by answering, following up, reminding, and asking for reviews. Others would rather run everything in one place and move it all over.</p>
+            <p>Either works. We look at what you're already running and decide on the call, before anyone changes anything.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Will it sound like a robot?</summary>
+          <div class="answer">
+            <p>The messages are written for your business and sound like your business. Short, plain, and the way you'd actually say it. You see them before anything goes out, and you can change any of them.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do I have to learn new software?</summary>
+          <div class="answer">
+            <p>No. It runs on your number, and replies come to your phone. If you never open anything new, the follow-up still happens.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Who actually talks to my customers?</summary>
+          <div class="answer">
+            <p>The first reply, the nudges, the reminders, and the review requests go out on their own. When someone writes back with a real question, that's you. The same as it is now, just with the customer already warmed up instead of gone.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Is it legal to text customers like this?</summary>
+          <div class="answer">
+            <p>Yes, when it's done properly, and doing it properly is part of what you're paying for. Carriers require every business to register before it can send texts, and messages need real consent and a working opt-out. We handle the registration and set the consent up correctly.</p>
+            <p>Skipping that is why a lot of businesses find their texts quietly stop being delivered. Our own <a href="privacy.html">Privacy Policy</a> and <a href="terms.html">Terms</a> show how we handle it.</p>
+          </div>
+        </details>
+        <details>
+          <summary>How soon can it be running?</summary>
+          <div class="answer">
+            <p>The build itself is the quick part. The wait is carrier registration. That runs on the carriers' clock, not ours, and it's the one piece nobody can put a firm date on. We start it first so the clock is already running while the rest gets built.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What happens to my leads if I stop?</summary>
+          <div class="answer">
+            <p>They're yours. Your contacts and conversation history go with you if you leave.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Do you only work with plumbers?</summary>
+          <div class="answer">
+            <p>Plumbing, HVAC, tree service, garage door, and trades that work the same way. The phone rings, someone goes out, the job gets invoiced. If that's your business, the path is the same.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · Survey -->
+  <section class="band" aria-labelledby="survey-heading">
+    <div class="container">
+      <div class="section-head centered reveal">
+        <span class="eyebrow">Your own numbers</span>
+        <h2 id="survey-heading">A few questions about your leads.</h2>
+        <p class="lede">Four questions, no email required. The arithmetic is shown so you can check it yourself.</p>
+      </div>
+
+      <form class="survey-form reveal" id="survey" novalidate>
+        <div class="survey-row">
+          <label for="q-missed">In a normal week, how many calls go unanswered?</label>
+          <input type="number" id="q-missed" min="0" max="500" step="1" inputmode="numeric" placeholder="e.g. 8">
+          <p class="hint">Rings out, goes to voicemail, or comes in after hours. Your best guess is fine.</p>
+        </div>
+
+        <div class="survey-row">
+          <label for="q-value">What's an average job worth to you?</label>
+          <input type="number" id="q-value" min="0" max="1000000" step="1" inputmode="numeric" placeholder="e.g. 450">
+          <p class="hint">Dollars, before costs.</p>
+        </div>
+
+        <div class="survey-row">
+          <label for="q-rate">Of the people who do reach you, roughly what share become a job?</label>
+          <input type="number" id="q-rate" min="1" max="100" step="1" inputmode="numeric" placeholder="e.g. 35">
+          <p class="hint">A percentage. This keeps the math honest, since not every missed call was going to book.</p>
+        </div>
+
+        <div class="survey-row">
+          <span id="checks-label" style="display:block;font-size:1.0625rem;font-weight:600;margin-bottom:2px;">Which of these happen every time, without fail?</span>
+          <div class="survey-checks" role="group" aria-labelledby="checks-label">
+            <label><input type="checkbox" id="c-quote"> A quote that goes quiet gets followed up</label>
+            <label><input type="checkbox" id="c-remind"> Every booked appointment gets a reminder before the day</label>
+            <label><input type="checkbox" id="c-old"> Leads from months ago get touched again</label>
+            <label><input type="checkbox" id="c-review"> Every finished job gets a review request</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">See where you stand</button>
+        <p class="survey-error" id="survey-error" hidden></p>
+      </form>
+
+      <div class="survey-result" id="survey-result" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- 8 · Final CTA -->
   <section class="cta" id="book" aria-labelledby="cta-heading">
     <div class="container">
-      <h2 id="cta-heading" class="reveal">Stop paying for leads you never answer.</h2>
-      <p class="lede reveal d1">Fifteen minutes on a call. We'll show you exactly how many jobs you're missing — and how Hero gets them back.</p>
+      <h2 id="cta-heading" class="reveal">You already paid for these leads. Let's keep them.</h2>
+      <p class="lede reveal d1">Fifteen minutes. We'll walk your lead path together and find where jobs are falling out, then you decide whether you want it plugged. We build the whole thing, carrier registration included, and you keep answering the phone the way you always have.</p>
       <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a Call</a>
     </div>
   </section>
@@ -495,7 +816,7 @@
 
 <footer class="footer">
   <div class="container footer-inner">
-    <span>&copy; 2026 Hero. Automation for local service businesses.</span>
+    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
     <span class="footer-links">
       <a href="privacy.html">Privacy Policy</a>
       <a href="terms.html">Terms &amp; Conditions</a>
@@ -524,6 +845,92 @@
     }, { threshold: 0.15, rootMargin: "0px 0px -40px 0px" });
 
     els.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Survey: everything is computed from what the visitor enters. Nothing is
+  // sent anywhere, and no figure is asserted that their own numbers don't produce.
+  (function () {
+    var form = document.getElementById("survey");
+    if (!form) return;
+
+    var out = document.getElementById("survey-result");
+    var err = document.getElementById("survey-error");
+
+    var money = function (n) {
+      return "$" + Math.round(n).toLocaleString("en-US");
+    };
+    var num = function (id) {
+      var raw = document.getElementById(id).value.trim();
+      if (raw === "") return null;
+      var v = Number(raw);
+      return isFinite(v) ? v : null;
+    };
+
+    var gaps = [
+      { id: "c-quote",  text: "Quotes that go quiet aren't being followed up." },
+      { id: "c-remind", text: "Appointments aren't being reminded, so some of them won't show." },
+      { id: "c-old",    text: "Older leads are sitting there untouched." },
+      { id: "c-review", text: "Finished jobs aren't turning into reviews." }
+    ];
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var missed = num("q-missed");
+      var value = num("q-value");
+      var rate = num("q-rate");
+
+      if (missed === null || value === null || rate === null ||
+          missed < 0 || value < 0 || rate < 1 || rate > 100) {
+        err.textContent = "Fill in all three numbers to see the math. The percentage should be between 1 and 100.";
+        err.hidden = false;
+        out.hidden = true;
+        return;
+      }
+      err.hidden = true;
+
+      var perYear = missed * 52 * (rate / 100) * value;
+      var missedYear = missed * 52;
+
+      var checked = gaps.filter(function (g) {
+        return !document.getElementById(g.id).checked;
+      });
+
+      var html = "";
+
+      if (perYear > 0) {
+        html +=
+          '<h3>What those calls were worth</h3>' +
+          '<p class="survey-figure">' + money(perYear) + ' a year</p>' +
+          '<p class="survey-math">' +
+          missed.toLocaleString("en-US") + ' unanswered calls a week is ' +
+          missedYear.toLocaleString("en-US") + ' a year. At your own ' + rate +
+          '% booking rate that\'s ' + Math.round(missedYear * (rate / 100)).toLocaleString("en-US") +
+          ' jobs, and at ' + money(value) + ' a job, ' + money(perYear) + '.' +
+          '</p>';
+      } else {
+        html +=
+          '<h3>Your calls</h3>' +
+          '<p class="survey-figure">Nothing slipping there.</p>' +
+          '<p class="survey-math">You said no calls go unanswered in a normal week. That\'s the hardest one to get right, so the rest is worth a look.</p>';
+      }
+
+      if (checked.length) {
+        html += '<ul class="survey-gaps">';
+        checked.forEach(function (g) { html += "<li>" + g.text + "</li>"; });
+        html += "</ul>";
+      } else if (perYear <= 0) {
+        html += '<ul class="survey-gaps"><li>You said all four of those happen every time. If that\'s holding up under a busy week, you\'re ahead of most.</li></ul>';
+      }
+
+      html +=
+        '<p class="survey-caveat">This is your arithmetic, not a promise from us. It\'s what those calls would have been worth at the rate you already close. Nothing you typed was sent anywhere.</p>' +
+        '<p style="margin-top:26px"><a class="btn btn-primary" href="#book">Book a Call</a></p>';
+
+      out.innerHTML = html;
+      out.hidden = false;
+      out.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
   })();
 </script>
 
