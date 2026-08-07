@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero: How It Works, Step by Step</title>
+<meta name="description" content="Every step a lead takes with Hero, from the first call through the review request and the check back in months later. Open any stage to see what sets it off, when it fires, and the message that goes out.">
+<meta property="og:title" content="Hero: How It Works, Step by Step">
+<meta property="og:description" content="The whole path a lead takes, one stage at a time. What sets each step off, when it fires, and the message that actually goes out.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
+
+<style>
+  /* Base tokens and components mirror index.html. This site keeps its CSS inline
+     per page rather than in a shared file, so this block matches that pattern. */
+  :root {
+    --ink: #1d1d1f;
+    --ink-soft: #6e6e73;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f7;
+    --accent: #6d28d9;
+    --accent-hover: #7c3aed;
+    --radius: 18px;
+    --container: 1080px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 0 0 12px 0;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 0; }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2.25rem, 6vw, 3.5rem); }
+  h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+
+  .lede {
+    font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .btn {
+    display: inline-block;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 15px 32px;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .nav-cta {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { text-decoration: underline; }
+  .nav-cta[aria-current="page"] { color: var(--ink-soft); }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo svg { width: 30px; height: 30px; border-radius: 8px; }
+  @media (max-width: 420px) {
+    .nav-links { gap: 16px; }
+    .nav-cta { font-size: 0.875rem; }
+    .logo-word { display: none; }
+  }
+
+  /* Sections */
+  section { padding-block: clamp(72px, 10vw, 130px); }
+  .page-head { max-width: 680px; }
+  .page-head .lede { margin-top: 22px; }
+
+  /* ---------- The flow ---------- */
+  .flow {
+    list-style: none;
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .flow-stage { position: relative; }
+
+  /* Connector spine running between stages */
+  .flow-stage::before {
+    content: "";
+    position: absolute;
+    left: 21px;
+    top: 46px;
+    bottom: -14px;
+    width: 2px;
+    background: rgba(0, 0, 0, 0.12);
+  }
+  .flow-stage:last-child::before { display: none; }
+  .flow-stage + .flow-stage { margin-top: 14px; }
+
+  .stage-btn {
+    /* Real button: keyboard operable for free, Enter and Space both work. */
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+    min-height: 44px;
+    padding: 16px 18px 16px 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 12px;
+  }
+  .stage-btn:hover .stage-title { color: var(--accent); }
+  .stage-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .stage-num {
+    flex: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--surface-alt);
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+  .is-open .stage-num {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .stage-text { flex: 1 1 auto; padding-top: 2px; }
+  .stage-title {
+    display: block;
+    font-size: 1.125rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .stage-sub {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  .stage-chev {
+    flex: none;
+    align-self: center;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid var(--ink-soft);
+    border-bottom: 2px solid var(--ink-soft);
+    transform: rotate(45deg) translate(-2px, -2px);
+    transition: transform 0.25s ease;
+  }
+  .is-open .stage-chev { transform: rotate(225deg) translate(-2px, -2px); }
+
+  .stage-panel {
+    margin: 0 0 4px 60px;
+    padding: 20px 22px;
+    background: var(--surface-alt);
+    border-radius: 14px;
+  }
+  [hidden] { display: none !important; }
+  .stage-panel:not([hidden]) { animation: panel-in 0.25s ease both; }
+  @keyframes panel-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .stage-meta { margin: 0 0 4px; }
+  .stage-meta dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .stage-meta dd {
+    margin: 0 0 16px;
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  .msg-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .bubble {
+    background: var(--surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .bubble + .bubble { margin-top: 10px; }
+  .stage-note {
+    margin-top: 14px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .stage-quiet {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* The branch: leads that never book */
+  .flow-stage--branch .stage-num {
+    border-style: dashed;
+    background: var(--surface);
+  }
+  .flow-stage--branch::before {
+    border-left: 2px dashed rgba(0, 0, 0, 0.16);
+    background: none;
+    width: 0;
+  }
+  .branch-tag {
+    display: inline-block;
+    margin-left: 60px;
+    margin-bottom: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* Above 768px the branch steps out to its own column beside the main path. */
+  @media (min-width: 768px) {
+    .flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 56px;
+      max-width: 100%;
+    }
+    .flow > li { grid-column: 1; }
+    .flow > li:nth-child(1) { grid-row: 1; }
+    .flow > li:nth-child(2) { grid-row: 2; }
+    .flow > li:nth-child(3) { grid-row: 3; }
+    .flow > li:nth-child(4) { grid-row: 4; }
+    .flow > li:nth-child(5) { grid-row: 5; }
+    .flow > li:nth-child(6) { grid-row: 6; }
+    .flow > li:nth-child(7) { grid-row: 7; }
+    .flow > li.flow-stage--branch {
+      grid-column: 2;
+      grid-row: 4;
+      align-self: start;
+      margin-top: 0;
+    }
+    /* Elbow from the main spine across the gutter into the branch */
+    .flow-stage--branch::after {
+      content: "";
+      position: absolute;
+      left: -56px;
+      top: 22px;
+      width: 56px;
+      height: 2px;
+      border-top: 2px dashed rgba(0, 0, 0, 0.16);
+    }
+    .flow-stage--branch::before { display: none; }
+  }
+
+  /* Static fallback */
+  .fallback { background: var(--surface-alt); }
+  .fallback-inner { max-width: 620px; margin-inline: auto; text-align: center; }
+  .fallback h2 { font-size: 1.5rem; margin-bottom: 14px; }
+  .fallback p { color: var(--ink-soft); font-size: 1.0625rem; margin-bottom: 26px; }
+  .fallback-frame {
+    display: block;
+    background: #1c1c1e;
+    border-radius: var(--radius);
+    padding: 18px;
+    max-width: 460px;
+    margin-inline: auto;
+    max-height: 320px;
+    overflow: hidden;
+    position: relative;
+    border-radius: var(--radius);
+  }
+  .fallback-frame img { border-radius: 8px; }
+  .fallback-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 110px;
+    background: linear-gradient(to bottom, rgba(28,28,30,0), #1c1c1e);
+  }
+  .fallback-frame:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .fallback-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Final CTA */
+  .cta { background: var(--ink); color: #fff; text-align: center; }
+  .cta .lede { color: #a1a1a6; max-width: 520px; margin: 24px auto 40px; }
+
+  /* Footer */
+  .footer { padding-block: 40px; border-top: 1px solid rgba(0, 0, 0, 0.06); }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+  .footer a { color: var(--ink-soft); }
+  .footer a:hover { color: var(--ink); }
+
+  /* Scroll reveal, same as the homepage */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .stage-chev, .stage-num { transition: none; }
+    .stage-panel:not([hidden]) { animation: none; }
+  }
+</style>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Hero home">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#372aac"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="logo-bolt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fcd34d"/>
+            <stop offset="1" stop-color="#f59e0b"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#logo-bg)"/>
+        <rect x="17" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
+      </svg>
+      <span class="logo-word">Hero</span>
+    </a>
+    <span class="nav-links">
+      <a class="nav-cta" href="how-it-works.html" aria-current="page">How it works</a>
+      <a class="nav-cta" href="#book">Book a Call</a>
+    </span>
+  </div>
+</header>
+
+<main id="main">
+
+  <section aria-labelledby="page-heading">
+    <div class="container">
+      <div class="page-head reveal">
+        <span class="eyebrow">How it works</span>
+        <h1 id="page-heading">The path every lead takes.</h1>
+        <p class="lede">From the first ring to the check back in months later. Open any stage to see what sets it off, when it fires, and the message that actually goes out.</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="flow-heading" style="padding-top:0">
+    <h2 id="flow-heading" class="skip-link">The stages</h2>
+    <div class="container">
+      <ol class="flow reveal">
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s1-btn" aria-expanded="false" aria-controls="s1-panel">
+            <span class="stage-num" aria-hidden="true">1</span>
+            <span class="stage-text">
+              <span class="stage-title">A lead arrives</span>
+              <span class="stage-sub">A call, a web or Facebook form, or someone you add by hand</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s1-panel" role="region" aria-labelledby="s1-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>A call comes in, someone submits a web or Facebook form, or you add them by hand.</dd>
+              <dt>When</dt>
+              <dd>Straight away. This is where the path starts.</dd>
+            </dl>
+            <p class="stage-quiet">No message goes out yet. Nothing sends until we know whether the call was answered.</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s2-btn" aria-expanded="false" aria-controls="s2-panel">
+            <span class="stage-num" aria-hidden="true">2</span>
+            <span class="stage-text">
+              <span class="stage-title">Answered live, or missed and texted back</span>
+              <span class="stage-sub">Within seconds of a missed call</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s2-panel" role="region" aria-labelledby="s2-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>The call is answered, or it rings out. Form leads go straight to the instant reply.</dd>
+              <dt>When</dt>
+              <dd>The text goes out within seconds of the missed call.</dd>
+            </dl>
+            <span class="msg-label">The text that goes out</span>
+            <p class="bubble">Sorry we missed your call, this is [Business]. We're out on a job right now. Tell us what you need and we'll get you on the schedule: [booking link]. Reply STOP to opt out.</p>
+            <p class="stage-note">Answered calls send nothing. That conversation is yours.</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s3-btn" aria-expanded="false" aria-controls="s3-panel">
+            <span class="stage-num" aria-hidden="true">3</span>
+            <span class="stage-text">
+              <span class="stage-title">Tagged, then a week of booking nudges</span>
+              <span class="stage-sub">Text and email across the following week</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s3-panel" role="region" aria-labelledby="s3-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>The lead is tagged as new and still hasn't booked.</dd>
+              <dt>When</dt>
+              <dd>Spread across the following week, by text and email. It stops the moment they book.</dd>
+            </dl>
+            <span class="msg-label">The text that goes out</span>
+            <p class="bubble">Still want us to take a look at that [job type]? Here's the calendar, pick a time that works: [booking link]</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s4-btn" aria-expanded="false" aria-controls="s4-panel">
+            <span class="stage-num" aria-hidden="true">4</span>
+            <span class="stage-text">
+              <span class="stage-title">Booked: confirmation and reminders</span>
+              <span class="stage-sub">On booking, then 24 hours and 1 hour before</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s4-panel" role="region" aria-labelledby="s4-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>They pick a time on the calendar.</dd>
+              <dt>When</dt>
+              <dd>Confirmation straight away, then reminders 24 hours and 1 hour before the appointment.</dd>
+            </dl>
+            <span class="msg-label">The texts that go out</span>
+            <p class="bubble">You're booked for [day] at [time]. We'll text when we're on the way. Need to change it? [reschedule link]</p>
+            <p class="bubble">[Business] is headed your way, about an hour out. Reply here if anything's changed.</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s5-btn" aria-expanded="false" aria-controls="s5-panel">
+            <span class="stage-num" aria-hidden="true">5</span>
+            <span class="stage-text">
+              <span class="stage-title">The job happens</span>
+              <span class="stage-sub">The system goes quiet while you work</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s5-panel" role="region" aria-labelledby="s5-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>The appointment on the calendar.</dd>
+              <dt>When</dt>
+              <dd>Nothing sends during the visit.</dd>
+            </dl>
+            <p class="stage-quiet">No message goes out here. The system waits until the job is marked done.</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s6-btn" aria-expanded="false" aria-controls="s6-panel">
+            <span class="stage-num" aria-hidden="true">6</span>
+            <span class="stage-text">
+              <span class="stage-title">Day after: review request, then referral ask</span>
+              <span class="stage-sub">Review the next day, referral a few days later</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s6-panel" role="region" aria-labelledby="s6-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>The job is marked done.</dd>
+              <dt>When</dt>
+              <dd>The review request goes out the day after. The referral ask follows a few days later.</dd>
+            </dl>
+            <span class="msg-label">The texts that go out</span>
+            <p class="bubble">Thanks for having us out. If we did right by you, a quick review helps more than you'd think: [review link]</p>
+            <p class="bubble">Glad that's sorted. If a neighbour or friend needs the same work, send them our way and we'll take good care of them.</p>
+          </div>
+        </li>
+
+        <li class="flow-stage">
+          <button type="button" class="stage-btn" id="s7-btn" aria-expanded="false" aria-controls="s7-panel">
+            <span class="stage-num" aria-hidden="true">7</span>
+            <span class="stage-text">
+              <span class="stage-title">120 days later: reactivation</span>
+              <span class="stage-sub">One message, four months on</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s7-panel" role="region" aria-labelledby="s7-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>120 days have passed since the last job.</dd>
+              <dt>When</dt>
+              <dd>A single message, four months out.</dd>
+            </dl>
+            <span class="msg-label">The text that goes out</span>
+            <p class="bubble">It's been a few months since we were out. Anything needing attention before it turns into a bigger job? Here's the calendar: [booking link]</p>
+          </div>
+        </li>
+
+        <li class="flow-stage flow-stage--branch">
+          <span class="branch-tag">Branch</span>
+          <button type="button" class="stage-btn" id="s8-btn" aria-expanded="false" aria-controls="s8-panel">
+            <span class="stage-num" aria-hidden="true">8</span>
+            <span class="stage-text">
+              <span class="stage-title">If they never book: long-term nurture</span>
+              <span class="stage-sub">About monthly, until they book or opt out</span>
+            </span>
+            <span class="stage-chev" aria-hidden="true"></span>
+          </button>
+          <div class="stage-panel" id="s8-panel" role="region" aria-labelledby="s8-btn" hidden>
+            <dl class="stage-meta">
+              <dt>What sets it off</dt>
+              <dd>The week of booking nudges ended and they still haven't booked.</dd>
+              <dt>When</dt>
+              <dd>About once a month, ongoing, until they book or opt out.</dd>
+            </dl>
+            <span class="msg-label">The text that goes out</span>
+            <p class="bubble">Heads up, it's about the time of year [seasonal issue] starts showing up. If you want us to take a look, the calendar's here: [booking link]</p>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <section class="fallback" aria-labelledby="fallback-heading">
+    <div class="container">
+      <div class="fallback-inner reveal">
+        <h2 id="fallback-heading">Prefer the whole thing on one page?</h2>
+        <p>The same path as a single diagram. It's dense, so it reads better on a desktop screen than a phone.</p>
+        <a class="fallback-frame" href="assets/automation-flow.png" target="_blank" rel="noopener">
+          <img src="assets/automation-flow.png"
+               width="1120" height="1448"
+               alt="Flowchart of the Hero system. Leads arrive from phone calls, marketing forms, or added by hand. Missed calls get an instant text back with a booking link; answered calls are handled live. Every lead is tagged and enters a week of booking nudges. Booked appointments get confirmations and reminders 24 hours and 1 hour ahead. After the job, a review and referral request goes out, then a reactivation message 120 days later. Leads that never book move into long-term monthly nurture."
+               loading="lazy">
+        </a>
+        <a class="fallback-link" href="assets/automation-flow.png" target="_blank" rel="noopener">Open the full-size diagram</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="book" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading" class="reveal">You already paid for these leads. Let's keep them.</h2>
+      <p class="lede reveal d1">Fifteen minutes. We'll walk your lead path together and find where jobs are falling out, then you decide whether you want it plugged.</p>
+      <a class="btn btn-primary reveal d1" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a Call</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
+    <span class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="mailto:Alex.wilson@herolgo.com">Alex.wilson@herolgo.com</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal, same behaviour as the homepage.
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+    els.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Stage accordion. One panel open at a time, all closed to start.
+  // The triggers are real buttons, so Enter and Space come for free.
+  (function () {
+    var btns = Array.prototype.slice.call(document.querySelectorAll(".stage-btn"));
+    if (!btns.length) return;
+
+    function closeAll() {
+      btns.forEach(function (b) {
+        b.setAttribute("aria-expanded", "false");
+        b.parentNode.classList.remove("is-open");
+        document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+      });
+    }
+
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var wasOpen = btn.getAttribute("aria-expanded") === "true";
+        closeAll();
+        if (!wasOpen) {
+          btn.setAttribute("aria-expanded", "true");
+          btn.parentNode.classList.add("is-open");
+          document.getElementById(btn.getAttribute("aria-controls")).hidden = false;
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
