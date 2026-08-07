@@ -1,13 +1,31 @@
-# Positioning rewrite — proposed copy
+# Positioning rewrite — proposed copy (v2)
 
 **Status: proposal only. No source files have been modified.**
 
-Old copy and proposed new copy, section by section. Line numbers refer to the
-files as they stand at commit `ce2a2f0`.
+v2 replaces v1. The change: the site now shows the whole offer — follow-up,
+appointments, quotes and payment, reputation, and the CRM underneath — instead of
+selling missed-call text-back alone.
 
-**New thesis:** you already pay for leads — ads, SEO, referrals, the truck wrap.
-They leak out between "phone rings" and "job gets paid." Hero plugs the leaks.
-Missed calls stay in the copy as one leak among six, not the whole story.
+Line numbers refer to the files at commit `bb64ad9`.
+
+**Thesis:** you already pay for leads — ads, SEO, referrals, the truck wrap. They
+leak out between "phone rings" and "job gets paid." Hero plugs every leak on that
+path, and everything runs on one system.
+
+**Structure:** approved — follow the life of a job. Three bands (before / the job /
+after), with the CRM as the spine underneath rather than a feature sitting beside
+the others.
+
+**In scope** (confirmed by you, or drawn from your own automation diagram):
+missed-call text-back · instant reply to web and Facebook form leads · manual lead
+entry · booking link with a week of nudges · confirmations and reminders at 24 hr
+and 1 hr · cancellations routed back into follow-up · quotes, invoices, payments ·
+review and referral requests · review monitoring and replies · monthly nurture ·
+120-day reactivation · lead tags and stages · done-for-you build.
+
+**Deliberately left off** (you didn't claim these): AI or chat handling, paid ads,
+website builds, Google Business Profile listing setup. Replying to Google reviews
+*is* in scope under reputation; managing the listing itself is not claimed.
 
 ---
 
@@ -32,19 +50,19 @@ businesses. Every missed call gets a text back in seconds.">
 <title>Hero — Close More of the Leads You Already Have</title>
 
 <meta name="description" content="You already pay for leads — ads, SEO, referrals,
-the truck wrap. Hero catches the ones that leak out between the first call and the
-paid invoice. Built for plumbing, HVAC, tree service, and garage door companies.">
+the truck wrap. Hero handles the follow-up, booking, reminders, quotes, payment,
+and reviews that decide whether they turn into paid work. For plumbing, HVAC, tree
+service, and garage door companies.">
 
 <meta property="og:title" content="Hero — Close More of the Leads You Already Have">
 
 <meta property="og:description" content="Stop losing leads you already paid for.
-Hero handles the calls, callbacks, quote follow-ups, reminders, and review requests
-that fall through the cracks.">
+Every call answered, every quote chased, every job reminded, every review asked
+for — running on one system.">
 ```
 
-**Note:** "so no job slips away" is dropped deliberately — it is an absolute
-guarantee, and `terms.html:217` already disclaims guaranteed outcomes. The old
-line and the legal page contradict each other today.
+"so no job slips away" is dropped: it's an absolute guarantee, and `terms.html:217`
+already disclaims guaranteed outcomes. The old line contradicts your own legal page.
 
 ---
 
@@ -60,7 +78,7 @@ line and the legal page contradict each other today.
 **NEW**
 > **Stop losing the leads you already paid for.**
 >
-> Ads, SEO, referrals, the truck wrap — you paid to make that phone ring. Hero catches the leads that leak out between the first call and the paid invoice.
+> Ads, SEO, referrals, the truck wrap — you paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.
 >
 > `[Book a Call]`
 
@@ -71,9 +89,7 @@ CTA text and `href="#book"` unchanged.
 ## 3. Problem section — `index.html` lines 410–418
 
 **OLD**
-> *The problem*
->
-> **Every missed call is a paying job walking away.**
+> *The problem* · **Every missed call is a paying job walking away.**
 >
 > You're on a roof, under a sink, or halfway up a tree. The phone rings. It goes to voicemail. That caller doesn't wait — they dial the next company on the list.
 >
@@ -82,11 +98,9 @@ CTA text and `href="#book"` unchanged.
 > - **Hiring isn't the answer.** A full-time receptionist costs thousands a month and still clocks out at five.
 
 **NEW**
-> *The problem*
+> *The problem* · **The leads are already coming in. They're leaking out.**
 >
-> **The leads are already coming in. They're leaking out.**
->
-> Nobody loses jobs because the phone never rings. They lose them in the gaps — the call that came in mid-crawlspace, the quote nobody called back on, the appointment nobody confirmed.
+> Nobody loses jobs because the phone never rings. They lose them in the gaps — the call that came in mid-crawlspace, the quote nobody followed up on, the appointment nobody confirmed.
 >
 > - **The call you couldn't take.** Both hands under a sink. It rings out, and they're already dialing the next name on the list.
 > - **The callback that came too late.** You call back at six. They booked someone who answered at two.
@@ -95,44 +109,31 @@ CTA text and `href="#book"` unchanged.
 > - **The leads from three months ago.** A list of people who wanted work done. Nobody has touched it since.
 > - **The job that never got a review request.** Good work, happy customer, no review. The next person searching never hears about it.
 
-### ⚠️ Item count changes here: 3 → 6
-
-This is the only place the number of components changes. The container is
+**Item count goes 3 → 6.** Same component. The grid is
 `repeat(auto-fit, minmax(240px, 1fr))` (`index.html:180`), so six items reflow to
-3-across × 2 rows on desktop and stack cleanly on mobile — no CSS change, no new
-component. But it *is* more markup than exists today, so it needs your yes.
+3-across × 2 rows on desktop and stack on mobile. No CSS change.
 
-**If you'd rather keep exactly three:** name all six leaks in the lede and keep
-three grouped points — *Leads go cold before you call back* / *Quotes and old
-leads never get a second try* / *Finished jobs never turn into reviews*. Say the
-word and I'll write that version instead.
-
-**Two old points get dropped:** "Your ad spend leaks" is now the site's main
-promise, so it moves up to the hero. "Hiring isn't the answer" is a good
-objection-handler with nowhere obvious to live — I can re-home it in the closing
-section if you want it kept.
+Two old points retire: "your ad spend leaks" is now the hero promise, and "hiring
+isn't the answer" has no natural home — say the word if you want it back in the
+closing.
 
 ---
 
 ## 4. How it works — `index.html` lines 426–447
 
 **OLD**
-> *How it works*
->
-> **The moment you miss a call, Hero answers.**
+> *How it works* · **The moment you miss a call, Hero answers.**
 >
 > 01 **A call slips through** — You're on a job. The call rings out or hits voicemail.
 > 02 **Hero texts them back** — Within seconds, the caller gets a text from your business number — before they can dial anyone else.
 > 03 **The job stays yours** — The conversation continues by text. You reply when you're free, and the lead books with you.
 
 **NEW**
-> *How it works*
->
-> **We find the leaks, then we plug them.**
+> *How it works* · **We find the leaks, then we plug them.**
 >
 > 01 **We walk your lead path** — Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.
-> 02 **We build the plugs** — Instant replies, follow-up, reminders, review requests — running on your number and your calendar. You don't build anything.
-> 03 **You just do the work** — The chasing runs itself. You answer the phone the way you always have and pick up the ones worth your time.
+> 02 **We build it on your setup** — Your number, your calendar, your service area. You don't build anything and you don't learn new software to answer a phone.
+> 03 **You just do the work** — The chasing, reminding, and asking runs itself. You pick up the ones worth your time.
 
 ### Figure caption — line 446
 
@@ -140,7 +141,7 @@ section if you want it kept.
 > The full Hero system: instant text-back, booking nudges, appointment reminders, review and referral requests, and long-term reactivation — every step on autopilot.
 
 **NEW**
-> Every step from first contact to review request: instant replies, follow-up on quiet leads, appointment reminders, and a review ask once the job is done. The parts that used to depend on someone remembering now run on their own.
+> One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Every step that used to depend on someone remembering.
 
 ### Image alt text — line 440
 
@@ -155,14 +156,15 @@ section if you want it kept.
 **OLD:** `Open the automation diagram at full size`
 **NEW:** `Open the lead path diagram at full size`
 
-**Good news on the diagram itself:** `assets/automation-flow.png` already shows the
-whole lifecycle — booking nudges, reminders, review requests, 120-day reactivation
-— so it supports the new angle without being redrawn. Its labels are baked into
-the PNG, so if you later rename steps, the image has to be re-rendered.
+The diagram itself needs no redrawing — it already shows the full lifecycle. Its
+labels are baked into the PNG, so renaming steps later means re-rendering it.
 
 ---
 
-## 5. What you get — `index.html` lines 457–479
+## 5. What you get → the job's life — `index.html` lines 453–483
+
+This is the structural change. Four flat feature cards become three lifecycle
+cards, each holding the capabilities that belong to that stage.
 
 **OLD**
 > *What you get* · **Built for you. Running in days.**
@@ -173,32 +175,65 @@ the PNG, so if you later rename steps, the image has to be re-rendered.
 > 4. **Set up done for you** — We build it, connect it to your number, and hand you the keys. You keep answering calls the way you always have.
 
 **NEW**
-> *What you get* · **Built for you. Running on your number.**
+> *What you get* · **The whole job, covered.**
 >
-> 1. **Every lead gets an answer** — Missed call, web form, nine at night — a reply goes out from your number in seconds with a link to book. Nobody sits around waiting on a callback.
-> 2. **Quotes and old leads get chased** — Quiet quotes get a nudge. Leads from months back get another look. No sticky notes, no "I meant to call them back."
-> 3. **Fewer empty driveways** — Confirmations and reminders go out ahead of the appointment, so fewer people forget you're coming.
-> 4. **Reviews after the job** — When the work wraps, the review request goes out on its own. Good jobs turn into the reviews that win the next one.
+> From the first ring to the review that wins you the next one — here's what runs without you touching it.
+>
+> **Before the job — get them in the door**
+> - Miss a call and a text goes back in seconds, with a link to book
+> - Web and Facebook form leads get an instant reply, day or night
+> - A booking link that keeps nudging for a week instead of asking once
+> - Add someone by hand and they join the same track
+>
+> **The job — make sure it happens, and gets paid**
+> - Confirmation when they book, reminders 24 hours and 1 hour out
+> - Cancellations don't vanish — they drop back into follow-up
+> - Quotes go out, and get chased when they go quiet
+> - Invoice and payment handled in the same place as everything else
+>
+> **After the job — turn one job into the next**
+> - The review request goes out the day after the work wraps
+> - Reviews get watched and answered, so your profile isn't sitting stale
+> - Referral asks to the customers who liked the work
+> - Monthly touches, and a nudge again at 120 days
 
-Card count, icons, and order of components unchanged — copy only.
+### What this needs structurally
 
-### Two decisions inside this section
-
-**a) "Running in days" → "Running on your number."** The original promises a
-delivery time. I can't verify your typical setup time, so I wrote around it. If
-days is genuinely what you deliver, say so and I'll put it back.
-
-**b) Two features lose their card.** "Every lead in one place" (single inbox) and
-"Set up done for you" get displaced by the leak-plug cards. Done-for-you survives
-in How it works step 02 ("You don't build anything") and in the closing. The
-single inbox currently appears nowhere in the new copy. Options: fold it into card
-1 as a closing line, or expand to six cards — the grid is
-`repeat(auto-fit, minmax(250px, 1fr))` and would reflow to 3×2 without CSS
-changes. Your call.
+- Three `<article class="card">` blocks instead of four — same `.cards` grid,
+  `repeat(auto-fit, minmax(250px, 1fr))`, renders 3-across and stacks on mobile.
+- Each card gains a `<ul>` under its heading. **This is the only new CSS** —
+  roughly eight lines to set list spacing and muted text:
+  ```css
+  .card ul { margin: 14px 0 0; padding-left: 18px; }
+  .card li { font-size: 1rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .card li::marker { color: var(--accent); }
+  ```
+- **No new icons needed.** Reuse three of the four existing SVGs: chat bubble →
+  *Before the job*, truck → *The job*, refresh/cycle → *After the job*. The
+  check-circle frees up for the CRM section below.
+- "Running in days" is gone — it promises a delivery time I can't verify. Tell me
+  your real typical turnaround and I'll put a true version back.
 
 ---
 
-## 6. Final CTA — `index.html` lines 488–490
+## 6. NEW section — the CRM spine
+
+Sits between the lifecycle cards and the closing CTA. Reuses the existing gray band
+(`.problem`) and its point grid (`.problem-points`) — no new CSS. The class name is
+now a misnomer; either reuse it as-is or widen the selector to `.problem, .band`
+in one line.
+
+> *Underneath all of it* · **One place for every lead, every text, every job.**
+>
+> Not sticky notes on the dash and a phone full of half-finished threads. Every call, text, quote, and job sits in one system you can open from the truck.
+>
+> - **Every conversation in one thread.** Calls, texts, and form leads land together, so you can see what was already said without hunting for it.
+> - **You always know where someone stands.** New lead, quoted, booked, paid, past customer — tagged as it happens, not when someone remembers.
+> - **It lives on your phone.** Reply between jobs. Nothing to install on a desk you never sit at.
+
+---
+
+## 7. Final CTA — `index.html` lines 488–490
 
 **OLD**
 > **Stop paying for leads you never answer.**
@@ -210,29 +245,29 @@ changes. Your call.
 **NEW**
 > **You already paid for these leads. Let's keep them.**
 >
-> Fifteen minutes. We'll walk your lead path together and find where jobs are falling out — then you decide whether you want it plugged.
+> Fifteen minutes. We'll walk your lead path together and find where jobs are falling out — then you decide whether you want it plugged. We build the whole thing; you keep answering the phone the way you always have.
 >
 > `[Book a Call]`
 
 Button text and `href="https://my.herolgo.com/widget/bookings/alexw-calendar"`
-unchanged. "We'll show you exactly how many jobs you're missing" is rewritten
-because it promises a specific number before you've seen their phone records.
+unchanged. "We'll show you exactly how many jobs you're missing" is rewritten — it
+promises a specific number before you've seen anyone's phone records.
 
 ---
 
-## 7. Footer line — all three pages
+## 8. Footer line — all three pages
 
 `index.html:498` · `privacy.html:327` · `terms.html:273`
 
 **OLD:** © 2026 Hero. Automation for local service businesses.
-**NEW:** © 2026 Hero. Lead follow-up systems for home service trades.
+**NEW:** © 2026 Hero. Lead follow-up and reputation systems for home service trades.
 
 ---
 
-## 8. Service descriptions in the legal pages
+## 9. Service descriptions in the legal pages
 
-These describe the business and should match how you now describe it. Both stay
-accurate and A2P-compliant; nothing in the messaging-consent sections changes.
+These must describe what you actually sell. Both stay accurate and A2P-safe;
+nothing in the messaging-consent sections changes.
 
 ### `privacy.html:234`
 
@@ -240,7 +275,7 @@ accurate and A2P-compliant; nothing in the messaging-consent sections changes.
 > …We provide done-for-you communication and automation systems to local service businesses, including missed-call text-back, automated follow-up, and lead management.
 
 **NEW**
-> …We provide done-for-you lead follow-up systems for home service businesses, including instant replies to new leads, follow-up on quotes and older leads, appointment reminders, and review requests.
+> …We provide done-for-you lead follow-up and customer communication systems for home service businesses, including instant replies to new leads, appointment reminders, quote and invoice follow-up, review requests and reputation management, and a shared CRM for leads and conversations.
 
 ### `terms.html:216`
 
@@ -248,20 +283,41 @@ accurate and A2P-compliant; nothing in the messaging-consent sections changes.
 > Hero builds and manages communication and automation systems for local service businesses, including missed-call text-back, automated follow-up, and lead management. The specific scope…
 
 **NEW**
-> Hero builds and manages lead follow-up systems for home service businesses, including instant replies to new leads, follow-up on quotes and older leads, appointment reminders, and review requests. The specific scope…
+> Hero builds and manages lead follow-up and customer communication systems for home service businesses, including instant replies to new leads, appointment reminders, quote and invoice follow-up, review requests and reputation management, and a shared CRM for leads and conversations. The specific scope…
 
-`terms.html:217` (the "results are illustrative, we don't guarantee outcomes"
-disclaimer) stays exactly as written — it covers the new copy too.
+`terms.html:217` (results are illustrative, no guaranteed outcomes) stays exactly as
+written — it now covers payments and reputation too, which matters more than before.
 
 ---
 
-## Unchanged on purpose
+## Claims I had to write around
 
-- All CTA text (`Book a Call`) and every `href` — nav, hero, closing, footer, policy links.
-- Nav wordmark, logo, favicon, `aria-label="Hero — home"`.
-- All eyebrow labels (*The problem*, *How it works*, *What you get*).
-- Every section's structure, classes, reveal delays, and styling.
-- Skip links, the mobile zoom hint, and the image fallback string.
-- Everything in `privacy.html` and `terms.html` except the two service
-  descriptions and the footer line — the A2P-critical mobile opt-in clause,
-  STOP/HELP instructions, and consent language are untouched.
+All five below are in your **current** copy. Each was removed or rewritten rather
+than carried forward.
+
+1. **"The first business to respond usually wins the job."** (`index.html:415`) — the standard speed-to-lead claim with no source attached. Dropped. Needs a citable study to return.
+2. **"A full-time receptionist costs thousands a month."** (`417`) — an unsourced cost claim about third parties. Dropped.
+3. **"Built for you. Running in days."** (`458`) — a delivery-time promise I can't verify. Rewritten.
+4. **"We'll show you exactly how many jobs you're missing."** (`489`) — promises a number before seeing their records. Rewritten.
+5. **"so no job slips away"** (`7`) and **"No caller left hanging, ever."** (`464`) — absolutes that contradict `terms.html:217`. Both softened.
+
+### New claims I deliberately did *not* write
+
+The expanded offer invites result claims. None of these appear anywhere in the new
+copy, and none should be added without proof:
+
+- Anything numeric — percent of leads recovered, revenue added, jobs saved, review counts, star-rating changes.
+- **"Get paid faster."** Payments are described as a capability, never as a speed result.
+- **"More reviews"** or **"a better rating."** The copy says requests go out and reviews get answered — both true by configuration. It never promises the outcome.
+- Client names, testimonials, case studies, years in business, number of businesses served.
+
+The strongest claim on the page is that replies go out in seconds — true because
+the system is configured that way, not a performance promise.
+
+### One thing to confirm
+
+**A2P 10DLC registration.** Getting a trades business legally texting is real work
+and a genuine differentiator, and there's evidence you handle it for client
+sub-accounts — but you didn't confirm it, so it appears nowhere in this draft. If
+you do it, it belongs in How it works step 02 and would strengthen the
+done-for-you story.
