@@ -130,13 +130,24 @@
     justify-content: space-between;
     height: 60px;
   }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
   .nav-cta {
     font-size: 0.9375rem;
     font-weight: 600;
     color: var(--accent);
     text-decoration: none;
+    white-space: nowrap;
   }
   .nav-cta:hover { text-decoration: underline; }
+  @media (max-width: 420px) {
+    .nav-links { gap: 16px; }
+    .nav-cta { font-size: 0.875rem; }
+    .logo-word { display: none; }
+  }
 
   .logo {
     display: inline-flex;
@@ -228,37 +239,49 @@
   /* The dark frame matches the diagram's own background so it sits cleanly on the
      page. If the image ever fails to load, the frame shows a note, not a broken icon. */
   .flow-figure { margin: 0; }
+  /* Compact preview only. The readable, interactive version lives on
+     how-it-works.html, which this links to. */
+  .flow-preview {
+    display: block;
+    max-width: 460px;
+    margin-inline: auto;
+    text-decoration: none;
+    border-radius: var(--radius);
+  }
+  .flow-preview:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
   .flow-frame {
+    display: block;
     background: #1c1c1e;
     border-radius: var(--radius);
-    padding: clamp(16px, 3vw, 36px);
-    max-width: 820px;
-    margin-inline: auto;
+    padding: 18px;
+    max-height: 280px;
+    overflow: hidden;
+    position: relative;
   }
   .flow-frame img {
     width: 100%;
     height: auto;
     border-radius: 8px;
   }
-  .flow-frame a {
+  .flow-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 110px;
+    background: linear-gradient(to bottom, rgba(28, 28, 30, 0), #1c1c1e);
+  }
+  .flow-preview-cta {
     display: block;
-    border-radius: 8px;
+    margin-top: 18px;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
   }
-  .flow-frame a:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 4px;
-  }
-  /* The diagram is dense; on small screens point people at the full-size view. */
-  .flow-zoom-hint { display: none; }
-  @media (max-width: 700px) {
-    .flow-zoom-hint {
-      display: block;
-      margin-top: 10px;
-      font-size: 0.875rem;
-      color: var(--accent);
-      font-weight: 600;
-    }
-  }
+  .flow-preview:hover .flow-preview-cta { text-decoration: underline; }
   .flow-figure.is-missing .flow-frame {
     display: flex;
     align-items: center;
@@ -553,9 +576,12 @@
         <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
         <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
       </svg>
-      Hero
+      <span class="logo-word">Hero</span>
     </a>
-    <a class="nav-cta" href="#book">Book a Call</a>
+    <span class="nav-links">
+      <a class="nav-cta" href="how-it-works.html">How it works</a>
+      <a class="nav-cta" href="#book">Book a Call</a>
+    </span>
   </div>
 </header>
 
@@ -603,18 +629,18 @@
       </ol>
 
       <figure class="flow-figure reveal">
-        <div class="flow-frame">
-          <a href="assets/automation-flow.png" target="_blank" rel="noopener" aria-label="Open the lead path diagram at full size">
+        <a class="flow-preview" href="how-it-works.html">
+          <span class="flow-frame">
             <img src="assets/automation-flow.png"
                  width="1120" height="1448"
-                 alt="Flowchart of the Hero system. Leads arrive from phone calls, marketing forms, or added by hand. Missed calls get an instant text back with a booking link; answered calls are handled live. Every lead is tagged and enters a week of booking nudges. Booked appointments get confirmations and reminders 24 hours and 1 hour ahead. After the job, a review and referral request goes out, then a reactivation message 120 days later. Leads that never book move into long-term monthly nurture."
+                 alt=""
                  loading="lazy"
                  onerror="this.closest('.flow-figure').classList.add('is-missing')">
-          </a>
-        </div>
+          </span>
+          <span class="flow-preview-cta">See how it works, step by step</span>
+        </a>
         <figcaption>
-          One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Every step that used to depend on someone remembering.
-          <span class="flow-zoom-hint">Tap the diagram to view it full size.</span>
+          One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Walk through it stage by stage, with the message that goes out at each one.
         </figcaption>
       </figure>
     </div>
