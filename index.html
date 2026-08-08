@@ -516,6 +516,21 @@
       radial-gradient(40% 60% at 88% 100%, rgba(88, 52, 200, 0.16), transparent 70%);
   }
   .cta .container { position: relative; z-index: 1; }
+
+  /* The leak points and the CRM points sit on gray bands, so they lift as white
+     cards. (The cards on white go white-to-gray; on gray that would sink.) */
+  .problem-points {
+    gap: 20px;
+    /* wider min so six items land 3+3 rather than 4+2 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  .problem-points li {
+    background: linear-gradient(180deg, #ffffff 0%, #fdfdfe 100%);
+    border: 1px solid rgba(0, 0, 0, 0.055);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
+  }
 </style>
 </head>
 <body id="top">
