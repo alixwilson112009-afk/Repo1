@@ -398,24 +398,14 @@
   .fallback p { color: var(--ink-soft); font-size: 1.0625rem; margin-bottom: 26px; }
   .fallback-frame {
     display: block;
-    background: #1c1c1e;
-    border-radius: var(--radius);
-    padding: 18px;
-    max-width: 460px;
+    max-width: 520px;
     margin-inline: auto;
-    max-height: 320px;
+    border-radius: 14px;
     overflow: hidden;
-    position: relative;
-    border-radius: var(--radius);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 22px 48px rgba(16, 12, 40, 0.12), 0 5px 14px rgba(16, 12, 40, 0.05);
   }
-  .fallback-frame img { border-radius: 8px; }
-  .fallback-frame::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 110px;
-    background: linear-gradient(to bottom, rgba(28,28,30,0), #1c1c1e);
-  }
+  .fallback-frame img { width: 100%; height: auto; }
   .fallback-frame:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .fallback-link {
     display: inline-block;
@@ -423,7 +413,9 @@
     font-size: 1rem;
     font-weight: 600;
     color: var(--accent);
+    text-decoration: none;
   }
+  .fallback-link:hover { text-decoration: underline; }
 
   /* Final CTA */
   .cta { background: var(--ink); color: #fff; text-align: center; }
@@ -734,15 +726,15 @@
   <section class="fallback" aria-labelledby="fallback-heading">
     <div class="container">
       <div class="fallback-inner reveal">
-        <h2 id="fallback-heading">Prefer the whole thing on one page?</h2>
-        <p>The same path as a single diagram. It's dense, so it reads better on a desktop screen than a phone.</p>
+        <h2 id="fallback-heading">Prefer the whole thing in one view?</h2>
+        <p>The same path as it's actually built in Hero: one workflow, start to finish. Example account, sample setup.</p>
         <a class="fallback-frame" href="assets/automation-flow.png" target="_blank" rel="noopener">
           <img src="assets/automation-flow.png"
-               width="1120" height="1448"
-               alt="Flowchart of the Hero system. Leads arrive from phone calls, marketing forms, or added by hand. Missed calls get an instant text back with a booking link; answered calls are handled live. Every lead is tagged and enters a week of booking nudges. Booked appointments get confirmations and reminders 24 hours and 1 hour ahead. After the job, a review and referral request goes out, then a reactivation message 120 days later. Leads that never book move into long-term monthly nurture."
+               width="1440" height="980"
+               alt="The full lead path built as one workflow in Hero for an example tree service company. A missed call triggers an instant text back with a booking link, a new-lead tag, and a week of booking nudges. A branch checks whether the appointment was booked: booked leads get confirmation and reminders 24 hours and 1 hour before, then a review and referral request the day after the job, a 120 day wait, and a reactivation message. Leads that never book move into monthly long-term nurture."
                loading="lazy">
         </a>
-        <a class="fallback-link" href="assets/automation-flow.png" target="_blank" rel="noopener">Open the full-size diagram</a>
+        <a class="fallback-link" href="assets/automation-flow.png" target="_blank" rel="noopener">Open the full-size view</a>
       </div>
     </div>
   </section>
