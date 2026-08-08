@@ -268,6 +268,32 @@
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
+
+  /* ---------- Depth ----------
+     A fine grain over the whole page, plus soft ambient light in the hero and
+     the closing block. All static CSS, no extra requests, nothing animated. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* The closing block was flat near-black; a low purple wash gives it shape */
+  .cta { position: relative; overflow: hidden; }
+  .cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(58% 78% at 50% 0%, rgba(124, 58, 237, 0.30), transparent 66%),
+      radial-gradient(40% 60% at 88% 100%, rgba(88, 52, 200, 0.16), transparent 70%);
+  }
+  .cta .container { position: relative; z-index: 1; }
 </style>
 </head>
 <body id="top">
