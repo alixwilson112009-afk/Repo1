@@ -335,71 +335,6 @@
     line-height: 1.55;
   }
 
-  /* The branch: leads that never book */
-  .flow-stage--branch .stage-num {
-    border-style: dashed;
-    background: var(--surface);
-  }
-  .flow-stage--branch::before {
-    border-left: 2px dashed rgba(0, 0, 0, 0.16);
-    background: none;
-    width: 0;
-  }
-  .branch-tag {
-    display: inline-block;
-    margin-left: 60px;
-    margin-bottom: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-  }
-
-  /* Above 768px the branch steps out to its own column beside the main path. */
-  @media (min-width: 768px) {
-    .flow {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      column-gap: 56px;
-      max-width: 100%;
-    }
-    .flow > li { grid-column: 1; }
-    .flow > li:nth-child(1) { grid-row: 1; }
-    .flow > li:nth-child(2) { grid-row: 2; }
-    .flow > li:nth-child(3) { grid-row: 3; }
-    .flow > li:nth-child(4) { grid-row: 4; }
-    .flow > li:nth-child(5) { grid-row: 5; }
-    .flow > li:nth-child(6) { grid-row: 6; }
-    .flow > li:nth-child(7) { grid-row: 7; }
-    .flow > li.flow-stage--branch {
-      grid-column: 2;
-      grid-row: 4;
-      align-self: start;
-      /* same 14px gap the stages in column one use, so the two nodes line up */
-      margin-top: 14px;
-    }
-    /* Taking the label out of flow puts the node back on the same rhythm as
-       every other stage: 16px of button padding plus half a 44px circle. */
-    .flow-stage--branch .branch-tag {
-      position: absolute;
-      top: -26px;
-      left: 60px;
-      margin: 0;
-    }
-    /* Connector meets the node dead centre: 16 + 22 = 38px from the top */
-    .flow-stage--branch::after {
-      content: "";
-      position: absolute;
-      left: -56px;
-      top: 38px;
-      width: 56px;
-      height: 2px;
-      border-top: 2px dashed rgba(0, 0, 0, 0.16);
-    }
-    .flow-stage--branch::before { display: none; }
-  }
-
   /* Static fallback */
   .fallback { background: var(--surface-alt); }
   .fallback-inner { max-width: 620px; margin-inline: auto; text-align: center; }
@@ -706,8 +641,7 @@
           </div>
         </li>
 
-        <li class="flow-stage flow-stage--branch">
-          <span class="branch-tag">Branch</span>
+        <li class="flow-stage">
           <button type="button" class="stage-btn" id="s8-btn" aria-expanded="false" aria-controls="s8-panel">
             <span class="stage-num" aria-hidden="true">8</span>
             <span class="stage-text">
