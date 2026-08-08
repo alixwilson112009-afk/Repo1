@@ -46,7 +46,7 @@
   .skip-link { position: absolute; left: -9999px; top: 0; background: var(--ink); color: #fff; padding: 12px 20px; z-index: 100; }
   .skip-link:focus { left: 0; }
 
-  /* Nav, matches the home page */
+  /* Nav */
   .nav {
     position: sticky;
     top: 0;
@@ -57,18 +57,16 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   }
   .nav-inner {
-    max-width: 1080px;
-    margin-inline: auto;
-    padding-inline: 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 22px;
     height: 60px;
   }
   .logo {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+    margin-right: auto;
     font-weight: 700;
     font-size: 1.25rem;
     letter-spacing: -0.02em;
@@ -76,8 +74,58 @@
     text-decoration: none;
   }
   .logo svg { width: 30px; height: 30px; border-radius: 8px; }
-  .nav-cta { font-size: 0.9375rem; font-weight: 600; color: var(--accent); text-decoration: none; }
-  .nav-cta:hover { text-decoration: underline; }
+  .nav-menu { display: flex; align-items: center; gap: 22px; }
+  .nav-menu a,
+  .nav-cta {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-menu a:hover, .nav-cta:hover { text-decoration: underline; }
+  .nav-menu a[aria-current="page"] { color: var(--ink-soft); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-toggle { display: none; }
+  /* Four items will not fit a phone, so they collapse behind a menu button. */
+  @media (max-width: 780px) {
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: none;
+      border: 0;
+      border-radius: 10px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .nav-toggle .bar { position: relative; display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+    .nav-toggle .bar::before,
+    .nav-toggle .bar::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+    .nav-toggle .bar::before { top: -6px; }
+    .nav-toggle .bar::after { top: 6px; }
+    .nav-menu {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 4px 24px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+    .nav-menu.is-open { display: flex; }
+    .nav-menu a { padding: 14px 0; font-size: 1rem; }
+    .logo-word { display: none; }
+  }
 
   /* Document */
   main { padding-block: clamp(56px, 9vw, 96px); }
@@ -180,7 +228,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 
 <header class="nav">
-  <div class="nav-inner">
+  <div class="container nav-inner">
     <a class="logo" href="index.html" aria-label="Hero home">
       <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <defs>
@@ -198,9 +246,19 @@
         <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
         <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
       </svg>
-      Hero
+      <span class="logo-word">Hero</span>
     </a>
-    <a class="nav-cta" href="index.html">Back to site</a>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <a href="how-it-works.html">How it works</a>
+      <a href="faq.html">Questions</a>
+      <a href="lead-check.html">Your numbers</a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-cta" href="index.html#book">Book a Call</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -332,6 +390,32 @@
     </span>
   </div>
 </footer>
+
+<script>
+  // Mobile menu. The four nav items do not fit a phone, so they collapse.
+  (function () {
+    var toggle = document.querySelector(".nav-toggle");
+    var menu = document.getElementById("nav-menu");
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.classList.toggle("is-open", open);
+    }
+    toggle.addEventListener("click", function () {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  })();
+</script>
 
 </body>
 </html>
