@@ -376,14 +376,23 @@
       grid-column: 2;
       grid-row: 4;
       align-self: start;
-      margin-top: 0;
+      /* same 14px gap the stages in column one use, so the two nodes line up */
+      margin-top: 14px;
     }
-    /* Elbow from the main spine across the gutter into the branch */
+    /* Taking the label out of flow puts the node back on the same rhythm as
+       every other stage: 16px of button padding plus half a 44px circle. */
+    .flow-stage--branch .branch-tag {
+      position: absolute;
+      top: -26px;
+      left: 60px;
+      margin: 0;
+    }
+    /* Connector meets the node dead centre: 16 + 22 = 38px from the top */
     .flow-stage--branch::after {
       content: "";
       position: absolute;
       left: -56px;
-      top: 22px;
+      top: 38px;
       width: 56px;
       height: 2px;
       border-top: 2px dashed rgba(0, 0, 0, 0.16);
