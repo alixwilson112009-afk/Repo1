@@ -560,36 +560,54 @@
     .how-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
   }
 
-  /* Hero split: the statement on the left, the promises on the right. The
-     promises are set as plain type with hairline rules between them. No boxes
-     and no explanations: three short lines carry more weight on their own. */
+  /* Hero split: the statement on the left, a real view of the product on the
+     right. The shot runs wider than its column and is clipped by the section,
+     so it bleeds toward the edge of the screen instead of sitting in a box. */
   .hero-split {
     display: grid;
-    gap: clamp(44px, 5vw, 72px);
+    gap: clamp(40px, 5vw, 64px);
     align-items: center;
   }
-  .promises {
-    list-style: none;
-    /* centered on a phone to match the hero copy, left-aligned once split */
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 26px;
   }
-  .promises li {
-    font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+  .btn-text {
+    font-size: 1.0625rem;
     font-weight: 600;
-    letter-spacing: -0.024em;
-    line-height: 1.22;
-    color: var(--ink);
-    padding-block: clamp(26px, 3.2vw, 38px);
+    color: var(--accent);
+    text-decoration: none;
   }
-  .promises li + li { border-top: 1px solid rgba(0, 0, 0, 0.09); }
-  .promises li:first-child { padding-top: 0; }
-  .promises li:last-child { padding-bottom: 0; }
+  .btn-text:hover { text-decoration: underline; }
+  .btn-text span { display: inline-block; margin-left: 2px; }
+  .btn-text:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
+
+  .hero-shot { margin: 0; }
+  .hero-shot img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 32px 64px rgba(16, 12, 40, 0.14), 0 8px 20px rgba(16, 12, 40, 0.06);
+  }
+  .hero-shot figcaption {
+    margin-top: 14px;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
 
   @media (min-width: 900px) {
-    .hero-split { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); }
+    .hero-split { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
     .hero-copy { text-align: left; }
-    .hero-copy h1 { font-size: clamp(2.5rem, 4.8vw, 3.75rem); }
+    .hero-copy h1 { font-size: clamp(2.25rem, 4.4vw, 3.375rem); }
     .hero-copy .lede { margin-left: 0; margin-right: 0; max-width: 100%; }
-    .promises { text-align: left; padding-left: clamp(0px, 2.4vw, 32px); }
+    .hero-actions { justify-content: flex-start; }
+    /* wider than the column; .hero already clips, so it bleeds off the edge */
+    .hero-shot { width: 150%; }
+    .hero-shot figcaption { text-align: left; }
   }
 </style>
 </head>
@@ -642,13 +660,18 @@
       <div class="hero-copy">
         <h1 id="hero-heading" class="reveal">Stop losing the leads you already paid for.</h1>
         <p class="lede reveal d1">Ads, SEO, referrals, the truck wrap. You paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.</p>
-        <a class="btn btn-primary reveal d2" href="#book">Book a Call</a>
+        <div class="hero-actions reveal d2">
+          <a class="btn btn-primary" href="#book">Book a Call</a>
+          <a class="btn-text" href="how-it-works.html">See how it works <span aria-hidden="true">&rsaquo;</span></a>
+        </div>
       </div>
-      <ul class="promises reveal d1">
-        <li>1 to 5 jobs won back a month</li>
-        <li>If you don't profit, it's free</li>
-        <li>30 days free to start</li>
-      </ul>
+      <figure class="hero-shot reveal d1">
+        <img src="assets/dashboard.png"
+             width="1440" height="905"
+             alt="The Hero dashboard for an example plumbing company, showing opportunity status, pipeline value, conversion rate, a reactivation funnel, and the last day of customer conversations."
+             fetchpriority="high" decoding="async">
+        <figcaption>Example account, sample data.</figcaption>
+      </figure>
     </div>
   </section>
 
