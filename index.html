@@ -266,8 +266,8 @@
   }
   .steps p { color: var(--ink-soft); font-size: 1.0625rem; }
 
-  /* The dark frame matches the diagram's own background so it sits cleanly on the
-     page. If the image ever fails to load, the frame shows a note, not a broken icon. */
+  /* The preview is a view of the workflow builder, framed like the hero shot.
+     If the image ever fails to load, the frame shows a note, not a broken icon. */
   .flow-figure { margin: 0; }
   /* Compact preview only. The readable, interactive version lives on
      how-it-works.html, which this links to. */
@@ -284,24 +284,14 @@
   }
   .flow-frame {
     display: block;
-    background: #1c1c1e;
-    border-radius: var(--radius);
-    padding: 18px;
-    max-height: 280px;
+    border-radius: 14px;
     overflow: hidden;
-    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 22px 48px rgba(16, 12, 40, 0.12), 0 5px 14px rgba(16, 12, 40, 0.05);
   }
   .flow-frame img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
-  }
-  .flow-frame::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 110px;
-    background: linear-gradient(to bottom, rgba(28, 28, 30, 0), #1c1c1e);
   }
   .flow-preview-cta {
     display: block;
@@ -713,7 +703,7 @@
         <a class="flow-preview" href="how-it-works.html">
           <span class="flow-frame">
             <img src="assets/automation-flow.png"
-                 width="1120" height="1448"
+                 width="1440" height="980"
                  alt=""
                  loading="lazy"
                  onerror="this.closest('.flow-figure').classList.add('is-missing')">
@@ -721,7 +711,7 @@
           <span class="flow-preview-cta">See how it works, step by step</span>
         </a>
         <figcaption>
-          One lead's whole path: the first reply, the booking nudges, the reminders before the appointment, the review ask after the work, and a check back in months later. Walk through it stage by stage, with the message that goes out at each one.
+          One lead's whole path as it's actually built: a single workflow, from the first reply through the review ask to the check back months later. Example account, sample setup. Walk through it stage by stage, with the message that goes out at each one.
         </figcaption>
       </figure>
     </div>
