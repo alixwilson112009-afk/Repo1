@@ -531,6 +531,34 @@
     padding: 28px 26px;
     box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
   }
+
+  /* How it works runs as a two-column split: copy on the left, diagram on the
+     right. Every other section is center-stacked, so this breaks the rhythm. */
+  .how-split {
+    display: grid;
+    gap: clamp(44px, 6vw, 76px);
+    align-items: center;
+  }
+  .how-text .section-head {
+    max-width: 100%;
+    text-align: left;
+    margin-bottom: clamp(32px, 4vw, 44px);
+  }
+  .how-text h2 { font-size: clamp(1.875rem, 3.6vw, 2.75rem); }
+  /* Stacked inside the column, so the numbers read as a sequence down the page */
+  .how-text .steps {
+    grid-template-columns: 1fr;
+    gap: clamp(26px, 3vw, 34px);
+    margin-bottom: 0;
+  }
+  .how-split .flow-figure { margin: 0; }
+  .how-split .flow-preview { max-width: 100%; }
+  .how-split .flow-frame { max-height: 400px; }
+  .how-split figcaption { text-align: left; max-width: 100%; }
+
+  @media (min-width: 900px) {
+    .how-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
+  }
 </style>
 </head>
 <body id="top">
@@ -604,16 +632,18 @@
 
   <!-- 3 · How it works -->
   <section aria-labelledby="how-heading">
-    <div class="container">
-      <div class="section-head centered reveal">
-        <span class="eyebrow">How it works</span>
-        <h2 id="how-heading">We find the leaks, then we plug them.</h2>
+    <div class="container how-split">
+      <div class="how-text">
+        <div class="section-head reveal">
+          <span class="eyebrow">How it works</span>
+          <h2 id="how-heading">We find the leaks, then we plug them.</h2>
+        </div>
+        <ol class="steps">
+          <li class="reveal"><strong>We walk your lead path</strong><p>Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.</p></li>
+          <li class="reveal d1"><strong>We build it on your setup</strong><p>Your number, your calendar, your service area, including the carrier registration a business needs before it can text customers legally. You don't build anything.</p></li>
+          <li class="reveal d2"><strong>You just do the work</strong><p>The chasing, reminding, and asking runs itself. You pick up the ones worth your time.</p></li>
+        </ol>
       </div>
-      <ol class="steps">
-        <li class="reveal"><strong>We walk your lead path</strong><p>Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.</p></li>
-        <li class="reveal d1"><strong>We build it on your setup</strong><p>Your number, your calendar, your service area, including the carrier registration a business needs before it can text customers legally. You don't build anything.</p></li>
-        <li class="reveal d2"><strong>You just do the work</strong><p>The chasing, reminding, and asking runs itself. You pick up the ones worth your time.</p></li>
-      </ol>
 
       <figure class="flow-figure reveal">
         <a class="flow-preview" href="how-it-works.html">
