@@ -560,48 +560,36 @@
     .how-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
   }
 
-  /* Hero runs as a split too: guarantees on the left, the pitch on the right.
-     Source order is copy-first so a phone reads the headline before the
-     guarantees; the columns are swapped with order only on wide screens. */
+  /* Hero split: the statement on the left, the promises on the right. The
+     promises are set as plain type with hairline rules between them. No boxes
+     and no explanations: three short lines carry more weight on their own. */
   .hero-split {
     display: grid;
-    gap: clamp(40px, 5vw, 64px);
+    gap: clamp(44px, 5vw, 72px);
     align-items: center;
   }
-  .guarantees {
+  .promises {
     list-style: none;
-    display: grid;
-    gap: 14px;
-    text-align: left;
+    /* centered on a phone to match the hero copy, left-aligned once split */
   }
-  .guarantees li {
-    background: linear-gradient(180deg, #ffffff 0%, var(--surface-alt) 100%);
-    border: 1px solid rgba(0, 0, 0, 0.055);
-    border-radius: var(--radius);
-    padding: 22px 24px;
-    box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
+  .promises li {
+    font-size: clamp(1.375rem, 2.2vw, 1.875rem);
+    font-weight: 600;
+    letter-spacing: -0.024em;
+    line-height: 1.22;
+    color: var(--ink);
+    padding-block: clamp(26px, 3.2vw, 38px);
   }
-  .guarantees strong {
-    display: block;
-    font-size: 1.125rem;
-    font-weight: 650;
-    letter-spacing: -0.01em;
-    line-height: 1.3;
-    margin-bottom: 6px;
-  }
-  .guarantees span {
-    display: block;
-    font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.5;
-  }
+  .promises li + li { border-top: 1px solid rgba(0, 0, 0, 0.09); }
+  .promises li:first-child { padding-top: 0; }
+  .promises li:last-child { padding-bottom: 0; }
 
   @media (min-width: 900px) {
-    .hero-split { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
-    .guarantees { order: 1; }
-    .hero-copy { order: 2; text-align: left; }
-    .hero-copy h1 { font-size: clamp(2.25rem, 4.6vw, 3.5rem); }
+    .hero-split { grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); }
+    .hero-copy { text-align: left; }
+    .hero-copy h1 { font-size: clamp(2.5rem, 4.8vw, 3.75rem); }
     .hero-copy .lede { margin-left: 0; margin-right: 0; max-width: 100%; }
+    .promises { text-align: left; padding-left: clamp(0px, 2.4vw, 32px); }
   }
 </style>
 </head>
@@ -656,19 +644,10 @@
         <p class="lede reveal d1">Ads, SEO, referrals, the truck wrap. You paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.</p>
         <a class="btn btn-primary reveal d2" href="#book">Book a Call</a>
       </div>
-      <ul class="guarantees reveal d1">
-        <li>
-          <strong>1 to 5 jobs won back a month</strong>
-          <span>Not more traffic and not more calls. Jobs back on your calendar.</span>
-        </li>
-        <li>
-          <strong>If you don't profit, it's free</strong>
-          <span>If the system doesn't make you more than it costs, you don't pay for it.</span>
-        </li>
-        <li>
-          <strong>30 days free to start</strong>
-          <span>Run the whole thing for a month before you pay anything.</span>
-        </li>
+      <ul class="promises reveal d1">
+        <li>1 to 5 jobs won back a month</li>
+        <li>If you don't profit, it's free</li>
+        <li>30 days free to start</li>
       </ul>
     </div>
   </section>
