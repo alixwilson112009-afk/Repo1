@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hero: Check Your Own Numbers</title>
+<meta name="description" content="Four questions about your leads and the arithmetic behind them. See what unanswered calls are worth at your own booking rate. No email required and nothing is sent anywhere.">
+<meta property="og:title" content="Hero: Check Your Own Numbers">
+<meta property="og:description" content="Four questions about your leads, with the arithmetic shown. Your numbers, not our claim.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
+
+<style>
+  /* Base tokens and components mirror index.html. This site keeps its CSS inline
+     per page rather than in a shared file, so this block matches that pattern. */
+  :root {
+    --ink: #1d1d1f;
+    --ink-soft: #6e6e73;
+    --surface: #ffffff;
+    --surface-alt: #f5f5f7;
+    --accent: #6d28d9;
+    --accent-hover: #7c3aed;
+    --radius: 18px;
+    --container: 1080px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--surface);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .container {
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--ink);
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 0 0 12px 0;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 0; }
+
+  h1, h2, h3 {
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2.25rem, 6vw, 3.5rem); }
+  h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); }
+
+  .lede {
+    font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+    color: var(--ink-soft);
+    line-height: 1.55;
+    text-wrap: pretty;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .btn {
+    display: inline-block;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 15px 32px;
+    border-radius: 999px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  /* Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    height: 60px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .logo svg { width: 30px; height: 30px; border-radius: 8px; }
+  .nav-menu { display: flex; align-items: center; gap: 22px; }
+  .nav-menu a,
+  .nav-cta {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .nav-menu a:hover, .nav-cta:hover { text-decoration: underline; }
+  .nav-menu a[aria-current="page"] { color: var(--ink-soft); }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .nav-toggle { display: none; }
+  /* Four items will not fit a phone, so they collapse behind a menu button. */
+  @media (max-width: 780px) {
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      background: none;
+      border: 0;
+      border-radius: 10px;
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    .nav-toggle .bar { position: relative; display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+    .nav-toggle .bar::before,
+    .nav-toggle .bar::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
+    .nav-toggle .bar::before { top: -6px; }
+    .nav-toggle .bar::after { top: 6px; }
+    .nav-menu {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding: 4px 24px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+    .nav-menu.is-open { display: flex; }
+    .nav-menu a { padding: 14px 0; font-size: 1rem; }
+    .logo-word { display: none; }
+  }
+
+  /* Sections */
+  section { padding-block: clamp(72px, 10vw, 130px); }
+  .page-head { max-width: 680px; }
+  .page-head .lede { margin-top: 22px; }
+
+  [hidden] { display: none !important; }
+
+  /* Survey */
+  .survey-form { max-width: 620px; margin-inline: auto; }
+  .survey-row { margin-bottom: 28px; }
+  .survey-row > label {
+    display: block;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .survey-row input[type="number"] {
+    width: 100%;
+    font: inherit;
+    font-size: 1.0625rem;
+    padding: 14px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 12px;
+    background: var(--surface);
+    color: var(--ink);
+  }
+  .survey-row input[type="number"]:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .survey-row .hint {
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    margin-top: 8px;
+  }
+  .survey-checks {
+    display: grid;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .survey-checks label {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 1.0625rem;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .survey-checks input[type="checkbox"] {
+    flex: none;
+    margin-top: 5px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+  .survey-form .btn { margin-top: 4px; }
+  .survey-error {
+    margin-top: 16px;
+    font-size: 0.9375rem;
+    color: #b3261e;
+  }
+  .survey-result {
+    margin-top: 36px;
+    padding: clamp(24px, 4vw, 34px);
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .survey-result h3 {
+    font-size: 1.0625rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .survey-figure {
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    font-weight: 700;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+  }
+  .survey-math {
+    margin-top: 14px;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .survey-gaps {
+    margin: 24px 0 0;
+    padding-top: 22px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    list-style: none;
+  }
+  .survey-gaps li {
+    font-size: 1.0625rem;
+    margin-bottom: 10px;
+    padding-left: 26px;
+    position: relative;
+  }
+  .survey-gaps li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .survey-caveat {
+    margin-top: 22px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+
+
+  /* Final CTA */
+  .cta { background: var(--ink); color: #fff; text-align: center; }
+  .cta .lede { color: #a1a1a6; max-width: 520px; margin: 24px auto 40px; }
+
+  /* Footer */
+  .footer { padding-block: 40px; border-top: 1px solid rgba(0, 0, 0, 0.06); }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+  }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 20px; }
+  .footer a { color: var(--ink-soft); }
+  .footer a:hover { color: var(--ink); }
+
+  /* Scroll reveal, same as the homepage */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.is-visible { opacity: 1; transform: none; }
+  .reveal.d1 { transition-delay: 0.08s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body id="top">
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="index.html" aria-label="Hero home">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#372aac"/>
+            <stop offset="1" stop-color="#7c3aed"/>
+          </linearGradient>
+          <linearGradient id="logo-bolt" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fcd34d"/>
+            <stop offset="1" stop-color="#f59e0b"/>
+          </linearGradient>
+        </defs>
+        <rect width="64" height="64" rx="14" fill="url(#logo-bg)"/>
+        <rect x="17" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
+      </svg>
+      <span class="logo-word">Hero</span>
+    </a>
+    <nav class="nav-menu" id="nav-menu" aria-label="Main">
+      <a href="how-it-works.html">How it works</a>
+      <a href="faq.html">Questions</a>
+      <a href="lead-check.html" aria-current="page">Your numbers</a>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-cta" href="#book">Book a Call</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span class="bar" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section aria-labelledby="page-heading">
+    <div class="container">
+      <div class="page-head reveal">
+        <span class="eyebrow">Your own numbers</span>
+        <h1 id="page-heading">A few questions about your leads.</h1>
+        <p class="lede">Four questions, no email required. The arithmetic is shown so you can check it yourself, and nothing you type is sent anywhere.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="container">
+      <form class="survey-form reveal" id="survey" novalidate>
+        <div class="survey-row">
+          <label for="q-missed">In a normal week, how many calls go unanswered?</label>
+          <input type="number" id="q-missed" min="0" max="500" step="1" inputmode="numeric" placeholder="e.g. 8">
+          <p class="hint">Rings out, goes to voicemail, or comes in after hours. Your best guess is fine.</p>
+        </div>
+
+        <div class="survey-row">
+          <label for="q-value">What's an average job worth to you?</label>
+          <input type="number" id="q-value" min="0" max="1000000" step="1" inputmode="numeric" placeholder="e.g. 450">
+          <p class="hint">Dollars, before costs.</p>
+        </div>
+
+        <div class="survey-row">
+          <label for="q-rate">Of the people who do reach you, roughly what share become a job?</label>
+          <input type="number" id="q-rate" min="1" max="100" step="1" inputmode="numeric" placeholder="e.g. 35">
+          <p class="hint">A percentage. This keeps the math honest, since not every missed call was going to book.</p>
+        </div>
+
+        <div class="survey-row">
+          <span id="checks-label" style="display:block;font-size:1.0625rem;font-weight:600;margin-bottom:2px;">Which of these happen every time, without fail?</span>
+          <div class="survey-checks" role="group" aria-labelledby="checks-label">
+            <label><input type="checkbox" id="c-quote"> A quote that goes quiet gets followed up</label>
+            <label><input type="checkbox" id="c-remind"> Every booked appointment gets a reminder before the day</label>
+            <label><input type="checkbox" id="c-old"> Leads from months ago get touched again</label>
+            <label><input type="checkbox" id="c-review"> Every finished job gets a review request</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">See where you stand</button>
+        <p class="survey-error" id="survey-error" hidden></p>
+      </form>
+
+      <div class="survey-result" id="survey-result" hidden aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="cta" id="book" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading" class="reveal">You already paid for these leads. Let's keep them.</h2>
+      <p class="lede reveal d1">Fifteen minutes. We'll walk your lead path together and find where jobs are falling out, then you decide whether you want it plugged.</p>
+      <a class="btn btn-primary reveal d1" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a Call</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
+    <span class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="mailto:Alex.wilson@herolgo.com">Alex.wilson@herolgo.com</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal, same behaviour as the homepage.
+  (function () {
+    var els = document.querySelectorAll(".reveal");
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduced || !("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-visible"); });
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+
+    els.forEach(function (el) { observer.observe(el); });
+  })();
+
+  // Survey: everything is computed from what the visitor enters. Nothing is
+  // sent anywhere, and no figure is asserted that their own numbers don't produce.
+  (function () {
+    var form = document.getElementById("survey");
+    if (!form) return;
+
+    var out = document.getElementById("survey-result");
+    var err = document.getElementById("survey-error");
+
+    var money = function (n) {
+      return "$" + Math.round(n).toLocaleString("en-US");
+    };
+    var num = function (id) {
+      var raw = document.getElementById(id).value.trim();
+      if (raw === "") return null;
+      var v = Number(raw);
+      return isFinite(v) ? v : null;
+    };
+
+    var gaps = [
+      { id: "c-quote",  text: "Quotes that go quiet aren't being followed up." },
+      { id: "c-remind", text: "Appointments aren't being reminded, so some of them won't show." },
+      { id: "c-old",    text: "Older leads are sitting there untouched." },
+      { id: "c-review", text: "Finished jobs aren't turning into reviews." }
+    ];
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var missed = num("q-missed");
+      var value = num("q-value");
+      var rate = num("q-rate");
+
+      if (missed === null || value === null || rate === null ||
+          missed < 0 || value < 0 || rate < 1 || rate > 100) {
+        err.textContent = "Fill in all three numbers to see the math. The percentage should be between 1 and 100.";
+        err.hidden = false;
+        out.hidden = true;
+        return;
+      }
+      err.hidden = true;
+
+      var perYear = missed * 52 * (rate / 100) * value;
+      var missedYear = missed * 52;
+
+      var checked = gaps.filter(function (g) {
+        return !document.getElementById(g.id).checked;
+      });
+
+      var html = "";
+
+      if (perYear > 0) {
+        html +=
+          '<h3>What those calls were worth</h3>' +
+          '<p class="survey-figure">' + money(perYear) + ' a year</p>' +
+          '<p class="survey-math">' +
+          missed.toLocaleString("en-US") + ' unanswered calls a week is ' +
+          missedYear.toLocaleString("en-US") + ' a year. At your own ' + rate +
+          '% booking rate that\'s ' + Math.round(missedYear * (rate / 100)).toLocaleString("en-US") +
+          ' jobs, and at ' + money(value) + ' a job, ' + money(perYear) + '.' +
+          '</p>';
+      } else {
+        html +=
+          '<h3>Your calls</h3>' +
+          '<p class="survey-figure">Nothing slipping there.</p>' +
+          '<p class="survey-math">You said no calls go unanswered in a normal week. That\'s the hardest one to get right, so the rest is worth a look.</p>';
+      }
+
+      if (checked.length) {
+        html += '<ul class="survey-gaps">';
+        checked.forEach(function (g) { html += "<li>" + g.text + "</li>"; });
+        html += "</ul>";
+      } else if (perYear <= 0) {
+        html += '<ul class="survey-gaps"><li>You said all four of those happen every time. If that\'s holding up under a busy week, you\'re ahead of most.</li></ul>';
+      }
+
+      html +=
+        '<p class="survey-caveat">This is your arithmetic, not a promise from us. It\'s what those calls would have been worth at the rate you already close. Nothing you typed was sent anywhere.</p>' +
+        '<p style="margin-top:26px"><a class="btn btn-primary" href="#book">Book a Call</a></p>';
+
+      out.innerHTML = html;
+      out.hidden = false;
+      out.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    });
+  })();
+
+  // Mobile menu. The four nav items do not fit a phone, so they collapse.
+  (function () {
+    var toggle = document.querySelector(".nav-toggle");
+    var menu = document.getElementById("nav-menu");
+    if (!toggle || !menu) return;
+
+    function setOpen(open) {
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.classList.toggle("is-open", open);
+    }
+    toggle.addEventListener("click", function () {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
+    });
+    menu.addEventListener("click", function (e) {
+      if (e.target.tagName === "A") setOpen(false);
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
