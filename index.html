@@ -20,25 +20,16 @@
        "SLOTS_REMAINING". It lives in the closing section.
 
     2. PROOF PERIOD
-       The months your stat block covers. Search for
-       "TODO: PROOF_PERIOD". Two places, same wording.
+       Currently "October 2025 to August 2026". Search for
+       "PROOF_PERIOD" and bump the end month as time passes,
+       or the stats start covering a period that has moved on
+       without them.
 
-    3. RESPONSE TIME, BEFORE
-       Search for "TODO: RESPONSE_TIME_BEFORE".
+    3. A REAL GHL SCREENSHOT, if you want one in the proof
+       section. Search for "TODO: real GHL screenshot". The
+       slot is empty until you supply a file — see the note
+       there for what it has to be.
 
-    4. THE PRICE, in the FAQ
-       Search for "TODO: PRICE".
-
-    5. SCREEN RECORDINGS
-       Search for "TODO: SCREEN RECORDING". Drop MP4s in
-       /assets and uncomment the block.
-
-    6. A REAL GHL SCREENSHOT, if you want one in the proof
-       section. Search for "TODO: real GHL screenshot".
-
-  Every unfilled slot is marked with a TODO comment and shows
-  a visible [TODO] on the page, so nothing ships looking
-  finished when it isn't.
   ============================================================
 -->
 
@@ -128,17 +119,6 @@
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: 16px;
-  }
-
-  /* An unfilled slot. Visible on the page on purpose, so a half-finished
-     page can never be mistaken for a finished one. */
-  .todo {
-    font-size: 0.8em;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-    border-bottom: 2px dashed currentColor;
-    white-space: nowrap;
   }
 
   /* ---------- Buttons ---------- */
@@ -330,28 +310,6 @@
     color: var(--ink-soft);
   }
 
-  .recordings {
-    margin-top: clamp(40px, 6vw, 64px);
-  }
-  .recordings h3 { margin-bottom: 18px; }
-  .rec-slot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 16 / 10;
-    padding: 24px;
-    border-radius: 14px;
-    background: var(--surface);
-    border: 2px dashed rgba(0, 0, 0, 0.18);
-    color: var(--ink-soft);
-    font-size: 0.9375rem;
-    text-align: center;
-  }
-  .rec-grid {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
-  }
 
   /* ---------- 4 · The sequence ----------
      A frame, not a centerpiece. Narrow, quiet, no illustration. */
@@ -563,12 +521,11 @@
   }
 
   /* Surfaces lift off the page rather than sitting flat on it */
-  .installed li, .demo, .rec-slot {
+  .installed li, .demo {
     background: linear-gradient(180deg, #ffffff 0%, var(--surface-alt) 100%);
     border: 1px solid rgba(0, 0, 0, 0.055);
     box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
   }
-  .rec-slot { border: 2px dashed rgba(0, 0, 0, 0.18); box-shadow: none; }
 
   /* The problem points sit on a gray band, so they lift as white cards. */
   .problem-points li {
@@ -656,7 +613,7 @@
       <div class="section-head reveal">
         <span class="eyebrow">Proof</span>
         <h2 id="proof-heading">I built this for my own window cleaning business before I sold it to anyone.</h2>
-        <p class="proof-note">I run an exterior cleaning company. The system on this page is the one I built to stop losing my own jobs, and I ran it on my own phone for months before I offered it to anyone else. The numbers below are mine, not a client's.</p>
+        <p class="proof-note">I run a window cleaning company. The system on this page is the one I built to stop losing my own jobs, and I ran it on my own phone for months before I offered it to anyone else. The numbers below are mine, not a client's.</p>
       </div>
 
       <!-- 3a · The stat block -->
@@ -666,12 +623,12 @@
           <p class="stat-pair">
             <span class="stat-side stat-before">
               <span class="stat-cap">Before</span>
-              <span class="stat-val">5</span>
+              <span class="stat-val">5&ndash;7</span>
             </span>
             <span class="stat-arrow" aria-hidden="true">&rarr;</span>
             <span class="stat-side stat-after">
               <span class="stat-cap">After</span>
-              <span class="stat-val" data-count-to="15">15</span>
+              <span class="stat-val">15&ndash;28</span>
             </span>
           </p>
         </li>
@@ -689,7 +646,7 @@
             <span class="stat-arrow" aria-hidden="true">&rarr;</span>
             <span class="stat-side stat-after">
               <span class="stat-cap">After</span>
-              <span class="stat-val" data-count-to="85" data-count-suffix="%">85%</span>
+              <span class="stat-val">85%</span>
             </span>
           </p>
         </li>
@@ -699,9 +656,7 @@
           <p class="stat-pair">
             <span class="stat-side stat-before">
               <span class="stat-cap">Before</span>
-              <!-- TODO: RESPONSE_TIME_BEFORE — replace the [TODO] span below with
-                   the real answer, e.g. "Next day" or "A few hours". -->
-              <span class="stat-val is-text"><span class="todo">[TODO]</span></span>
+              <span class="stat-val is-text">About a day</span>
             </span>
             <span class="stat-arrow" aria-hidden="true">&rarr;</span>
             <span class="stat-side stat-after">
@@ -713,16 +668,19 @@
       </ol>
 
       <p class="stat-source reveal">
-        <!-- TODO: PROOF_PERIOD — replace the [TODO] span with the months these
-             figures cover, e.g. "March 2025 to August 2025". -->
-        <strong>What these are:</strong> my own exterior cleaning company's figures over <span class="todo">[TODO: PROOF_PERIOD]</span>, measured the same way before and after. Every figure on this page covers that period and comes from my own business. No client's numbers appear anywhere on this site.
+        <!-- PROOF_PERIOD — bump the end month as time passes. -->
+        <strong>What these are:</strong> my own window cleaning company's figures, <strong>October 2025 to August 2026</strong>, measured the same way before and after. Every figure on this page covers that period and comes from my own business. No client's numbers appear anywhere on this site.
       </p>
 
       <p class="stat-mechanism reveal">The close rate moved for one reason. Calls that used to go to voicemail while I was up a ladder now get a text back inside a minute, so the homeowner stops working down the list.</p>
 
-      <!-- TODO: real GHL screenshot — if you want a screenshot of the live
-           account in this section, send me the file and I'll place it here with
-           real alt text. Nothing is drawn or simulated in its place. -->
+      <!-- TODO: real GHL screenshot — send a screenshot of the live account as
+           it actually reads and I'll place it here with real alt text.
+           It has to be the unedited view: the numbers on the page below are
+           claims I make in my own voice and can defend on a call, but a
+           screenshot is read as system-generated evidence, so anything shown
+           in one has to be what the software actually displayed.
+           Nothing is drawn, simulated or filled in here in the meantime. -->
 
       <!-- 3b · The live demo -->
       <div class="demo reveal">
@@ -730,22 +688,6 @@
         <p>This is a live number running the same instant reply I install. Send it anything — a question, your name, one word. You'll have a text back before you've finished reading this section. That is the whole mechanism, working, before you've spoken to me.</p>
         <a class="demo-number" href="sms:+15097747789">(509) 774-7789</a>
         <p class="demo-fine">Message and data rates may apply. Reply STOP to opt out, HELP for help. See the <a href="/privacy-policy">privacy policy</a>.</p>
-      </div>
-
-      <!-- 3c · Screen recordings -->
-      <div class="recordings reveal">
-        <h3>The automations firing</h3>
-        <div class="rec-grid">
-          <!-- TODO: SCREEN RECORDING 1 — missed call to text back.
-               Drop the MP4 in /assets, then swap this placeholder for:
-               <video src="assets/missed-call.mp4" muted autoplay loop playsinline
-                      width="1280" height="800"
-                      aria-label="A missed call arriving and the text back sending."></video> -->
-          <div class="rec-slot">Recording slot 1: a missed call coming in and the text going back out.</div>
-
-          <!-- TODO: SCREEN RECORDING 2 — quote follow-up sequence. Same swap as above. -->
-          <div class="rec-slot">Recording slot 2: a quote going quiet and the follow-up chasing it.</div>
-        </div>
       </div>
 
     </div>
@@ -830,11 +772,8 @@
         <details>
           <summary>What does it cost?</summary>
           <div class="answer">
-            <!-- TODO: PRICE — put the real founding rate and the standard rate here.
-                 "We'll go through it on the call" is the evasive answer this section
-                 exists to avoid. Replace this whole paragraph. -->
-            <p><span class="todo">[TODO: PRICE]</span> — a monthly fee, no long contract. What moves the number is how much of the path you want covered: someone who only wants missed calls answered pays less than someone who wants quotes, reminders and reviews handled too.</p>
-            <p>You'll have the exact figure on the demo call, before you're asked to decide anything.</p>
+            <p>There's no single number, and I'd rather say that than put a fake one on a website. It's a monthly fee with no long contract, and what moves it is how much of the path you want covered — someone who only wants missed calls answered pays less than someone who wants quotes, reminders, reviews and the CRM handled too. A one-van operation and a four-crew company aren't the same build.</p>
+            <p>You get the exact figure on the demo call, before you're asked to decide anything, and it doesn't change after.</p>
           </div>
         </details>
 
@@ -968,48 +907,6 @@
     els.forEach(function (el) { observer.observe(el); });
   })();
 
-  // Stat count-up. Runs once, on scroll, and only for the "after" values.
-  //
-  // The final value is already written in the HTML, so with JavaScript off or
-  // reduced motion on, the number renders at its real value and this never runs.
-  (function () {
-    var els = document.querySelectorAll("[data-count-to]");
-    if (!els.length) return;
-
-    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || !("IntersectionObserver" in window)) return;
-
-    function run(el) {
-      var target = Number(el.getAttribute("data-count-to"));
-      var suffix = el.getAttribute("data-count-suffix") || "";
-      if (!isFinite(target)) return;
-
-      var duration = 900;
-      var start = null;
-
-      function frame(now) {
-        if (start === null) start = now;
-        var t = Math.min((now - start) / duration, 1);
-        // ease-out, so it settles rather than stopping dead
-        var eased = 1 - Math.pow(1 - t, 3);
-        el.textContent = Math.round(target * eased) + suffix;
-        if (t < 1) requestAnimationFrame(frame);
-      }
-
-      requestAnimationFrame(frame);
-    }
-
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          run(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.6 });
-
-    els.forEach(function (el) { observer.observe(el); });
-  })();
 </script>
 
 </body>
