@@ -1,0 +1,31 @@
+# Netlify / Cloudflare Pages redirect rules.
+# Vercel reads vercel.json instead; both files are here so this deploys
+# correctly on any of the three without further changes.
+#
+# Every page that used to exist now points at the single page. The two legal
+# pages moved to clean URLs that carriers can verify for A2P 10DLC.
+
+# --- Merged into the single page ---
+/how-it-works.html      /                    301
+/how-it-works           /                    301
+/faq.html               /                    301
+/faq                    /                    301
+/lead-check.html        /                    301
+/lead-check             /                    301
+
+# --- Legal pages: old paths to the new clean URLs ---
+/privacy.html           /privacy-policy      301
+/privacy                /privacy-policy      301
+/terms.html             /terms-of-service    301
+/terms                  /terms-of-service    301
+/terms-and-conditions   /terms-of-service    301
+
+# --- Clean URLs for the pages that stayed ---
+# Netlify and Cloudflare Pages already serve /privacy-policy from
+# privacy-policy.html. These rewrites make that explicit rather than implicit,
+# and they must stay 200 (a rewrite), not 301, so the URL in the address bar
+# is the one the carrier verifies.
+/privacy-policy         /privacy-policy.html      200
+/terms-of-service       /terms-of-service.html    200
+
+/index.html             /                    301
