@@ -3,33 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Hero: Close More of the Leads You Already Have</title>
-<meta name="description" content="You already pay for leads through ads, SEO, referrals, and the truck wrap. Hero handles the follow-up, booking, reminders, quotes, payment, and reviews that decide whether they turn into paid work. For plumbing, HVAC, tree service, and garage door companies.">
-<meta property="og:title" content="Hero: Close More of the Leads You Already Have">
-<meta property="og:description" content="Stop losing leads you already paid for. Every call answered, every quote chased, every job reminded, every review asked for, all running on one system.">
+<title>Hero: lead follow-up installed for exterior cleaning companies</title>
+<meta name="description" content="I install lead capture and follow-up for exterior cleaning companies: missed-call text-back, instant lead replies, quote chasing, reminders, review requests, and a CRM that holds it together. Book a demo.">
+<meta property="og:title" content="Hero: lead follow-up installed for exterior cleaning companies">
+<meta property="og:description" content="Your leads leak out between the phone ringing and the invoice getting paid. I install the follow-up that catches them. Built for my own window cleaning business first.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23372aac'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%23fcd34d'/%3E%3Cstop offset='1' stop-color='%23f59e0b'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Crect x='17' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Crect x='38' y='13' width='9' height='38' rx='4.5' fill='%23ddd6fe'/%3E%3Cpath d='M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z' fill='url(%23b)'/%3E%3C/svg%3E">
 
 <!--
   ============================================================
-  Everything is wired up. Optional swaps if you want them:
-    - assets/automation-flow.png is the flow diagram in section 3.
-      Overwrite this file to update the diagram.
-    - The nav logo + favicon are inline SVG recreations of the
-      Hero mark. For your exact PNG, drop it at assets/logo.png
-      and replace the <svg> in the header with
-      <img src="assets/logo.png" alt="">.
+  THINGS YOU EDIT BY HAND. Nothing else on this page needs to
+  change between updates.
+
+    1. SLOTS REMAINING
+       One number, one place: search this file for
+       "SLOTS_REMAINING". It lives in the closing section.
+
+    2. PROOF PERIOD
+       Currently "October 2025 to August 2026". Search for
+       "PROOF_PERIOD" and bump the end month as time passes,
+       or the stats start covering a period that has moved on
+       without them.
+
+    3. THE HERO SCREENSHOT in the hero section is an example
+       account with sample data, and is captioned as such. See
+       the note above it before swapping it.
+
   ============================================================
 -->
+
+<!-- Marks the document as scripted before first paint, so the scroll-reveal
+     CSS only ever hides content in browsers that can reveal it again. -->
+<script>document.documentElement.className += " js";</script>
 
 <style>
   :root {
     --ink: #1d1d1f;          /* near-black text */
-    --ink-soft: #6e6e73;     /* secondary text */
+    --ink-soft: #6e6e73;     /* secondary text, and the "before" stat values */
     --surface: #ffffff;      /* page background */
     --surface-alt: #f5f5f7;  /* light gray bands & cards */
-    --accent: #6d28d9;       /* the one accent color, Hero brand purple */
+    --accent: #6d28d9;       /* Hero brand purple. CTAs only. */
     --accent-hover: #7c3aed;
+
+    /* The stat block's one secondary color. Used for the "after" values and
+       nothing else on the page, so it never competes with the CTA purple.
+       Contrast: 5.02:1 on white, 4.61:1 on --surface-alt. Both pass WCAG AA.
+       The "before" values use --ink-soft: 5.07:1 on white, 4.66:1 on gray. */
+    --gain: #15803d;
+
     --radius: 18px;
     --container: 1080px;
   }
@@ -46,9 +67,10 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
   }
 
-  img { max-width: 100%; display: block; }
+  img, video { max-width: 100%; display: block; }
 
   .container {
     max-width: var(--container);
@@ -75,8 +97,10 @@
     line-height: 1.12;
     text-wrap: balance;
   }
-  h1 { font-size: clamp(2.6rem, 7.5vw, 4.5rem); }
-  h2 { font-size: clamp(2rem, 5vw, 3.25rem); }
+  /* The headline carries a full sentence, so the mobile floor is lower than
+     the old 2.6rem — at 375px that set it to nine lines. */
+  h1 { font-size: clamp(2.25rem, 6.4vw, 3.75rem); }
+  h2 { font-size: clamp(1.875rem, 4.6vw, 3rem); }
   h3 { font-size: 1.25rem; letter-spacing: -0.01em; }
 
   .lede {
@@ -109,12 +133,12 @@
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-primary:hover { background: var(--accent-hover); }
   .btn-primary:active { transform: scale(0.98); }
-  .btn:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
-  }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .cta .btn:focus-visible { outline-color: #fff; }
 
-  /* Nav */
+  /* ---------- Nav ----------
+     Logo and one button. Every removed link was a removed exit, so there is
+     no menu here and nothing to collapse on a phone. */
   .nav {
     position: sticky;
     top: 0;
@@ -127,7 +151,7 @@
   .nav-inner {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 16px;
     height: 60px;
   }
   .logo {
@@ -142,88 +166,204 @@
     text-decoration: none;
   }
   .logo svg { width: 30px; height: 30px; border-radius: 8px; }
-  .nav-menu { display: flex; align-items: center; gap: 22px; }
-  .nav-menu a,
-  .nav-cta {
-    font-size: 0.9375rem;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .nav-menu a:hover, .nav-cta:hover { text-decoration: underline; }
-  .nav-menu a[aria-current="page"] { color: var(--ink-soft); }
-  .nav-right { display: flex; align-items: center; gap: 8px; }
-  .nav-toggle { display: none; }
-  /* Four items will not fit a phone, so they collapse behind a menu button. */
-  @media (max-width: 780px) {
-    .nav-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      background: none;
-      border: 0;
-      border-radius: 10px;
-      color: var(--ink);
-      cursor: pointer;
-    }
-    .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-    .nav-toggle .bar { position: relative; display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
-    .nav-toggle .bar::before,
-    .nav-toggle .bar::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
-    .nav-toggle .bar::before { top: -6px; }
-    .nav-toggle .bar::after { top: 6px; }
-    .nav-menu {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
-      display: none;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: 4px 24px 14px;
-      background: var(--surface);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-    }
-    .nav-menu.is-open { display: flex; }
-    .nav-menu a { padding: 14px 0; font-size: 1rem; }
-    .logo-word { display: none; }
-  }
+  .logo:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 10px; }
+  .nav .btn { padding: 10px 20px; font-size: 0.9375rem; }
 
   /* ---------- Sections ---------- */
-  section { padding-block: clamp(88px, 12vw, 150px); }
+  section { padding-block: clamp(80px, 11vw, 140px); }
 
   .section-head {
-    max-width: 640px;
-    margin-bottom: clamp(48px, 7vw, 80px);
+    max-width: 660px;
+    margin-bottom: clamp(40px, 6vw, 72px);
   }
-  .section-head.centered {
-    margin-inline: auto;
-    text-align: center;
-  }
+  .section-head.centered { margin-inline: auto; text-align: center; }
   .section-head .lede { margin-top: 20px; }
 
-  /* Hero */
+  /* ---------- 2 · Hero ---------- */
   .hero {
     text-align: center;
-    padding-block: clamp(96px, 14vw, 180px);
+    padding-block: clamp(72px, 12vw, 150px);
   }
   .hero .lede {
-    max-width: 560px;
-    margin: 24px auto 40px;
+    max-width: 620px;
+    margin: 24px auto 36px;
+  }
+  /* The founding line sits quiet under the button. It is not a banner. */
+  .founding {
+    max-width: 520px;
+    margin: 28px auto 0;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
   }
 
-  /* Gray bands: the problem section and the CRM section */
+  /* The product shot under the hero copy. Capped well under the container so
+     it reads as one screen rather than a wall, and it keeps its aspect ratio
+     reserved so nothing below it jumps when the image lands. */
+  .hero-shot {
+    margin: clamp(44px, 7vw, 72px) auto 0;
+    max-width: 940px;
+  }
+  .hero-shot img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2880 / 1810;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 32px 64px rgba(16, 12, 40, 0.14), 0 8px 20px rgba(16, 12, 40, 0.06);
+  }
+  .hero-shot figcaption {
+    margin-top: 14px;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- 3 · Proof ---------- */
+  .proof-note {
+    max-width: 660px;
+    margin-top: 20px;
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+  }
+
+  .stats {
+    list-style: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .stat {
+    display: grid;
+    gap: 14px;
+    padding-block: clamp(26px, 4vw, 36px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .stat-label {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    max-width: 34ch;
+  }
+  .stat-pair {
+    display: flex;
+    align-items: baseline;
+    gap: clamp(14px, 4vw, 28px);
+  }
+  .stat-side { display: block; }
+  .stat-cap {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 2px;
+  }
+  .stat-val {
+    display: block;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-before .stat-val {
+    font-size: clamp(1.75rem, 5.4vw, 2.375rem);
+    color: var(--ink-soft);
+  }
+  .stat-after .stat-val {
+    font-size: clamp(2.5rem, 8.4vw, 3.75rem);
+    color: var(--gain);
+  }
+  /* Short text values ("Under 60 seconds") need to wrap, not tower. */
+  .stat-val.is-text {
+    font-size: clamp(1.375rem, 4.4vw, 1.875rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+  .stat-arrow {
+    align-self: center;
+    flex: none;
+    color: rgba(0, 0, 0, 0.25);
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+    line-height: 1;
+  }
+
+  .stat-source {
+    margin-top: clamp(26px, 4vw, 34px);
+    max-width: 660px;
+    font-size: 0.9375rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .stat-source strong { color: var(--ink); font-weight: 600; }
+  .stat-mechanism {
+    margin-top: 18px;
+    max-width: 660px;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  /* The live demo */
+  .demo {
+    margin-top: clamp(48px, 7vw, 76px);
+    padding: clamp(28px, 5vw, 44px);
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .demo h3 { margin-bottom: 12px; }
+  .demo p { color: var(--ink-soft); font-size: 1.0625rem; max-width: 52ch; }
+  .demo-number {
+    display: inline-block;
+    margin-top: 22px;
+    font-size: clamp(1.75rem, 6.4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    text-decoration: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .demo-number:hover { color: var(--accent-hover); text-decoration: underline; }
+  .demo-number:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+  .demo-fine {
+    margin-top: 14px;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
+  }
+  .demo-fine a { color: var(--accent); }
+  .demo-fine a:hover { color: var(--accent-hover); }
+
+
+  /* A button mid-page, after a section that earns one. Deliberately quieter
+     than the closing block: one line of setup, one button, no offer terms. */
+  .cta-inline {
+    margin-top: clamp(48px, 7vw, 76px);
+    text-align: center;
+  }
+  .cta-inline p {
+    max-width: 44ch;
+    margin: 0 auto 20px;
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- 4 · The sequence ----------
+     A frame, not a centerpiece. Narrow, quiet, no illustration. */
+  .sequence { padding-block: clamp(64px, 8vw, 100px); }
+  .sequence-inner { max-width: 640px; }
+  .sequence h2 { font-size: clamp(1.5rem, 3.2vw, 2.125rem); margin-bottom: 20px; }
+  .sequence p {
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+  .sequence p + p { margin-top: 14px; }
+
+  /* ---------- 5 · Problem ---------- */
   .problem, .band { background: var(--surface-alt); }
   .problem-points {
     display: grid;
-    gap: clamp(24px, 4vw, 40px);
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
     list-style: none;
   }
   .problem-points li {
@@ -239,12 +379,11 @@
     margin-bottom: 8px;
   }
 
-  /* How it works */
+  /* ---------- 6 · How it works ---------- */
   .steps {
     display: grid;
-    gap: clamp(28px, 4vw, 44px);
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    margin-bottom: clamp(56px, 8vw, 88px);
+    gap: clamp(28px, 4vw, 40px);
+    grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
     list-style: none;
     counter-reset: step;
   }
@@ -266,145 +405,75 @@
   }
   .steps p { color: var(--ink-soft); font-size: 1.0625rem; }
 
-  /* The preview is a view of the workflow builder, framed like the hero shot.
-     If the image ever fails to load, the frame shows a note, not a broken icon. */
-  .flow-figure { margin: 0; }
-  /* Compact preview only. The readable, interactive version lives on
-     how-it-works.html, which this links to. */
-  .flow-preview {
-    display: block;
-    max-width: 460px;
-    margin-inline: auto;
-    text-decoration: none;
-    border-radius: var(--radius);
-  }
-  .flow-preview:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 4px;
-  }
-  .flow-frame {
-    display: block;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 22px 48px rgba(16, 12, 40, 0.12), 0 5px 14px rgba(16, 12, 40, 0.05);
-  }
-  .flow-frame img {
-    width: 100%;
-    height: auto;
-  }
-  .flow-preview-cta {
-    display: block;
-    margin-top: 18px;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .flow-preview:hover .flow-preview-cta { text-decoration: underline; }
-  .flow-figure.is-missing .flow-frame {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 4 / 3;
-    background: var(--surface-alt);
-    border: 2px dashed rgba(0, 0, 0, 0.18);
-    color: var(--ink-soft);
-    text-align: center;
-  }
-  .flow-figure.is-missing img { display: none; }
-  .flow-figure.is-missing .flow-frame::after {
-    content: "Add your diagram at assets/automation-flow.png";
-    font-size: 0.9375rem;
-    padding: 24px;
-  }
-  .flow-figure figcaption {
-    margin-top: 20px;
-    text-align: center;
-    font-size: 0.9375rem;
-    color: var(--ink-soft);
-    max-width: 640px;
-    margin-inline: auto;
-  }
-
-  /* Feature cards */
-  .cards {
+  /* ---------- 7 · What gets installed ---------- */
+  .installed {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+    list-style: none;
   }
-  .card {
+  .installed li {
     background: var(--surface-alt);
-    border-radius: var(--radius);
-    padding: 36px 30px;
-  }
-  .card svg {
-    width: 34px;
-    height: 34px;
-    stroke: var(--accent);
-    margin-bottom: 20px;
-  }
-  .card h3 { margin-bottom: 10px; }
-  .card p { color: var(--ink-soft); font-size: 1.0625rem; }
-  .card ul { margin: 16px 0 0; padding-left: 18px; }
-  .card li {
-    font-size: 1rem;
-    color: var(--ink-soft);
-    line-height: 1.55;
-    margin-bottom: 10px;
-  }
-  .card li:last-child { margin-bottom: 0; }
-  .card li::marker { color: var(--accent); }
-
-  /* Pointers to the FAQ and the lead check, which live on their own pages */
-  .more-links {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  }
-  .more-card {
-    display: block;
-    background: var(--surface);
-    border: 1px solid rgba(0, 0, 0, 0.08);
     border-radius: var(--radius);
     padding: 30px 28px;
-    text-decoration: none;
-    transition: border-color 0.2s ease;
   }
-  .more-card:hover { border-color: var(--accent); }
-  .more-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
-  .more-title {
+  .installed strong {
     display: block;
-    font-size: 1.1875rem;
-    font-weight: 650;
+    font-size: 1.125rem;
     letter-spacing: -0.01em;
-    color: var(--accent);
-    margin-bottom: 8px;
+    line-height: 1.35;
+    margin-bottom: 10px;
   }
-  .more-sub {
-    display: block;
-    font-size: 1.0625rem;
+  .installed p { color: var(--ink-soft); font-size: 1rem; }
+
+  /* ---------- 8 · FAQ ---------- */
+  .faq-list {
+    max-width: 760px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .faq-list details { border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  .faq-list summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 22px 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq-list summary::-webkit-details-marker { display: none; }
+  .faq-list summary::after {
+    content: "";
+    flex: none;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid var(--ink-soft);
+    border-bottom: 2px solid var(--ink-soft);
+    transform: rotate(45deg) translate(-3px, -3px);
+    transition: transform 0.25s ease;
+  }
+  .faq-list details[open] summary::after { transform: rotate(225deg) translate(-3px, -3px); }
+  .faq-list summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .faq-list .answer {
+    padding: 0 0 24px;
+    max-width: 640px;
     color: var(--ink-soft);
-    line-height: 1.55;
+    font-size: 1.0625rem;
   }
+  .faq-list .answer p + p { margin-top: 14px; }
+  .faq-list .answer a { color: var(--accent); }
+  .faq-list .answer a:hover { color: var(--accent-hover); }
 
-  /* Final CTA */
-  .cta {
-    background: var(--ink);
-    color: #fff;
-    text-align: center;
-  }
-  .cta .lede {
-    color: #a1a1a6;
-    max-width: 520px;
-    margin: 24px auto 40px;
-  }
+  /* ---------- 9 · Final CTA ---------- */
+  .cta { background: var(--ink); color: #fff; text-align: center; }
+  .cta .lede { color: #a1a1a6; max-width: 560px; margin: 24px auto 16px; }
+  .cta .founding { color: #a1a1a6; margin: 0 auto 36px; }
 
-  /* Footer */
-  .footer {
-    padding-block: 40px;
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
-  }
+  /* ---------- 10 · Footer ---------- */
+  .footer { padding-block: 40px; border-top: 1px solid rgba(0, 0, 0, 0.06); }
   .footer-inner {
     display: flex;
     flex-wrap: wrap;
@@ -414,35 +483,40 @@
     font-size: 0.9375rem;
     color: var(--ink-soft);
   }
-  .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: -0.02em;
   }
+  .footer-logo svg { width: 24px; height: 24px; border-radius: 6px; }
+  .footer-logo:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 18px; }
   .footer a { color: var(--ink-soft); }
   .footer a:hover { color: var(--ink); }
+  .footer a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 
-  /* ---------- Scroll reveal ---------- */
-  .reveal {
+  /* ---------- Scroll reveal ----------
+     Scoped to .js, which the inline script in <head> sets before first paint.
+     With JavaScript off the class is never added, so nothing is ever hidden
+     and the whole page renders as plain content. */
+  .js .reveal {
     opacity: 0;
     transform: translateY(24px);
     transition: opacity 0.7s ease, transform 0.7s ease;
   }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: none;
-  }
-  .reveal.d1 { transition-delay: 0.08s; }
-  .reveal.d2 { transition-delay: 0.16s; }
-  .reveal.d3 { transition-delay: 0.24s; }
+  .js .reveal.is-visible { opacity: 1; transform: none; }
+  .js .reveal.d1 { transition-delay: 0.08s; }
+  .js .reveal.d2 { transition-delay: 0.16s; }
+  .js .reveal.d3 { transition-delay: 0.24s; }
 
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .reveal {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
+    .js .reveal { opacity: 1; transform: none; transition: none; }
+    .faq-list summary::after { transition: none; }
   }
 
   /* ---------- Depth ----------
@@ -458,8 +532,6 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Ambient wash behind the hero so the top of the page has some air in it */
-  /* overflow:hidden keeps the wash from widening the page */
   .hero { position: relative; isolation: isolate; overflow: hidden; }
   .hero::before {
     content: "";
@@ -484,14 +556,19 @@
   }
 
   /* Surfaces lift off the page rather than sitting flat on it */
-  .card, .more-card {
+  .installed li, .demo {
     background: linear-gradient(180deg, #ffffff 0%, var(--surface-alt) 100%);
     border: 1px solid rgba(0, 0, 0, 0.055);
     box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
   }
-  .more-card:hover {
-    border-color: rgba(109, 40, 217, 0.35);
-    box-shadow: 0 1px 2px rgba(16, 12, 40, 0.04), 0 14px 34px rgba(16, 12, 40, 0.07);
+
+  /* The problem points sit on a gray band, so they lift as white cards. */
+  .problem-points li {
+    background: linear-gradient(180deg, #ffffff 0%, #fdfdfe 100%);
+    border: 1px solid rgba(0, 0, 0, 0.055);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
   }
 
   /* The closing block was flat near-black; a low purple wash gives it shape */
@@ -507,97 +584,16 @@
   }
   .cta .container { position: relative; z-index: 1; }
 
-  /* The leak points and the CRM points sit on gray bands, so they lift as white
-     cards. (The cards on white go white-to-gray; on gray that would sink.) */
-  .problem-points {
-    gap: 20px;
-    /* wider min so six items land 3+3 rather than 4+2 */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-  .problem-points li {
-    background: linear-gradient(180deg, #ffffff 0%, #fdfdfe 100%);
-    border: 1px solid rgba(0, 0, 0, 0.055);
-    border-radius: var(--radius);
-    padding: 28px 26px;
-    box-shadow: 0 1px 2px rgba(16, 12, 40, 0.03), 0 10px 28px rgba(16, 12, 40, 0.045);
-  }
-
-  /* How it works runs as a two-column split: copy on the left, diagram on the
-     right. Every other section is center-stacked, so this breaks the rhythm. */
-  .how-split {
-    display: grid;
-    gap: clamp(44px, 6vw, 76px);
-    align-items: center;
-  }
-  .how-text .section-head {
-    max-width: 100%;
-    text-align: left;
-    margin-bottom: clamp(32px, 4vw, 44px);
-  }
-  .how-text h2 { font-size: clamp(1.875rem, 3.6vw, 2.75rem); }
-  /* Stacked inside the column, so the numbers read as a sequence down the page */
-  .how-text .steps {
-    grid-template-columns: 1fr;
-    gap: clamp(26px, 3vw, 34px);
-    margin-bottom: 0;
-  }
-  .how-split .flow-figure { margin: 0; }
-  .how-split .flow-preview { max-width: 100%; }
-  .how-split .flow-frame { max-height: 400px; }
-  .how-split figcaption { text-align: left; max-width: 100%; }
-
-  @media (min-width: 900px) {
-    .how-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
-  }
-
-  /* Hero split: the statement on the left, a real view of the product on the
-     right. The shot runs wider than its column and is clipped by the section,
-     so it bleeds toward the edge of the screen instead of sitting in a box. */
-  .hero-split {
-    display: grid;
-    gap: clamp(40px, 5vw, 64px);
-    align-items: center;
-  }
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px 26px;
-  }
-  .btn-text {
-    font-size: 1.0625rem;
-    font-weight: 600;
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .btn-text:hover { text-decoration: underline; }
-  .btn-text span { display: inline-block; margin-left: 2px; }
-  .btn-text:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 6px; }
-
-  .hero-shot { margin: 0; }
-  .hero-shot img {
-    width: 100%;
-    height: auto;
-    border-radius: 14px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    box-shadow: 0 32px 64px rgba(16, 12, 40, 0.14), 0 8px 20px rgba(16, 12, 40, 0.06);
-  }
-  .hero-shot figcaption {
-    margin-top: 14px;
-    font-size: 0.8125rem;
-    color: var(--ink-soft);
-  }
-
-  @media (min-width: 900px) {
-    .hero-split { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
-    .hero-copy { text-align: left; }
-    .hero-copy h1 { font-size: clamp(2.25rem, 4.4vw, 3.375rem); }
-    .hero-copy .lede { margin-left: 0; margin-right: 0; max-width: 100%; }
-    .hero-actions { justify-content: flex-start; }
-    /* wider than the column; .hero already clips, so it bleeds off the edge */
-    .hero-shot { width: 150%; }
-    .hero-shot figcaption { text-align: left; }
+  /* ---------- Wider screens ---------- */
+  @media (min-width: 760px) {
+    /* The stats become a ledger: what it measures on the left, the argument
+       on the right. On a phone they stay stacked. */
+    .stat {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 32px;
+    }
+    .stat-pair { justify-content: flex-end; }
   }
 </style>
 </head>
@@ -624,187 +620,302 @@
         <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
         <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
       </svg>
-      <span class="logo-word">Hero</span>
+      <span>Hero</span>
     </a>
-    <nav class="nav-menu" id="nav-menu" aria-label="Main">
-      <a href="how-it-works.html">How it works</a>
-      <a href="faq.html">Questions</a>
-      <a href="lead-check.html">Your numbers</a>
-    </nav>
-    <div class="nav-right">
-      <a class="nav-cta" href="#book">Book a Call</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-        <span class="bar" aria-hidden="true"></span>
-      </button>
-    </div>
+    <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
   </div>
 </header>
 
 <main id="main">
 
-  <!-- 1 · Hero -->
+  <!-- ============ 2 · Hero ============ -->
   <section class="hero" aria-labelledby="hero-heading">
-    <div class="container hero-split">
-      <!-- Copy sits first in the markup so a phone reads the headline before the
-           guarantees. On desktop the guarantees are moved to the left column. -->
-      <div class="hero-copy">
-        <h1 id="hero-heading" class="reveal">Stop losing the leads you already paid for.</h1>
-        <p class="lede reveal d1">Ads, SEO, referrals, the truck wrap. You paid to make that phone ring. Hero handles everything between the first ring and the paid invoice, so fewer of those leads quietly disappear.</p>
-        <div class="hero-actions reveal d2">
-          <a class="btn btn-primary" href="#book">Book a Call</a>
-          <a class="btn-text" href="how-it-works.html">See how it works <span aria-hidden="true">&rsaquo;</span></a>
-        </div>
-      </div>
-      <figure class="hero-shot reveal d1">
+    <div class="container">
+      <span class="eyebrow reveal">For exterior cleaning companies</span>
+      <h1 id="hero-heading" class="reveal">Your leads leak out between the phone ringing and the invoice getting paid.</h1>
+      <p class="lede reveal d1">I install lead capture and follow-up on your number and your calendar: missed-call text-back, instant replies to new leads, quote chasing, appointment reminders, review requests, and a CRM that holds all of it.</p>
+      <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
+      <!-- Urgency mechanism, 1 of 3. The other two are in the FAQ and the closing
+           section. It appears nowhere else on this page. -->
+      <p class="founding reveal d3">I'm taking three founding clients at a rate locked for 12 months, one exterior cleaning company per market.</p>
+
+      <!-- This is a product shot, not proof. It shows what the software looks
+           like, on an example account with sample data, and the caption says so
+           in the visitor's own words. The real numbers are the ones in type in
+           the proof section below, in my own voice, where they can be defended.
+           Keep those two things apart: the moment a screenshot sits next to a
+           results claim it starts reading as evidence for it. -->
+      <figure class="hero-shot reveal d3">
         <img src="assets/dashboard.png"
-             width="1440" height="905"
-             alt="The Hero dashboard for an example plumbing company, showing opportunity status, pipeline value, conversion rate, a reactivation funnel, and the last day of customer conversations."
+             width="2880" height="1810"
+             alt="The Hero dashboard: opportunity status, pipeline value, conversion rate, a reactivation funnel and the day's customer conversations, all on one screen."
              fetchpriority="high" decoding="async">
         <figcaption>Example account, sample data.</figcaption>
       </figure>
     </div>
   </section>
 
-  <!-- 2 · The problem -->
+  <!-- ============ 3 · Proof ============ -->
+  <section aria-labelledby="proof-heading">
+    <div class="container">
+
+      <div class="section-head reveal">
+        <span class="eyebrow">Proof</span>
+        <h2 id="proof-heading">I built this for my own window cleaning business before I sold it to anyone.</h2>
+        <p class="proof-note">I run a window cleaning company. The system on this page is the one I built to stop losing my own jobs, and I ran it on my own phone for months before I offered it to anyone else. The numbers below are mine, not a client's.</p>
+      </div>
+
+      <!-- 3a · The stat block -->
+      <ol class="stats reveal">
+        <li class="stat">
+          <p class="stat-label">Jobs per month</p>
+          <p class="stat-pair">
+            <span class="stat-side stat-before">
+              <span class="stat-cap">Before</span>
+              <span class="stat-val">5&ndash;7</span>
+            </span>
+            <span class="stat-arrow" aria-hidden="true">&rarr;</span>
+            <span class="stat-side stat-after">
+              <span class="stat-cap">After</span>
+              <span class="stat-val">15&ndash;28</span>
+            </span>
+          </p>
+        </li>
+
+        <li class="stat">
+          <!-- The denominator is part of the label on purpose. A bare
+               "conversion rate" would be unusable: the whole point is that
+               calls which were never answered live are counted in here. -->
+          <p class="stat-label">Inbound calls that became jobs, counting the calls I didn't answer live</p>
+          <p class="stat-pair">
+            <span class="stat-side stat-before">
+              <span class="stat-cap">Before</span>
+              <span class="stat-val">50%</span>
+            </span>
+            <span class="stat-arrow" aria-hidden="true">&rarr;</span>
+            <span class="stat-side stat-after">
+              <span class="stat-cap">After</span>
+              <span class="stat-val">85%</span>
+            </span>
+          </p>
+        </li>
+
+        <li class="stat">
+          <p class="stat-label">Time to respond to a missed call</p>
+          <p class="stat-pair">
+            <span class="stat-side stat-before">
+              <span class="stat-cap">Before</span>
+              <span class="stat-val is-text">About a day</span>
+            </span>
+            <span class="stat-arrow" aria-hidden="true">&rarr;</span>
+            <span class="stat-side stat-after">
+              <span class="stat-cap">After</span>
+              <span class="stat-val is-text">Under 60 seconds</span>
+            </span>
+          </p>
+        </li>
+      </ol>
+
+      <p class="stat-source reveal">
+        <!-- PROOF_PERIOD — bump the end month as time passes. -->
+        <strong>What these are:</strong> my own window cleaning company's figures, <strong>October 2025 to August 2026</strong>, measured the same way before and after. Every figure on this page covers that period and comes from my own business. No client's numbers appear anywhere on this site.
+      </p>
+
+      <p class="stat-mechanism reveal">The close rate moved for one reason. Calls that used to go to voicemail while I was up a ladder now get a text back inside a minute, so the homeowner stops working down the list.</p>
+
+      <!-- No screenshot in this section, deliberately. The shot in the hero is
+           labelled sample data and sells the product; anything placed HERE sits
+           against the results above it and reads as evidence for them. If you
+           want one here, it has to be the unedited live account. -->
+
+      <!-- 3b · The live demo -->
+      <div class="demo reveal">
+        <h3>Text this number and watch it answer.</h3>
+        <p>This is a live number running the same instant reply I install. Send it anything — a question, your name, one word. You'll have a text back before you've finished reading this section. That is the whole mechanism, working, before you've spoken to me.</p>
+        <a class="demo-number" href="sms:+15097747789">(509) 774-7789</a>
+        <p class="demo-fine">Message and data rates may apply. Reply STOP to opt out, HELP for help. See the <a href="/privacy-policy">privacy policy</a>.</p>
+      </div>
+
+      <!-- Someone convinced by the numbers above shouldn't have to scroll to
+           the bottom to act on it. No offer terms here — the founding line
+           stays in its three places. -->
+      <div class="cta-inline reveal">
+        <p>Those are my numbers. The call is where we go looking for yours.</p>
+        <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ 4 · The sequence ============ -->
+  <section class="sequence band" aria-labelledby="sequence-heading">
+    <div class="container">
+      <div class="sequence-inner reveal">
+        <h2 id="sequence-heading">Why this comes before advertising</h2>
+        <p>You are already paying to make the phone ring — referrals, Google, the van, the work you did last season. Some share of those leads is lost to slow follow-up, and that share is revenue you have already paid to generate. Catching it is the cheapest work available to you, and it is finished when it's done.</p>
+        <p>Advertising is a separate conversation, and it can come later if it makes sense for you.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · Problem ============ -->
   <section class="problem" aria-labelledby="problem-heading">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">The problem</span>
-        <h2 id="problem-heading">The leads are already coming in. They're leaking out.</h2>
-        <p class="lede">Nobody loses jobs because the phone never rings. They lose them in the gaps. The call that came in mid-crawlspace, the quote nobody followed up on, the appointment nobody confirmed.</p>
+        <span class="eyebrow">The week you already know</span>
+        <h2 id="problem-heading">None of this is a lead problem.</h2>
+        <p class="lede">The phone rings. That was never the hard part. The jobs go missing in the gaps between the ring and the invoice, and you're usually thirty feet up when it happens.</p>
       </div>
       <ul class="problem-points">
-        <li class="reveal"><strong>The call you couldn't take.</strong> Both hands under a sink. It rings out, and they're already dialing the next name on the list.</li>
-        <li class="reveal d1"><strong>The callback that came too late.</strong> You call back at six. They booked someone who answered at two.</li>
-        <li class="reveal d2"><strong>The quote that went quiet.</strong> You sent the number, they said they'd think about it, and nobody followed up.</li>
-        <li class="reveal"><strong>The no-show.</strong> Booked Tuesday, forgotten by Thursday. You drove out for nothing.</li>
-        <li class="reveal d1"><strong>The leads from three months ago.</strong> A list of people who wanted work done. Nobody has touched it since.</li>
-        <li class="reveal d2"><strong>The job that never got a review request.</strong> Good work, happy customer, no review. The next person searching never hears about it.</li>
+        <li class="reveal"><strong>The call you took at the top of the ladder.</strong> Which is to say the one you didn't take. Both hands on the pole, phone in the van, and by the time you're down it's been forty minutes.</li>
+        <li class="reveal d1"><strong>They called three companies.</strong> They booked whoever picked up first. It usually isn't the one still running a surface cleaner.</li>
+        <li class="reveal d2"><strong>The quote you sent Friday.</strong> They said they'd talk it over with their wife. Nobody chased it, and by Monday it was somebody else's driveway.</li>
+        <li class="reveal"><strong>The machine drowning out the phone.</strong> Two hours of pressure washing, four missed calls, no voicemails. Nobody leaves voicemails.</li>
+        <li class="reveal d1"><strong>The estimate you drove out for.</strong> Half an hour there, half an hour back, a number handed over at the door, and then nothing.</li>
+        <li class="reveal d2"><strong>The gutters you cleaned last autumn.</strong> Same house, same gutters, filling up again. They haven't heard from you since, so this year they'll search.</li>
       </ul>
     </div>
   </section>
 
-  <!-- 3 · How it works -->
+  <!-- ============ 6 · How it works ============ -->
   <section aria-labelledby="how-heading">
-    <div class="container how-split">
-      <div class="how-text">
-        <div class="section-head reveal">
-          <span class="eyebrow">How it works</span>
-          <h2 id="how-heading">We find the leaks, then we plug them.</h2>
-        </div>
-        <ol class="steps">
-          <li class="reveal"><strong>We walk your lead path</strong><p>Start to finish, from the first ring to the paid invoice. We find where jobs are falling out.</p></li>
-          <li class="reveal d1"><strong>We build it on your setup</strong><p>Your number, your calendar, your service area, including the carrier registration a business needs before it can text customers legally. You don't build anything.</p></li>
-          <li class="reveal d2"><strong>You just do the work</strong><p>The chasing, reminding, and asking runs itself. You pick up the ones worth your time.</p></li>
-        </ol>
-      </div>
-
-      <figure class="flow-figure reveal">
-        <a class="flow-preview" href="how-it-works.html">
-          <span class="flow-frame">
-            <img src="assets/automation-flow.png"
-                 width="1440" height="980"
-                 alt=""
-                 loading="lazy"
-                 onerror="this.closest('.flow-figure').classList.add('is-missing')">
-          </span>
-          <span class="flow-preview-cta">See how it works, step by step</span>
-        </a>
-        <figcaption>
-          One lead's whole path as it's actually built: a single workflow, from the first reply through the review ask to the check back months later. Example account, sample setup. Walk through it stage by stage, with the message that goes out at each one.
-        </figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- 4 · What you get -->
-  <section class="features" aria-labelledby="features-heading">
-    <div class="container">
-      <div class="section-head centered reveal">
-        <span class="eyebrow">What you get</span>
-        <h2 id="features-heading">The whole job, covered.</h2>
-        <p class="lede">From the first ring to the review that wins you the next one. Here's what runs without you touching it.</p>
-      </div>
-      <div class="cards">
-        <article class="card reveal">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-          <h3>Before the job</h3>
-          <p>Get them in the door.</p>
-          <ul>
-            <li>Miss a call and a text goes back in seconds, with a link to book</li>
-            <li>Web and Facebook form leads get an instant reply, day or night</li>
-            <li>A booking link that keeps nudging for a week instead of asking once</li>
-            <li>Add someone by hand and they join the same track</li>
-          </ul>
-        </article>
-        <article class="card reveal d1">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
-          <h3>The job</h3>
-          <p>It happens, and it gets paid.</p>
-          <ul>
-            <li>Confirmation when they book, reminders 24 hours and 1 hour out</li>
-            <li>Cancellations drop back into follow-up instead of vanishing</li>
-            <li>Quotes go out, and get chased when they go quiet</li>
-            <li>Invoice and payment handled in the same place as everything else</li>
-          </ul>
-        </article>
-        <article class="card reveal d2">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
-          <h3>After the job</h3>
-          <p>Turn one job into the next.</p>
-          <ul>
-            <li>The review request goes out the day after the work wraps</li>
-            <li>Reviews get watched and answered, so your profile isn't sitting stale</li>
-            <li>Referral asks to the customers who liked the work</li>
-            <li>Monthly touches, and a nudge again at 120 days</li>
-          </ul>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 · The CRM underneath it all -->
-  <section class="band" aria-labelledby="crm-heading">
     <div class="container">
       <div class="section-head reveal">
-        <span class="eyebrow">Underneath all of it</span>
-        <h2 id="crm-heading">One place for every lead, every text, every job.</h2>
-        <p class="lede">Not sticky notes on the dash and a phone full of half-finished threads. Every call, text, quote, and job sits in one system you can open from the truck.</p>
+        <span class="eyebrow">How it works</span>
+        <h2 id="how-heading">Four steps, in this order.</h2>
       </div>
-      <ul class="problem-points">
-        <li class="reveal"><strong>Every conversation in one thread.</strong> Calls, texts, and form leads land together, so you can see what was already said without hunting for it.</li>
-        <li class="reveal d1"><strong>You always know where someone stands.</strong> New lead, quoted, booked, paid, past customer. Tagged as it happens, not when someone remembers.</li>
-        <li class="reveal d2"><strong>It lives on your phone.</strong> Reply between jobs. Nothing to install on a desk you never sit at.</li>
+      <ol class="steps">
+        <li class="reveal"><strong>We walk your lead path</strong><p>On the demo call, start to finish: how a call comes in, what happens when you can't take it, what happens to a quote after you send it. I show you where the jobs are dropping out.</p></li>
+        <li class="reveal d1"><strong>I build it in your account</strong><p>Your own Hero account, your number, your calendar, your services and your prices. You approve every message before a single one goes out. You build nothing.</p></li>
+        <li class="reveal d2"><strong>I start carrier registration</strong><p>US carriers require every business to register before it can text customers. I file it and I start it first, so the clock is already running while the rest gets built. This is the piece nobody can put a firm date on.</p></li>
+        <li class="reveal d3"><strong>It runs, and you go back to work</strong><p>Missed calls get answered, quotes get chased, appointments get reminded, finished jobs get asked for a review. Replies land on your phone. You pick up the ones worth your time.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ 7 · What gets installed ============ -->
+  <section class="band" aria-labelledby="installed-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">What gets installed</span>
+        <h2 id="installed-heading">What you get, in plain terms.</h2>
+        <p class="lede">Not a list of features. This is what stops depending on you remembering.</p>
+      </div>
+      <ul class="installed">
+        <li class="reveal"><strong>Every missed call gets a text back in under a minute.</strong><p>From your number, with a link to book. The homeowner stops dialling the next company because somebody already answered.</p></li>
+        <li class="reveal d1"><strong>Every web and Facebook lead gets a reply the moment it lands.</strong><p>Six in the morning, ten at night, on a roof, doesn't matter. They hear back while they're still on the page.</p></li>
+        <li class="reveal d2"><strong>Every quote that goes quiet gets chased.</strong><p>Not once. Over the following week, by text and email, and it stops the moment they book or tell you no.</p></li>
+        <li class="reveal"><strong>Every booked job gets a confirmation and two reminders.</strong><p>When they book, then 24 hours out, then an hour out. You stop driving to empty driveways.</p></li>
+        <li class="reveal d1"><strong>Every finished job gets asked for a review the next day.</strong><p>The day after you pack up, while they're still looking at clean windows. Reviews get watched, so your profile isn't sitting stale.</p></li>
+        <li class="reveal d2"><strong>Every old customer gets a check back.</strong><p>Months later, when the gutters are filling again. The list of people who already paid you is the cheapest list you own.</p></li>
+        <li class="reveal"><strong>Every lead, text and job sits in one place.</strong><p>Not sticky notes on the dash and a phone full of half-finished threads. One thread per customer, open it from the van.</p></li>
+        <li class="reveal d1"><strong>You can text customers legally.</strong><p>Carrier registration filed, consent set up properly, opt-outs handled. This is why some businesses find their texts quietly stop being delivered, and it's included.</p></li>
       </ul>
-    </div>
-  </section>
 
-  <!-- 6 · Before you book -->
-  <section class="band" aria-labelledby="more-heading">
-    <div class="container">
-      <div class="section-head centered reveal">
-        <span class="eyebrow">Before you book</span>
-        <h2 id="more-heading">Two things worth a minute.</h2>
-      </div>
-      <div class="more-links">
-        <a class="more-card reveal" href="faq.html">
-          <span class="more-title">The questions people ask</span>
-          <span class="more-sub">What it costs, whether you're locked in, whether you have to drop the software you already run, and whether texting customers is legal.</span>
-        </a>
-        <a class="more-card reveal d1" href="lead-check.html">
-          <span class="more-title">Check your own numbers</span>
-          <span class="more-sub">Four questions and the arithmetic behind them, so you can see what unanswered calls are worth at the rate you already close.</span>
-        </a>
+      <div class="cta-inline reveal">
+        <p>How many of those are running in your business this week?</p>
+        <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
       </div>
     </div>
   </section>
 
-  <!-- 7 · Final CTA -->
-  <section class="cta" id="book" aria-labelledby="cta-heading">
+  <!-- ============ 8 · FAQ ============ -->
+  <section aria-labelledby="faq-heading">
     <div class="container">
-      <h2 id="cta-heading" class="reveal">You already paid for these leads. Let's keep them.</h2>
-      <p class="lede reveal d1">Fifteen minutes. We'll walk your lead path together and find where jobs are falling out, then you decide whether you want it plugged. We build the whole thing, carrier registration included, and you keep answering the phone the way you always have.</p>
-      <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a Call</a>
+      <div class="section-head reveal">
+        <span class="eyebrow">Straight answers</span>
+        <h2 id="faq-heading">What you're going to ask me anyway.</h2>
+      </div>
+      <div class="faq-list reveal">
+
+        <details>
+          <summary>What does it cost?</summary>
+          <div class="answer">
+            <p>There's no single number, and I'd rather say that than put a fake one on a website. It's a monthly fee with no long contract, and what moves it is how much of the path you want covered — someone who only wants missed calls answered pays less than someone who wants quotes, reminders, reviews and the CRM handled too. A one-van operation and a four-crew company aren't the same build.</p>
+            <p>You get the exact figure on the demo call, before you're asked to decide anything, and it doesn't change after.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Am I locked into a contract?</summary>
+          <div class="answer">
+            <p>No. Month to month, cancel whenever you want. If you cancel, your contacts and your conversation history go with you.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How long does setup take?</summary>
+          <div class="answer">
+            <p>The build is the quick part — your account, your messages, your calendar. The wait is carrier registration, which every US business has to clear before it can send texts. That runs on the carriers' clock, not mine, and I won't give you a date I can't hold.</p>
+            <p>I file it on day one so the clock is already running while everything else gets built.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if it doesn't work?</summary>
+          <div class="answer">
+            <p>You cancel and stop paying. There's no contract to buy your way out of and no data held hostage.</p>
+            <p>What I won't tell you is that it can't fail. It works by catching leads you're currently losing, so if you answer every call live, follow up every quote the same day and already ask every customer for a review, there's less here for you. That's a real answer and it's worth finding out on the call rather than after you've paid me.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why is there a founding rate?</summary>
+          <div class="answer">
+            <!-- Urgency mechanism, 2 of 3. -->
+            <p>Because I need three exterior cleaning companies I can point to. I've run this on my own business; I haven't run it on three other people's yet, and that's worth a discount to you and worth more than the discount to me.</p>
+            <p>Three companies, one per market, rate locked 12 months. After the three are taken it's standard pricing. A competitor across town can't buy the same system while you're running it.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Does this work for a one-van operation?</summary>
+          <div class="answer">
+            <p>That's who it was built for. I built it for my own window cleaning business when I was the one answering the phone, and the person who answers their own phone is the person losing the most to missed calls — because you can't answer it and work at the same time.</p>
+            <p>A bigger crew with an office manager already catches some of this. You don't.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Are ads included?</summary>
+          <div class="answer">
+            <p>No. This is follow-up only: catching and converting the leads you already get. I'd rather fix that first, because advertising into slow follow-up costs you more to learn the same lesson.</p>
+            <p>If advertising makes sense for you later, that's a separate conversation and a separate decision.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Do I have to change the software I already use?</summary>
+          <div class="answer">
+            <p>Not necessarily. Some companies keep what they use for scheduling and let this handle the lead side. Others would rather run everything in one place and move it over.</p>
+            <p>Either works. We look at what you're running on the call, before anything changes.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Will it sound like a robot?</summary>
+          <div class="answer">
+            <p>The messages are written for your business and you approve every one before it goes out. Short, plain, the way you'd actually say it. Change any of them whenever you want.</p>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · Final CTA ============ -->
+  <section class="cta" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading" class="reveal">Fifteen minutes, and I'll show you where your jobs are going.</h2>
+      <p class="lede reveal d1">We walk your lead path together on the call. If there's nothing leaking, I'll tell you that and you'll have lost a quarter of an hour.</p>
+      <!-- Urgency mechanism, 3 of 3.
+           ============================================================
+           SLOTS_REMAINING — the only number here you edit by hand.
+           Change the digit below and nothing else. Founding slots total
+           is three; this is how many are still open.
+           ============================================================ -->
+      <p class="founding reveal d1">Founding client pricing: three spots, one exterior cleaning company per market, rate locked 12 months. <strong>3</strong> still open.</p>
+      <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
     </div>
   </section>
 
@@ -812,16 +923,28 @@
 
 <footer class="footer">
   <div class="container footer-inner">
-    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
+    <a class="footer-logo" href="#top">
+      <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#6d28d9"/>
+        <rect x="17" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
+        <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="#f59e0b"/>
+      </svg>
+      <span>Hero</span>
+    </a>
+    <span>&copy; 2026 Hero. Lead follow-up for exterior cleaning companies.</span>
     <span class="footer-links">
-      <a href="privacy.html">Privacy Policy</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
       <a href="mailto:Alex.wilson@herolgo.com">Alex.wilson@herolgo.com</a>
+      <a href="tel:+15097747789">(509) 774-7789</a>
+      <a href="/privacy-policy">Privacy policy</a>
+      <a href="/terms-of-service">Terms of service</a>
     </span>
   </div>
 </footer>
 
 <script>
+  // Scroll reveal. With reduced motion or no IntersectionObserver, everything
+  // is shown immediately rather than hidden forever.
   (function () {
     var els = document.querySelectorAll(".reveal");
     var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -843,29 +966,6 @@
     els.forEach(function (el) { observer.observe(el); });
   })();
 
-  // Mobile menu. The four nav items do not fit a phone, so they collapse.
-  (function () {
-    var toggle = document.querySelector(".nav-toggle");
-    var menu = document.getElementById("nav-menu");
-    if (!toggle || !menu) return;
-
-    function setOpen(open) {
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      menu.classList.toggle("is-open", open);
-    }
-    toggle.addEventListener("click", function () {
-      setOpen(toggle.getAttribute("aria-expanded") !== "true");
-    });
-    menu.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") setOpen(false);
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  })();
 </script>
 
 </body>

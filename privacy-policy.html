@@ -74,58 +74,22 @@
     text-decoration: none;
   }
   .logo svg { width: 30px; height: 30px; border-radius: 8px; }
-  .nav-menu { display: flex; align-items: center; gap: 22px; }
-  .nav-menu a,
-  .nav-cta {
+  /* Logo and one button, matching the single page. Nothing to collapse. */
+  .btn {
+    display: inline-block;
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--accent);
     text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 999px;
     white-space: nowrap;
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
-  .nav-menu a:hover, .nav-cta:hover { text-decoration: underline; }
-  .nav-menu a[aria-current="page"] { color: var(--ink-soft); }
-  .nav-right { display: flex; align-items: center; gap: 8px; }
-  .nav-toggle { display: none; }
-  /* Four items will not fit a phone, so they collapse behind a menu button. */
-  @media (max-width: 780px) {
-    .nav-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      background: none;
-      border: 0;
-      border-radius: 10px;
-      color: var(--ink);
-      cursor: pointer;
-    }
-    .nav-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-    .nav-toggle .bar { position: relative; display: block; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
-    .nav-toggle .bar::before,
-    .nav-toggle .bar::after { content: ""; position: absolute; left: 0; width: 20px; height: 2px; background: currentColor; border-radius: 2px; }
-    .nav-toggle .bar::before { top: -6px; }
-    .nav-toggle .bar::after { top: 6px; }
-    .nav-menu {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      right: 0;
-      display: none;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      padding: 4px 24px 14px;
-      background: var(--surface);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-    }
-    .nav-menu.is-open { display: flex; }
-    .nav-menu a { padding: 14px 0; font-size: 1rem; }
-    .logo-word { display: none; }
-  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-hover); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .logo:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 10px; }
 
   /* Document */
   main { padding-block: clamp(56px, 9vw, 96px); }
@@ -256,7 +220,7 @@
 
 <header class="nav">
   <div class="container nav-inner">
-    <a class="logo" href="index.html" aria-label="Hero home">
+    <a class="logo" href="/" aria-label="Hero home">
       <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
         <defs>
           <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
@@ -273,19 +237,9 @@
         <rect x="38" y="13" width="9" height="38" rx="4.5" fill="#ddd6fe"/>
         <path d="M40 19 L22 34 L30.5 35.5 L25 45 L42 31 L33.5 29.5 Z" fill="url(#logo-bolt)"/>
       </svg>
-      <span class="logo-word">Hero</span>
+      <span>Hero</span>
     </a>
-    <nav class="nav-menu" id="nav-menu" aria-label="Main">
-      <a href="how-it-works.html">How it works</a>
-      <a href="faq.html">Questions</a>
-      <a href="lead-check.html">Your numbers</a>
-    </nav>
-    <div class="nav-right">
-      <a class="nav-cta" href="index.html#book">Book a Call</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
-        <span class="bar" aria-hidden="true"></span>
-      </button>
-    </div>
+    <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
   </div>
 </header>
 
@@ -316,7 +270,7 @@
     </nav>
 
     <h2 id="who-we-are">1. Who we are</h2>
-    <p>Hero ("Hero," "we," "us," or "our") is operated by Hero Lead Gen Optimization, located at 4106 Cloud View Ct, Hood River, OR 97031. We provide done-for-you lead follow-up and customer communication systems for home service businesses, including instant replies to new leads, appointment reminders, quote and invoice follow-up, review requests and reputation management, and a shared CRM for leads and conversations.</p>
+    <p>Hero ("Hero," "we," "us," or "our") is operated by Hero Lead Gen Optimization, located at 4106 Cloud View Ct, Hood River, OR 97031. We provide done-for-you lead follow-up and customer communication systems for exterior cleaning companies — window cleaning, pressure washing, soft wash, gutter cleaning, and roof cleaning — including instant replies to new leads, appointment reminders, quote and invoice follow-up, review requests and reputation management, and a shared CRM for leads and conversations.</p>
     <p>This policy applies to this website and to the messages we send from Hero's own phone numbers to people who contact us or request information about our services. If you are a customer of one of the businesses that uses Hero's systems, that business is responsible for its own privacy practices and its own consent records; we process data on that business's behalf as a service provider.</p>
 
     <h2 id="what-we-collect">2. Information we collect</h2>
@@ -365,7 +319,7 @@
     <p>We use messaging platforms and telecommunications providers, such as our CRM platform and its underlying SMS carrier, solely to transmit messages on our behalf. These providers are contractually restricted to using the information only to deliver our messages and may not use your phone number for their own marketing.</p>
 
     <h3>Full program terms</h3>
-    <p>The complete details of our messaging program, including the types of messages we send, how often, message and data rates, and carrier delivery disclaimers, are set out in our <a href="terms.html">SMS Terms &amp; Conditions</a>.</p>
+    <p>The complete details of our messaging program, including the types of messages we send, how often, message and data rates, and carrier delivery disclaimers, are set out in our <a href="/terms-of-service">SMS terms of service</a>.</p>
 
     <h2 id="sharing">5. How we share information</h2>
     <p>We share personal information only in these limited situations:</p>
@@ -409,40 +363,14 @@
 
 <footer class="footer">
   <div class="footer-inner">
-    <span>&copy; 2026 Hero. Lead follow-up and reputation systems for home service trades.</span>
+    <span>&copy; 2026 Hero. Lead follow-up for exterior cleaning companies.</span>
     <span class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="terms.html">Terms &amp; Conditions</a>
+      <a href="/">Home</a>
+      <a href="/terms-of-service">Terms of service</a>
       <a href="mailto:Alex.wilson@herolgo.com">Alex.wilson@herolgo.com</a>
     </span>
   </div>
 </footer>
-
-<script>
-  // Mobile menu. The four nav items do not fit a phone, so they collapse.
-  (function () {
-    var toggle = document.querySelector(".nav-toggle");
-    var menu = document.getElementById("nav-menu");
-    if (!toggle || !menu) return;
-
-    function setOpen(open) {
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      menu.classList.toggle("is-open", open);
-    }
-    toggle.addEventListener("click", function () {
-      setOpen(toggle.getAttribute("aria-expanded") !== "true");
-    });
-    menu.addEventListener("click", function (e) {
-      if (e.target.tagName === "A") setOpen(false);
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-  })();
-</script>
 
 </body>
 </html>
