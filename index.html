@@ -329,7 +329,22 @@
     font-size: 0.8125rem;
     color: var(--ink-soft);
   }
+  .demo-fine a { color: var(--accent); }
+  .demo-fine a:hover { color: var(--accent-hover); }
 
+
+  /* A button mid-page, after a section that earns one. Deliberately quieter
+     than the closing block: one line of setup, one button, no offer terms. */
+  .cta-inline {
+    margin-top: clamp(48px, 7vw, 76px);
+    text-align: center;
+  }
+  .cta-inline p {
+    max-width: 44ch;
+    margin: 0 auto 20px;
+    font-size: 1.0625rem;
+    color: var(--ink-soft);
+  }
 
   /* ---------- 4 · The sequence ----------
      A frame, not a centerpiece. Narrow, quiet, no illustration. */
@@ -721,6 +736,14 @@
         <p class="demo-fine">Message and data rates may apply. Reply STOP to opt out, HELP for help. See the <a href="/privacy-policy">privacy policy</a>.</p>
       </div>
 
+      <!-- Someone convinced by the numbers above shouldn't have to scroll to
+           the bottom to act on it. No offer terms here — the founding line
+           stays in its three places. -->
+      <div class="cta-inline reveal">
+        <p>Those are my numbers. The call is where we go looking for yours.</p>
+        <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
+      </div>
+
     </div>
   </section>
 
@@ -788,6 +811,11 @@
         <li class="reveal"><strong>Every lead, text and job sits in one place.</strong><p>Not sticky notes on the dash and a phone full of half-finished threads. One thread per customer, open it from the van.</p></li>
         <li class="reveal d1"><strong>You can text customers legally.</strong><p>Carrier registration filed, consent set up properly, opt-outs handled. This is why some businesses find their texts quietly stop being delivered, and it's included.</p></li>
       </ul>
+
+      <div class="cta-inline reveal">
+        <p>How many of those are running in your business this week?</p>
+        <a class="btn btn-primary" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
+      </div>
     </div>
   </section>
 
