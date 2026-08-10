@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hero: lead follow-up installed for exterior cleaning companies</title>
-<meta name="description" content="I install lead capture and follow-up on GoHighLevel for exterior cleaning companies: missed-call text-back, instant lead replies, quote chasing, reminders, review requests, and a CRM that holds it together. Book a demo.">
+<meta name="description" content="I install lead capture and follow-up for exterior cleaning companies: missed-call text-back, instant lead replies, quote chasing, reminders, review requests, and a CRM that holds it together. Book a demo.">
 <meta property="og:title" content="Hero: lead follow-up installed for exterior cleaning companies">
 <meta property="og:description" content="Your leads leak out between the phone ringing and the invoice getting paid. I install the follow-up that catches them. Built for my own window cleaning business first.">
 <meta property="og:type" content="website">
@@ -25,10 +25,9 @@
        or the stats start covering a period that has moved on
        without them.
 
-    3. A REAL GHL SCREENSHOT, if you want one in the proof
-       section. Search for "TODO: real GHL screenshot". The
-       slot is empty until you supply a file — see the note
-       there for what it has to be.
+    3. THE HERO SCREENSHOT in the hero section is an example
+       account with sample data, and is captioned as such. See
+       the note above it before swapping it.
 
   ============================================================
 -->
@@ -196,6 +195,27 @@
     font-size: 0.9375rem;
     color: var(--ink-soft);
     line-height: 1.5;
+  }
+
+  /* The product shot under the hero copy. Capped well under the container so
+     it reads as one screen rather than a wall, and it keeps its aspect ratio
+     reserved so nothing below it jumps when the image lands. */
+  .hero-shot {
+    margin: clamp(44px, 7vw, 72px) auto 0;
+    max-width: 940px;
+  }
+  .hero-shot img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2880 / 1810;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 32px 64px rgba(16, 12, 40, 0.14), 0 8px 20px rgba(16, 12, 40, 0.06);
+  }
+  .hero-shot figcaption {
+    margin-top: 14px;
+    font-size: 0.8125rem;
+    color: var(--ink-soft);
   }
 
   /* ---------- 3 · Proof ---------- */
@@ -598,11 +618,25 @@
     <div class="container">
       <span class="eyebrow reveal">For exterior cleaning companies</span>
       <h1 id="hero-heading" class="reveal">Your leads leak out between the phone ringing and the invoice getting paid.</h1>
-      <p class="lede reveal d1">I install lead capture and follow-up in GoHighLevel on your number and your calendar: missed-call text-back, instant replies to new leads, quote chasing, appointment reminders, review requests, and a CRM that holds all of it.</p>
+      <p class="lede reveal d1">I install lead capture and follow-up on your number and your calendar: missed-call text-back, instant replies to new leads, quote chasing, appointment reminders, review requests, and a CRM that holds all of it.</p>
       <a class="btn btn-primary reveal d2" href="https://my.herolgo.com/widget/bookings/alexw-calendar">Book a demo</a>
       <!-- Urgency mechanism, 1 of 3. The other two are in the FAQ and the closing
            section. It appears nowhere else on this page. -->
       <p class="founding reveal d3">I'm taking three founding clients at a rate locked for 12 months, one exterior cleaning company per market.</p>
+
+      <!-- This is a product shot, not proof. It shows what the software looks
+           like, on an example account with sample data, and the caption says so
+           in the visitor's own words. The real numbers are the ones in type in
+           the proof section below, in my own voice, where they can be defended.
+           Keep those two things apart: the moment a screenshot sits next to a
+           results claim it starts reading as evidence for it. -->
+      <figure class="hero-shot reveal d3">
+        <img src="assets/dashboard.png"
+             width="2880" height="1810"
+             alt="The Hero dashboard: opportunity status, pipeline value, conversion rate, a reactivation funnel and the day's customer conversations, all on one screen."
+             fetchpriority="high" decoding="async">
+        <figcaption>Example account, sample data.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -674,13 +708,10 @@
 
       <p class="stat-mechanism reveal">The close rate moved for one reason. Calls that used to go to voicemail while I was up a ladder now get a text back inside a minute, so the homeowner stops working down the list.</p>
 
-      <!-- TODO: real GHL screenshot — send a screenshot of the live account as
-           it actually reads and I'll place it here with real alt text.
-           It has to be the unedited view: the numbers on the page below are
-           claims I make in my own voice and can defend on a call, but a
-           screenshot is read as system-generated evidence, so anything shown
-           in one has to be what the software actually displayed.
-           Nothing is drawn, simulated or filled in here in the meantime. -->
+      <!-- No screenshot in this section, deliberately. The shot in the hero is
+           labelled sample data and sells the product; anything placed HERE sits
+           against the results above it and reads as evidence for them. If you
+           want one here, it has to be the unedited live account. -->
 
       <!-- 3b · The live demo -->
       <div class="demo reveal">
@@ -732,7 +763,7 @@
       </div>
       <ol class="steps">
         <li class="reveal"><strong>We walk your lead path</strong><p>On the demo call, start to finish: how a call comes in, what happens when you can't take it, what happens to a quote after you send it. I show you where the jobs are dropping out.</p></li>
-        <li class="reveal d1"><strong>I build it in your account</strong><p>Your GoHighLevel sub-account, your number, your calendar, your services and your prices. You approve every message before a single one goes out. You build nothing.</p></li>
+        <li class="reveal d1"><strong>I build it in your account</strong><p>Your own Hero account, your number, your calendar, your services and your prices. You approve every message before a single one goes out. You build nothing.</p></li>
         <li class="reveal d2"><strong>I start carrier registration</strong><p>US carriers require every business to register before it can text customers. I file it and I start it first, so the clock is already running while the rest gets built. This is the piece nobody can put a firm date on.</p></li>
         <li class="reveal d3"><strong>It runs, and you go back to work</strong><p>Missed calls get answered, quotes get chased, appointments get reminded, finished jobs get asked for a review. Replies land on your phone. You pick up the ones worth your time.</p></li>
       </ol>
