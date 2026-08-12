@@ -51,6 +51,13 @@
        The "before" values use --ink-soft: 5.07:1 on white, 4.66:1 on gray. */
     --gain: #15803d;
 
+    /* The two grays the lead path plot is drawn in. Losses never get a red:
+       the page's vocabulary is already --ink-soft for "before" and --gain for
+       "after", and a leak is a "before". These are the fill of a leak bar and
+       the line that drops into it, nothing else. */
+    --leak: #c7c7cc;
+    --leak-deep: #aeaeb2;
+
     --radius: 18px;
     --container: 1080px;
   }
@@ -405,7 +412,371 @@
   }
   .steps p { color: var(--ink-soft); font-size: 1.0625rem; }
 
-  /* ---------- 7 · What gets installed ---------- */
+  /* ---------- 7 · Lead path ----------
+     The interactive form of step 1 above: the visitor sets four numbers about
+     their own business and the same walk-through fills in with their figures.
+
+     No framework, deliberately. The rest of this page has no build step and a
+     calculator is not a good enough reason to add one. Everything is worked
+     out in the browser and nothing is sent anywhere.
+
+     Losses are drawn in gray, never red. The page already has a vocabulary for
+     this: "before" values are --ink-soft, "after" values are --gain, and a
+     leak is a "before". */
+  .lp-fallback {
+    color: var(--ink-soft);
+    font-size: 1.0625rem;
+    max-width: 62ch;
+  }
+
+  .lp-controls {
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+    padding: clamp(22px, 3.4vw, 34px);
+  }
+  .lp-controls-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 6px 24px;
+    margin-bottom: 26px;
+  }
+  .lp-controls-head strong { font-size: 1.0625rem; letter-spacing: -0.01em; }
+  .lp-controls-head span { color: var(--ink-soft); font-size: 0.9375rem; }
+
+  /* Four controls, so two-by-two rather than auto-fit — auto-fit lands them
+     three-up-then-one at container width, which reads as a mistake. */
+  .lp-grid { display: grid; gap: 28px 40px; }
+  @media (min-width: 620px) {
+    .lp-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .lp-control-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .lp-control-top strong { font-size: 0.9375rem; }
+  .lp-val { font-size: 1.0625rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .lp-hint {
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    margin: 4px 0 14px;
+  }
+
+  /* ---------- Range inputs ----------
+     Native, so keyboard control, touch targets and screen-reader
+     announcements come from the platform rather than from script. WebKit has
+     no ::-webkit-slider-progress, so the filled part of the track is a
+     gradient stop positioned from the current value. */
+  .lp-range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+    padding-block: 12px;   /* a 44px target over a 6px track */
+    margin-block: -12px;
+  }
+  .lp-range:focus { outline: none; }
+  .lp-range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(to right,
+      var(--ink) var(--fill, 50%), rgba(0, 0, 0, 0.1) var(--fill, 50%));
+  }
+  .lp-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    margin-top: -7px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+  }
+  .lp-range:focus-visible::-webkit-slider-thumb {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  .lp-range::-moz-range-track {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  .lp-range::-moz-range-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: var(--ink);
+  }
+  .lp-range::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.28);
+  }
+  .lp-range:focus-visible::-moz-range-thumb {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  /* The one under an assumption, quieter so it never competes with the four
+     that matter. */
+  .lp-range-sm::-webkit-slider-runnable-track {
+    height: 4px;
+    background: linear-gradient(to right,
+      var(--ink-soft) var(--fill, 50%), rgba(0, 0, 0, 0.1) var(--fill, 50%));
+  }
+  .lp-range-sm::-webkit-slider-thumb {
+    height: 15px;
+    width: 15px;
+    margin-top: -5.5px;
+    background: var(--ink-soft);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+  }
+  .lp-range-sm::-moz-range-track { height: 4px; }
+  .lp-range-sm::-moz-range-progress { height: 4px; background: var(--ink-soft); }
+  .lp-range-sm::-moz-range-thumb {
+    height: 15px;
+    width: 15px;
+    background: var(--ink-soft);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+  }
+
+  /* ---------- The plot ----------
+     Bars off a rail, not a Sankey. A Sankey implies the flow is conserved
+     between stages, and these four leaks come from overlapping but different
+     groups of people — a true flow diagram would claim a precision the
+     numbers don't have. Below 760px the cards carry it instead. */
+  .lp-figure { display: none; margin: clamp(44px, 6vw, 72px) 0 0; }
+  .lp-figure svg { width: 100%; height: auto; }
+  .lp-figcaption {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    margin-top: 14px;
+  }
+  .lp-figcaption b { color: var(--gain); font-weight: 600; }
+
+  /* ---------- Leak list ---------- */
+  .lp-leaks {
+    list-style: none;
+    margin-top: clamp(40px, 6vw, 68px);
+  }
+  .lp-leak {
+    border-top: 1px solid rgba(0, 0, 0, 0.09);
+    padding-block: 28px;
+  }
+  .lp-leak:first-child { border-top: 0; padding-top: 0; }
+  .lp-leak-head { display: grid; gap: 16px; }
+  .lp-stage {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .lp-leak h3 { margin-bottom: 8px; }
+  .lp-blurb { color: var(--ink-soft); font-size: 0.9375rem; max-width: 46ch; }
+
+  .lp-nums { display: flex; align-items: baseline; gap: 36px; }
+  .lp-num-big {
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .lp-num-gain {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--gain);
+    font-variant-numeric: tabular-nums;
+  }
+  .lp-num-cap { color: var(--ink-soft); font-size: 0.8125rem; margin-top: 5px; }
+  .lp-uncounted { color: var(--ink-soft); font-size: 0.9375rem; font-weight: 600; }
+
+  .lp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 20px;
+    margin-top: 18px;
+  }
+  .lp-toggle {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(109, 40, 217, 0.3);
+  }
+  .lp-toggle:hover { text-decoration-color: var(--accent); }
+  .lp-toggle:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+  .lp-installed { color: var(--ink-soft); font-size: 0.9375rem; }
+  .lp-installed b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- The math ---------- */
+  .lp-math {
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+    padding: clamp(18px, 2.6vw, 26px);
+    margin-top: 20px;
+  }
+  .lp-math[hidden] { display: none; }
+  .lp-row { margin-bottom: 10px; }
+  .lp-row-main {
+    display: grid;
+    grid-template-columns: 1.5rem auto 1fr;
+    gap: 0 10px;
+    align-items: baseline;
+    font-size: 0.9375rem;
+  }
+  .lp-op { color: var(--ink-soft); }
+  .lp-operand { font-weight: 700; font-variant-numeric: tabular-nums; }
+  .lp-label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 16px;
+    color: var(--ink-soft);
+  }
+  .lp-label > span:first-child { max-width: 40ch; }
+  .lp-running { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .lp-row-last .lp-running { color: var(--ink); }
+  .lp-row-gain .lp-running { color: var(--gain); }
+  .lp-adjust { margin: 8px 0 0 calc(1.5rem + 10px); max-width: 30rem; }
+  .lp-note { color: var(--ink-soft); font-size: 0.8125rem; line-height: 1.4; margin-top: 8px; }
+  .lp-rule { border-top: 1px solid rgba(0, 0, 0, 0.07); margin: 16px 0; }
+  .lp-math-foot {
+    color: var(--ink-soft);
+    font-size: 0.8125rem;
+    margin-top: 18px;
+    max-width: 70ch;
+  }
+  /* The one stage carrying no number, and the reason why. */
+  .lp-why {
+    background: var(--surface-alt);
+    border-radius: var(--radius);
+    padding: clamp(18px, 2.6vw, 24px);
+    margin-top: 18px;
+    color: var(--ink-soft);
+    font-size: 0.9375rem;
+    max-width: 64ch;
+  }
+
+  /* ---------- The total ----------
+     Same treatment as the closing block, for the same reason: this is the
+     moment the section is arguing towards. */
+  .lp-total {
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    border-radius: var(--radius);
+    color: #fff;
+    text-align: center;
+    padding: clamp(44px, 6vw, 68px) clamp(22px, 4vw, 44px);
+    margin-top: clamp(44px, 6vw, 72px);
+  }
+  .lp-total::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(58% 78% at 50% 0%, rgba(124, 58, 237, 0.30), transparent 66%),
+      radial-gradient(40% 60% at 88% 100%, rgba(88, 52, 200, 0.16), transparent 70%);
+  }
+  .lp-total > * { position: relative; z-index: 1; }
+  .lp-total .eyebrow { color: #a78bfa; }
+  .lp-band {
+    font-size: clamp(2rem, 6.4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    text-wrap: balance;
+  }
+  .lp-band small {
+    font-size: 0.44em;
+    font-weight: 600;
+    letter-spacing: normal;
+    color: #a1a1a6;
+  }
+  .lp-total-sub {
+    color: #a1a1a6;
+    font-size: 1.0625rem;
+    max-width: 46ch;
+    margin: 16px auto 0;
+  }
+  .lp-total-sub b { color: #fff; font-weight: 600; }
+  .lp-total .btn { margin-top: 34px; }
+  .lp-total .btn:focus-visible { outline-color: #fff; }
+  .lp-total-fine {
+    color: #8e8e93;
+    font-size: 0.875rem;
+    max-width: 48ch;
+    margin: 20px auto 0;
+  }
+
+  /* ---------- Small print ---------- */
+  .lp-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px 40px;
+    margin-top: 28px;
+  }
+  .lp-foot p {
+    color: var(--ink-soft);
+    font-size: 0.875rem;
+    max-width: 68ch;
+  }
+  .lp-foot b { color: var(--ink); font-weight: 600; }
+  .lp-reset {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(109, 40, 217, 0.3);
+  }
+  .lp-reset[hidden] { display: none; }
+  .lp-reset:hover { text-decoration-color: var(--accent); }
+  .lp-reset:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* Same breakpoint the stats use. Below it the plot is dropped and the
+     cards carry the whole thing, stacked. */
+  @media (min-width: 760px) {
+    .lp-figure { display: block; }
+    .lp-leak-head {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 32px;
+    }
+    .lp-nums { display: block; text-align: right; }
+    .lp-nums > div + div { margin-top: 14px; }
+    .lp-uncounted { text-align: right; max-width: 22ch; }
+  }
+
+  /* ---------- 8 · What gets installed ---------- */
   .installed {
     display: grid;
     gap: 20px;
@@ -426,7 +797,7 @@
   }
   .installed p { color: var(--ink-soft); font-size: 1rem; }
 
-  /* ---------- 8 · FAQ ---------- */
+  /* ---------- 9 · FAQ ---------- */
   .faq-list {
     max-width: 760px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
@@ -467,12 +838,12 @@
   .faq-list .answer a { color: var(--accent); }
   .faq-list .answer a:hover { color: var(--accent-hover); }
 
-  /* ---------- 9 · Final CTA ---------- */
+  /* ---------- 10 · Final CTA ---------- */
   .cta { background: var(--ink); color: #fff; text-align: center; }
   .cta .lede { color: #a1a1a6; max-width: 560px; margin: 24px auto 16px; }
   .cta .founding { color: #a1a1a6; margin: 0 auto 36px; }
 
-  /* ---------- 10 · Footer ---------- */
+  /* ---------- 11 · Footer ---------- */
   .footer { padding-block: 40px; border-top: 1px solid rgba(0, 0, 0, 0.06); }
   .footer-inner {
     display: flex;
@@ -793,7 +1164,25 @@
     </div>
   </section>
 
-  <!-- ============ 7 · What gets installed ============ -->
+  <!-- ============ 7 · Lead path ============ -->
+  <section id="lead-path" aria-labelledby="leadpath-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Your lead path</span>
+        <h2 id="leadpath-heading">Where your jobs are going, in your numbers.</h2>
+        <p class="lede">This is the walk-through from step one, except you're driving. Set four sliders to your business and the path fills in. Every percentage underneath it is on screen and draggable — there is nothing hidden in the math.</p>
+      </div>
+
+      <!-- The script replaces this paragraph with the live version. If it
+           never runs — no JavaScript, or something threw — the paragraph is
+           what stays, rather than a heading over empty space. -->
+      <div class="lp-app">
+        <p class="lp-fallback">This part works out where your jobs are going from four numbers you set, so it needs JavaScript switched on. The short version: the money goes missing on calls you can't take, on quotes nobody chases, on empty driveways, and on customers who never hear from you again. We go through all four on the call.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 · What gets installed ============ -->
   <section class="band" aria-labelledby="installed-heading">
     <div class="container">
       <div class="section-head reveal">
@@ -819,7 +1208,7 @@
     </div>
   </section>
 
-  <!-- ============ 8 · FAQ ============ -->
+  <!-- ============ 9 · FAQ ============ -->
   <section aria-labelledby="faq-heading">
     <div class="container">
       <div class="section-head reveal">
@@ -903,7 +1292,7 @@
     </div>
   </section>
 
-  <!-- ============ 9 · Final CTA ============ -->
+  <!-- ============ 10 · Final CTA ============ -->
   <section class="cta" aria-labelledby="cta-heading">
     <div class="container">
       <h2 id="cta-heading" class="reveal">Fifteen minutes, and I'll show you where your jobs are going.</h2>
@@ -943,6 +1332,595 @@
 </footer>
 
 <script>
+  // Lead path. Four numbers from the visitor, nine assumptions, and the sums
+  // that join them, all of it on screen.
+  //
+  // The rule the whole section is built around: every figure a visitor sees is
+  // either something they set or something derived from it by math they can
+  // read. No constant is buried. Anything that isn't a fact about their
+  // business is an assumption — labelled, explained, and draggable — so
+  // someone who disagrees can move it instead of dismissing the lot.
+  //
+  // The DOM is built once and only its text is rewritten afterwards. Replacing
+  // nodes on every input would drop the drag half way through.
+  (function () {
+    var app = document.querySelector(".lp-app");
+    if (!app) return;
+
+    var BOOKING = "https://my.herolgo.com/widget/bookings/alexw-calendar";
+
+    // Pitched at the one-van operation this page is written for, and checked
+    // against the proof section above: "5-7 jobs a month" at "50% of inbound
+    // calls became jobs" puts that business near 10-15 calls a month.
+    var DEFAULTS = { calls: 25, live: 0.5, job: 250, quotes: 8 };
+
+    var CONTROLS = [
+      { key: "calls", label: "Calls a month", min: 5, max: 120, step: 5,
+        hint: "Everything that makes the phone ring — referrals, Google, the van.",
+        fmt: function (v) { return String(v); } },
+      { key: "live", label: "Share you catch live", min: 0.1, max: 1, step: 0.05,
+        hint: "Honestly. Counting the ones that rang out while the machine was running.",
+        fmt: function (v) { return Math.round(v * 100) + "%"; } },
+      { key: "job", label: "Average job", min: 75, max: 800, step: 25,
+        hint: "What a typical clean invoices at, before tax.",
+        fmt: function (v) { return money(v); } },
+      { key: "quotes", label: "Quotes you send a month", min: 0, max: 60, step: 1,
+        hint: "The ones that need a number sent over rather than booking on the call.",
+        fmt: function (v) { return String(v); } }
+    ];
+
+    var ASSUMPTIONS = {
+      callBackAnyway: { d: 0.30, min: 0.05, max: 0.70,
+        label: "call back or leave a voicemail anyway",
+        note: "The ones you'd have caught regardless. They come out before anything is counted as lost." },
+      bookRate: { d: 0.45, min: 0.10, max: 0.90,
+        label: "would have booked if they'd reached you",
+        note: "Your close rate on people you actually speak to. Move it to whatever yours is." },
+      textBackRecovery: { d: 0.55, min: 0.20, max: 0.90,
+        label: "a text back inside 60 seconds wins back",
+        note: "Not all of them. Some have already booked the company that picked up. This is the share that replies." },
+      quoteGoesQuiet: { d: 0.40, min: 0.10, max: 0.80,
+        label: "go quiet — no yes, no no",
+        note: "Quotes that get no answer either way. Not the ones who told you they went elsewhere." },
+      chaseWinRate: { d: 0.25, min: 0.05, max: 0.60,
+        label: "book when they're chased over the following week",
+        note: "Texts and emails that stop the moment they book or say no." },
+      noShowRate: { d: 0.08, min: 0.01, max: 0.30,
+        label: "nobody home when you get there",
+        note: "Bookings that turn into a drive out and a drive back." },
+      reminderRecovery: { d: 0.75, min: 0.30, max: 0.95,
+        label: "a confirmation and two reminders prevent",
+        note: "At booking, 24 hours out, an hour out. Doesn't fix the ones who never meant to be there." },
+      lapseRate: { d: 0.60, min: 0.20, max: 0.90,
+        label: "don't come back on their own",
+        note: "They were happy. They just didn't think of you when the gutters filled again." },
+      reactivationRate: { d: 0.15, min: 0.03, max: 0.40,
+        label: "book again when you check back",
+        note: "One message, months later, to a list of people who already paid you once." }
+    };
+
+    var input = {};
+    var assumption = {};
+    function reset() {
+      for (var k in DEFAULTS) { input[k] = DEFAULTS[k]; }
+      for (var a in ASSUMPTIONS) { assumption[a] = ASSUMPTIONS[a].d; }
+    }
+    reset();
+
+    /* ---------- formatting ---------- */
+
+    function money(n) {
+      n = Math.round(n);
+      return n >= 10000
+        ? "$" + (Math.round(n / 100) / 10).toFixed(1) + "k"
+        : "$" + n.toLocaleString("en-US");
+    }
+    function pct(n) { return Math.round(n * 100) + "%"; }
+    function num(n) {
+      return n >= 10 ? String(Math.round(n)) : String(Math.round(n * 10) / 10);
+    }
+    function jobs(n) {
+      return num(n) + (Math.abs(n - 1) < 0.05 ? " job" : " jobs");
+    }
+
+    /* ---------- the model ---------- */
+
+    function compute() {
+      var a = assumption;
+      var calls = input.calls, live = input.live, job = input.job;
+
+      // 1. Calls that never reach you.
+      var missed = calls * (1 - live);
+      var gone = missed * (1 - a.callBackAnyway);
+      var lostCallJobs = gone * a.bookRate;
+      var lostCalls = lostCallJobs * job;
+
+      // 2. Quotes that go quiet.
+      var quiet = input.quotes * a.quoteGoesQuiet;
+      var quoteJobs = quiet * a.chaseWinRate;
+      var lostQuotes = quoteJobs * job;
+
+      // 3. Empty driveways. Everyone who got through, times your close rate.
+      //    The quote path sits inside that rate rather than beside it, so a
+      //    job is never counted twice.
+      var reached = calls * live + missed * a.callBackAnyway;
+      var booked = reached * a.bookRate;
+      var noShows = booked * a.noShowRate;
+      var lostNoShow = noShows * job;
+
+      // 4. Customers who never hear from you again.
+      var servedAYear = booked * 12;
+      var lapsed = servedAYear * a.lapseRate;
+      var reactivated = lapsed * a.reactivationRate;
+      var lostLapsed = reactivated * job / 12;
+
+      var leaks = [
+        {
+          id: "missed-calls",
+          lost: lostCalls,
+          back: lostCalls * a.textBackRecovery,
+          steps: [
+            { op: "", operand: num(calls), label: "calls a month", running: num(calls) + " calls" },
+            { op: "×", operand: pct(1 - live), label: "you can't catch live", running: num(missed) + " missed" },
+            { op: "×", operand: pct(1 - a.callBackAnyway), label: "never " + ASSUMPTIONS.callBackAnyway.label, running: num(gone) + " gone", key: "callBackAnyway", invert: true },
+            { op: "×", operand: pct(a.bookRate), label: ASSUMPTIONS.bookRate.label, running: jobs(lostCallJobs), key: "bookRate" },
+            { op: "×", operand: money(job), label: "average job", running: money(lostCalls) + " a month" }
+          ],
+          recovery: [
+            { op: "of which", operand: pct(a.textBackRecovery), label: ASSUMPTIONS.textBackRecovery.label, running: money(lostCalls * a.textBackRecovery) + " a month", key: "textBackRecovery" }
+          ]
+        },
+        {
+          id: "quiet-quotes",
+          lost: lostQuotes,
+          back: lostQuotes,
+          steps: [
+            { op: "", operand: num(input.quotes), label: "quotes a month", running: num(input.quotes) + " quotes" },
+            { op: "×", operand: pct(a.quoteGoesQuiet), label: ASSUMPTIONS.quoteGoesQuiet.label, running: num(quiet) + " unanswered", key: "quoteGoesQuiet" },
+            { op: "×", operand: pct(a.chaseWinRate), label: ASSUMPTIONS.chaseWinRate.label, running: jobs(quoteJobs), key: "chaseWinRate" },
+            { op: "×", operand: money(job), label: "average job", running: money(lostQuotes) + " a month" }
+          ],
+          recovery: [
+            { op: "of which", operand: "all of it", label: "chasing is the entire mechanism here — there's nothing to discount", running: money(lostQuotes) + " a month" }
+          ]
+        },
+        {
+          id: "no-shows",
+          lost: lostNoShow,
+          back: lostNoShow * a.reminderRecovery,
+          steps: [
+            { op: "", operand: num(booked), label: "jobs booked a month", running: jobs(booked) },
+            { op: "×", operand: pct(a.noShowRate), label: ASSUMPTIONS.noShowRate.label, running: jobs(noShows), key: "noShowRate" },
+            { op: "×", operand: money(job), label: "average job", running: money(lostNoShow) + " a month" }
+          ],
+          recovery: [
+            { op: "of which", operand: pct(a.reminderRecovery), label: ASSUMPTIONS.reminderRecovery.label, running: money(lostNoShow * a.reminderRecovery) + " a month", key: "reminderRecovery" }
+          ]
+        },
+        {
+          id: "reviews",
+          lost: 0, back: 0, uncounted: true, steps: [], recovery: []
+        },
+        {
+          id: "lapsed",
+          lost: lostLapsed,
+          back: lostLapsed,
+          steps: [
+            { op: "", operand: num(servedAYear), label: "customers served in a year", running: num(servedAYear) + " customers" },
+            { op: "×", operand: pct(a.lapseRate), label: ASSUMPTIONS.lapseRate.label, running: num(lapsed) + " lapsed", key: "lapseRate" },
+            { op: "×", operand: pct(a.reactivationRate), label: ASSUMPTIONS.reactivationRate.label, running: jobs(reactivated) + " a year", key: "reactivationRate" },
+            { op: "×", operand: money(job), label: "average job, spread over the year", running: money(lostLapsed) + " a month" }
+          ],
+          recovery: [
+            { op: "of which", operand: "all of it", label: "nobody is contacting this list today — that's the point of it", running: money(lostLapsed) + " a month" }
+          ]
+        }
+      ];
+
+      var back = 0;
+      leaks.forEach(function (l) { if (!l.uncounted) { back += l.back; } });
+
+      return {
+        leaks: leaks,
+        back: back,
+        jobsBack: back / job,
+        low: back * 0.75,
+        high: back * 1.25
+      };
+    }
+
+    /* ---------- static copy ---------- */
+
+    var COPY = {
+      "missed-calls": {
+        stage: "The phone rings",
+        title: "The call you took at the top of the ladder",
+        blurb: "Both hands on the pole, phone in the van. By the time you're down it's been forty minutes and they've booked whoever picked up.",
+        installed: "Every missed call gets a text back from your number in under a minute, with a link to book.",
+        short: "Missed calls"
+      },
+      "quiet-quotes": {
+        stage: "Quote sent",
+        title: "The quote you sent Friday",
+        blurb: "They said they'd talk it over with their wife. Nobody chased it, and by Monday it was somebody else's driveway.",
+        installed: "Every quote that goes quiet gets chased over the following week, by text and email, stopping the moment they book or say no.",
+        short: "Quiet quotes"
+      },
+      "no-shows": {
+        stage: "Job booked",
+        title: "The empty driveway",
+        blurb: "Half an hour there, half an hour back, and nobody home. The slot is gone whether they showed or not.",
+        installed: "Every booked job gets a confirmation, then a reminder 24 hours out, then one an hour out.",
+        short: "Empty driveways"
+      },
+      "reviews": {
+        stage: "Job finished",
+        title: "The review you didn't ask for",
+        blurb: "The day after you pack up, while they're still looking at clean windows, is the only time asking is easy.",
+        installed: "Every finished job gets asked for a review the next day, and the profile gets watched so it isn't sitting stale.",
+        short: "Reviews"
+      },
+      "lapsed": {
+        stage: "A season later",
+        title: "The gutters you cleaned last autumn",
+        blurb: "Same house, same gutters, filling up again. They haven't heard from you since, so this year they'll search.",
+        installed: "Every old customer gets a check back months later, when the work needs doing again.",
+        short: "Past customers"
+      }
+    };
+
+    /* ---------- build ---------- */
+
+    var el = {
+      controls: {},
+      leaks: {},
+      figure: null,
+      svgHost: null,
+      band: null,
+      jobsBack: null,
+      reset: null
+    };
+
+    function node(tag, cls, text) {
+      var n = document.createElement(tag);
+      if (cls) { n.className = cls; }
+      if (text != null) { n.textContent = text; }
+      return n;
+    }
+
+    function buildControls() {
+      var wrap = node("div", "lp-controls");
+      var head = node("div", "lp-controls-head");
+      head.appendChild(node("strong", null, "Four numbers about your business"));
+      head.appendChild(node("span", null, "Rough is fine. Nothing is sent anywhere."));
+      wrap.appendChild(head);
+
+      var grid = node("div", "lp-grid");
+      CONTROLS.forEach(function (c) {
+        var cell = node("div");
+        var top = node("div", "lp-control-top");
+        // A <label for> can't point at a range group meaningfully here, so the
+        // name is carried by aria-label on the input itself.
+        top.appendChild(node("strong", null, c.label));
+        var val = node("span", "lp-val", c.fmt(input[c.key]));
+        top.appendChild(val);
+        cell.appendChild(top);
+        cell.appendChild(node("p", "lp-hint", c.hint));
+
+        var r = document.createElement("input");
+        r.type = "range";
+        r.className = "lp-range";
+        r.min = c.min; r.max = c.max; r.step = c.step;
+        r.value = input[c.key];
+        r.setAttribute("aria-label", c.label);
+        fill(r, c.min, c.max);
+        r.addEventListener("input", function () {
+          input[c.key] = Number(r.value);
+          val.textContent = c.fmt(input[c.key]);
+          fill(r, c.min, c.max);
+          refresh();
+        });
+        cell.appendChild(r);
+        grid.appendChild(cell);
+        el.controls[c.key] = { input: r, val: val, def: c };
+      });
+      wrap.appendChild(grid);
+      return wrap;
+    }
+
+    function fill(r, min, max) {
+      r.style.setProperty("--fill", ((r.value - min) / (max - min)) * 100 + "%");
+    }
+
+    function buildRow(step, isLast, gain) {
+      var row = node("div", "lp-row" + (isLast ? " lp-row-last" : "") + (gain && isLast ? " lp-row-gain" : ""));
+      var main = node("div", "lp-row-main");
+      var op = node("span", "lp-op", step.op === "of which" ? "" : step.op);
+      var operand = node("span", "lp-operand", step.operand);
+      var label = node("span", "lp-label");
+      var text = node("span", null, (step.op === "of which" ? "of which " : "") + step.label);
+      var running = node("span", "lp-running", step.running);
+      label.appendChild(text);
+      label.appendChild(running);
+      main.appendChild(op);
+      main.appendChild(operand);
+      main.appendChild(label);
+      row.appendChild(main);
+
+      var refs = { operand: operand, running: running, text: text };
+
+      if (step.key) {
+        var a = ASSUMPTIONS[step.key];
+        var box = node("div", "lp-adjust");
+        var r = document.createElement("input");
+        r.type = "range";
+        r.className = "lp-range lp-range-sm";
+        r.min = a.min; r.max = a.max; r.step = 0.01;
+        r.value = assumption[step.key];
+        r.setAttribute("aria-label", a.label);
+        fill(r, a.min, a.max);
+        r.addEventListener("input", function () {
+          assumption[step.key] = Number(r.value);
+          fill(r, a.min, a.max);
+          refresh();
+        });
+        box.appendChild(r);
+        box.appendChild(node("p", "lp-note", a.note));
+        row.appendChild(box);
+        refs.range = r;
+        refs.assumption = a;
+        refs.key = step.key;
+      }
+      return { el: row, refs: refs };
+    }
+
+    function buildLeak(leak) {
+      var copy = COPY[leak.id];
+      var li = node("li", "lp-leak");
+
+      var head = node("div", "lp-leak-head");
+      var left = node("div");
+      left.appendChild(node("p", "lp-stage", copy.stage));
+      left.appendChild(node("h3", null, copy.title));
+      left.appendChild(node("p", "lp-blurb", copy.blurb));
+      head.appendChild(left);
+
+      var refs = {};
+      if (leak.uncounted) {
+        head.appendChild(node("p", "lp-uncounted", "Not counted anywhere on this page"));
+      } else {
+        var nums = node("div", "lp-nums");
+        var a = node("div");
+        refs.lost = node("p", "lp-num-big", money(leak.lost));
+        a.appendChild(refs.lost);
+        a.appendChild(node("p", "lp-num-cap", "leaking, a month"));
+        var b = node("div");
+        refs.back = node("p", "lp-num-gain", money(leak.back));
+        b.appendChild(refs.back);
+        b.appendChild(node("p", "lp-num-cap", "comes back"));
+        nums.appendChild(a);
+        nums.appendChild(b);
+        head.appendChild(nums);
+      }
+      li.appendChild(head);
+
+      var actions = node("div", "lp-actions");
+      var panel = null;
+      if (!leak.uncounted) {
+        var btn = node("button", "lp-toggle", "Show me the math");
+        btn.type = "button";
+        btn.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-controls", "lp-math-" + leak.id);
+        actions.appendChild(btn);
+
+        panel = node("div", "lp-math");
+        panel.id = "lp-math-" + leak.id;
+        panel.hidden = true;
+
+        refs.rows = [];
+        leak.steps.forEach(function (s, i) {
+          var built = buildRow(s, i === leak.steps.length - 1, false);
+          panel.appendChild(built.el);
+          refs.rows.push(built.refs);
+        });
+        panel.appendChild(node("div", "lp-rule"));
+        leak.recovery.forEach(function (s, i) {
+          var built = buildRow(s, i === leak.recovery.length - 1, true);
+          panel.appendChild(built.el);
+          refs.rows.push(built.refs);
+        });
+        panel.appendChild(node("p", "lp-math-foot",
+          "Every percentage above is a guess until we put your real one in it. Drag any of them. If the number only works at settings you don't believe, that's worth knowing before you book a call rather than after."));
+
+        btn.addEventListener("click", function () {
+          var open = panel.hidden;
+          panel.hidden = !open;
+          btn.setAttribute("aria-expanded", String(open));
+          btn.textContent = open ? "Hide the math" : "Show me the math";
+        });
+      }
+
+      var installed = node("p", "lp-installed");
+      installed.appendChild(node("b", null, "Installed:"));
+      installed.appendChild(document.createTextNode(" " + copy.installed));
+      actions.appendChild(installed);
+      li.appendChild(actions);
+      if (panel) { li.appendChild(panel); }
+
+      if (leak.uncounted) {
+        li.appendChild(node("p", "lp-why",
+          "Reviews are worth real money and I'm not going to put a figure on them. They compound into leads months later that nobody can trace back to a particular job, so any number here would be invented — and then you'd have a reason to doubt the four that aren't."));
+      }
+
+      el.leaks[leak.id] = refs;
+      return li;
+    }
+
+    /* ---------- the plot ----------
+       Redrawn whole on every change. There is nothing focusable or draggable
+       inside it, so replacing it costs nothing. */
+
+    var W = 1080, H = 330, RAIL = 62, BASE = 262, BAR = 150, MIN_H = 44, MAX_H = 142;
+
+    function drawFigure(model) {
+      var shown = model.leaks.filter(function (l) { return !l.uncounted; });
+      var maxLost = 1;
+      shown.forEach(function (l) { if (l.lost > maxLost) { maxLost = l.lost; } });
+      var slot = (W - 80) / shown.length;
+
+      var s = '<svg viewBox="0 0 ' + W + " " + H + '" role="img" aria-label="' +
+        'The lead path from the phone ringing to a customer coming back a season later, with the money leaking out at each stage.">';
+      s += '<line x1="40" y1="' + RAIL + '" x2="' + (W - 40) + '" y2="' + RAIL + '" stroke="var(--ink)" stroke-width="3"/>';
+
+      shown.forEach(function (leak, i) {
+        var copy = COPY[leak.id];
+        var x = 40 + slot * (i + 0.5);
+        var h = MIN_H + (leak.lost / maxLost) * (MAX_H - MIN_H);
+        var top = BASE - h;
+        var backH = leak.lost > 0 ? (leak.back / leak.lost) * h : 0;
+        var cid = "lp-clip-" + leak.id;
+
+        s += '<text x="' + x + '" y="' + (RAIL - 22) + '" text-anchor="middle" fill="var(--ink-soft)" font-size="14" font-weight="600">' + copy.stage + "</text>";
+        s += '<circle cx="' + x + '" cy="' + RAIL + '" r="6" fill="var(--ink)"/>';
+        // Stops short of the amount so the line doesn't run through the digits.
+        s += '<line x1="' + x + '" y1="' + (RAIL + 6) + '" x2="' + x + '" y2="' + (top - 30) + '" stroke="var(--leak-deep)" stroke-width="2"/>';
+        s += '<clipPath id="' + cid + '"><rect x="' + (x - BAR / 2) + '" y="' + top + '" width="' + BAR + '" height="' + h + '" rx="8"/></clipPath>';
+        s += '<rect x="' + (x - BAR / 2) + '" y="' + top + '" width="' + BAR + '" height="' + h + '" rx="8" fill="var(--leak)"/>';
+        if (backH > 2) {
+          s += '<rect x="' + (x - BAR / 2) + '" y="' + (BASE - backH) + '" width="' + BAR + '" height="' + backH + '" fill="var(--gain)" clip-path="url(#' + cid + ')"/>';
+        }
+        s += '<text x="' + x + '" y="' + (top - 14) + '" text-anchor="middle" fill="var(--ink)" font-size="17" font-weight="700" style="font-variant-numeric:tabular-nums">' + money(leak.lost) + "</text>";
+        s += '<text x="' + x + '" y="' + (BASE + 24) + '" text-anchor="middle" fill="var(--ink)" font-size="14" font-weight="600">' + copy.short + "</text>";
+        s += '<text x="' + x + '" y="' + (BASE + 46) + '" text-anchor="middle" fill="var(--gain)" font-size="13.5" font-weight="600" style="font-variant-numeric:tabular-nums">' + money(leak.back) + " back</text>";
+      });
+
+      s += '<line x1="40" y1="' + BASE + '" x2="' + (W - 40) + '" y2="' + BASE + '" stroke="rgba(0,0,0,0.09)" stroke-width="1"/>';
+      s += "</svg>";
+      return s;
+    }
+
+    /* ---------- update ---------- */
+
+    function touched() {
+      for (var k in DEFAULTS) { if (input[k] !== DEFAULTS[k]) { return true; } }
+      for (var a in ASSUMPTIONS) { if (assumption[a] !== ASSUMPTIONS[a].d) { return true; } }
+      return false;
+    }
+
+    function refresh() {
+      var model = compute();
+
+      el.svgHost.innerHTML = drawFigure(model);
+
+      model.leaks.forEach(function (leak) {
+        var refs = el.leaks[leak.id];
+        if (!refs || leak.uncounted) { return; }
+        refs.lost.textContent = money(leak.lost);
+        refs.back.textContent = money(leak.back);
+        var all = leak.steps.concat(leak.recovery);
+        all.forEach(function (step, i) {
+          var r = refs.rows[i];
+          if (!r) { return; }
+          r.operand.textContent = step.operand;
+          r.running.textContent = step.running;
+          r.text.textContent = (step.op === "of which" ? "of which " : "") + step.label;
+        });
+      });
+
+      el.band.innerHTML = "";
+      el.band.appendChild(document.createTextNode(money(model.low) + " – " + money(model.high) + " "));
+      el.band.appendChild(node("small", null, "a month"));
+
+      el.jobsBack.textContent = (model.jobsBack < 1
+        ? (Math.round(model.jobsBack * 10) / 10).toString()
+        : String(Math.round(model.jobsBack))) + " jobs a month";
+
+      el.reset.hidden = !touched();
+    }
+
+    /* ---------- assemble ---------- */
+
+    function build() {
+      var frag = document.createDocumentFragment();
+      frag.appendChild(buildControls());
+
+      // The SVG gets its own host inside the figure, because refresh replaces
+      // it wholesale and the caption has to survive that.
+      el.figure = node("figure", "lp-figure");
+      el.svgHost = node("div");
+      el.figure.appendChild(el.svgHost);
+      var cap = node("figcaption", "lp-figcaption");
+      cap.appendChild(document.createTextNode("Bar height is what leaks out each month. "));
+      cap.appendChild(node("b", null, "Green"));
+      cap.appendChild(document.createTextNode(" is the part that comes back once the follow-up is installed; gray is what stays lost anyway."));
+      el.figure.appendChild(cap);
+      frag.appendChild(el.figure);
+
+      var model = compute();
+      var list = node("ul", "lp-leaks");
+      model.leaks.forEach(function (leak) { list.appendChild(buildLeak(leak)); });
+      frag.appendChild(list);
+
+      var total = node("div", "lp-total");
+      total.appendChild(node("span", "eyebrow", "What's on the floor"));
+      el.band = node("p", "lp-band");
+      total.appendChild(el.band);
+      var sub = node("p", "lp-total-sub");
+      sub.appendChild(document.createTextNode("Roughly "));
+      el.jobsBack = node("b");
+      sub.appendChild(el.jobsBack);
+      sub.appendChild(document.createTextNode(" you're already paying to generate and not closing. It's a band rather than a figure because the percentages behind it are estimates, and a single number would be pretending otherwise."));
+      total.appendChild(sub);
+      var cta = node("a", "btn btn-primary", "Book a demo");
+      cta.href = BOOKING;
+      total.appendChild(cta);
+      total.appendChild(node("p", "lp-total-fine",
+        "Fifteen minutes. We put your real numbers in place of these and see what's actually there. If there's nothing leaking, I'll tell you that."));
+      frag.appendChild(total);
+
+      var foot = node("div", "lp-foot");
+      var note = node("p");
+      note.appendChild(node("b", null, "What this is, and isn't:"));
+      note.appendChild(document.createTextNode(" an estimate built from four numbers you supplied and nine percentages I chose, all of which are shown and all of which you can move. It is not a measurement of your business, and none of it is my own trading figures — those are further up the page and they're labelled. Nothing you type here is sent anywhere or stored."));
+      foot.appendChild(note);
+      el.reset = node("button", "lp-reset", "Reset everything");
+      el.reset.type = "button";
+      el.reset.hidden = true;
+      el.reset.addEventListener("click", function () {
+        reset();
+        CONTROLS.forEach(function (c) {
+          var ref = el.controls[c.key];
+          ref.input.value = input[c.key];
+          ref.val.textContent = c.fmt(input[c.key]);
+          fill(ref.input, c.min, c.max);
+        });
+        for (var id in el.leaks) {
+          (el.leaks[id].rows || []).forEach(function (r) {
+            if (r.range) {
+              r.range.value = assumption[r.key];
+              fill(r.range, r.assumption.min, r.assumption.max);
+            }
+          });
+        }
+        refresh();
+      });
+      foot.appendChild(el.reset);
+      frag.appendChild(foot);
+
+      app.innerHTML = "";
+      app.appendChild(frag);
+      refresh();
+    }
+
+    // If anything in here throws, the fallback paragraph already in the markup
+    // stays where it is rather than leaving a heading over empty space.
+    try {
+      build();
+    } catch (e) {
+      if (window.console && console.error) { console.error(e); }
+    }
+  })();
+
   // Scroll reveal. With reduced motion or no IntersectionObserver, everything
   // is shown immediately rather than hidden forever.
   (function () {
