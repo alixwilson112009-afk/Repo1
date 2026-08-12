@@ -112,8 +112,12 @@ export default function App() {
                 estimates, and a single number would be pretending otherwise.
               </p>
 
+              {/* Opens out of the frame — the hosted preview runs sandboxed,
+                  and a CTA that silently does nothing is worse than none. */}
               <a
                 href={BOOKING}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hero-focus mt-9 inline-block rounded-full bg-brand px-8 py-[15px] text-[1.0625rem] font-semibold text-white transition-colors hover:bg-brand-hover active:scale-[0.98]"
                 style={{ outlineColor: "#fff" }}
               >
