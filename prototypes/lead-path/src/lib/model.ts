@@ -16,13 +16,22 @@ export type Inputs = {
   quotesPerMonth: number;
 };
 
+/**
+ * Pitched at the one-van operation the page is written for, and sanity-checked
+ * against the proof section's own figures: "5-7 jobs a month" before, at "50%
+ * of inbound calls became jobs", puts that business somewhere near 10-15 calls
+ * a month. A default of 60 was describing a company several times the size.
+ *
+ * At these settings the model has the visitor booking ~7 jobs a month, which
+ * lands in the same place the proof section starts from. Anyone bigger drags
+ * up.
+ */
 export const DEFAULT_INPUTS: Inputs = {
-  callsPerMonth: 60,
-  answeredLive: 0.55,
-  // No figure was given for this, so it's a mid-range residential exterior
-  // clean: window rounds, a driveway, a gutter clear. Draggable $100–$1,500.
-  jobValue: 375,
-  quotesPerMonth: 25,
+  callsPerMonth: 25,
+  answeredLive: 0.5,
+  // A residential exterior clean: a window round, a driveway, a gutter clear.
+  jobValue: 250,
+  quotesPerMonth: 8,
 };
 
 export type Assumption = {

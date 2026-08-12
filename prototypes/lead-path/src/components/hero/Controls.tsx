@@ -17,13 +17,19 @@ type Row = {
   format: (n: number) => string;
 };
 
+/**
+ * Ranges are scaled for exterior cleaning, from a one-van operation up to a
+ * few crews — not for a company with an office and a call queue. A slider
+ * whose top end is four times bigger than anyone reading the page makes the
+ * honest setting look like nothing.
+ */
 const ROWS: Row[] = [
   {
     key: "callsPerMonth",
     label: "Calls a month",
     hint: "Everything that makes the phone ring — referrals, Google, the van.",
-    min: 10,
-    max: 300,
+    min: 5,
+    max: 120,
     step: 5,
     format: (n) => String(n),
   },
@@ -40,8 +46,8 @@ const ROWS: Row[] = [
     key: "jobValue",
     label: "Average job",
     hint: "What a typical clean invoices at, before tax.",
-    min: 100,
-    max: 1500,
+    min: 75,
+    max: 800,
     step: 25,
     format: (n) => money(n),
   },
@@ -50,8 +56,8 @@ const ROWS: Row[] = [
     label: "Quotes you send a month",
     hint: "The ones that need a number sent over rather than booking on the call.",
     min: 0,
-    max: 150,
-    step: 5,
+    max: 60,
+    step: 1,
     format: (n) => String(n),
   },
 ];
