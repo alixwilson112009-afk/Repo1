@@ -1,0 +1,27 @@
+# Metro centers for --centers-file. One "lat,lon" per line; # starts a comment.
+# Pair with --radius-km to set how far out from each center to search.
+40.7128,-74.0060    # New York NY
+34.0522,-118.2437   # Los Angeles CA
+41.8781,-87.6298    # Chicago IL
+29.7604,-95.3698    # Houston TX
+33.4484,-112.0740   # Phoenix AZ
+39.9526,-75.1652    # Philadelphia PA
+29.4241,-98.4936    # San Antonio TX
+32.7157,-117.1611   # San Diego CA
+32.7767,-96.7970    # Dallas TX
+30.2672,-97.7431    # Austin TX
+30.3322,-81.6557    # Jacksonville FL
+37.3382,-121.8863   # San Jose CA
+32.7555,-97.3308    # Fort Worth TX
+39.9612,-82.9988    # Columbus OH
+35.2271,-80.8431    # Charlotte NC
+39.7684,-86.1581    # Indianapolis IN
+37.7749,-122.4194   # San Francisco CA
+47.6062,-122.3321   # Seattle WA
+39.7392,-104.9903   # Denver CO
+42.3601,-71.0589    # Boston MA
+36.1627,-86.7816    # Nashville TN
+38.9072,-77.0369    # Washington DC
+33.7490,-84.3880    # Atlanta GA
+25.7617,-80.1918    # Miami FL
+44.9778,-93.2650    # Minneapolis MN
