@@ -262,6 +262,35 @@ def build_grid(center_lat, center_lon, radius_km, tile_km):
 # --------------------------------------------------------------------------
 
 
+# Configuration problems, not transient ones. Google reports an invalid key as
+# HTTP 400 INVALID_ARGUMENT rather than a 401, so the reason has to be read out
+# of the body; status code alone cannot tell these apart from a bad query.
+FATAL_REASONS = {
+    "API_KEY_INVALID": "the API key is not valid",
+    "API_KEY_SERVICE_BLOCKED": "this key is not allowed to call the Places API",
+    "API_KEY_HTTP_REFERRER_BLOCKED": "the key's referrer restriction blocks this caller",
+    "API_KEY_IP_ADDRESS_BLOCKED": "the key's IP restriction blocks this machine",
+    "SERVICE_DISABLED": "Places API (New) is not enabled on this Google Cloud project",
+    "BILLING_DISABLED": "billing is not enabled on this Google Cloud project",
+    "ACCESS_TOKEN_EXPIRED": "the credentials have expired",
+}
+
+
+def fatal_api_error(resp):
+    """Return a human explanation if this error will repeat on every request."""
+    try:
+        err = resp.json().get("error", {})
+    except ValueError:
+        return None
+    for detail in err.get("details", []):
+        reason = detail.get("reason")
+        if reason in FATAL_REASONS:
+            return f"{FATAL_REASONS[reason]} ({reason})"
+    if err.get("status") == "PERMISSION_DENIED":
+        return f"permission denied: {err.get('message', '')[:200]}"
+    return None
+
+
 def search_tile(session, api_key, query, lat, lon, radius_km, max_pages, sleep_s):
     """Text search one tile, following pagination. Returns raw place dicts."""
     headers = {
@@ -294,9 +323,12 @@ def search_tile(session, api_key, query, lat, lon, radius_km, max_pages, sleep_s
             print("  ! rate limited, backing off 10s", file=sys.stderr)
             time.sleep(10)
             continue
-        if resp.status_code in (401, 403):
-            sys.exit(f"API key rejected (HTTP {resp.status_code}): {resp.text[:300]}")
         if resp.status_code != 200:
+            fatal = fatal_api_error(resp)
+            if fatal:
+                # A bad key or a disabled API fails identically on every tile,
+                # so stop now rather than grinding through the whole grid.
+                sys.exit(f"\nstopping: {fatal}")
             print(f"  ! HTTP {resp.status_code}: {resp.text[:300]}", file=sys.stderr)
             return places, False
 

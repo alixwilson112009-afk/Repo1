@@ -1,5 +1,37 @@
 # Prospecting tools
 
+## serve.py — local UI
+
+A progress bar, an elapsed timer, an ETA, and a download button, served from
+your own machine:
+
+```bash
+export GOOGLE_PLACES_API_KEY=...
+python3 tools/serve.py          # opens http://127.0.0.1:8000
+```
+
+Fill in the form, hit start, watch it work. Closing the browser does not stop
+the run, and reopening the page reattaches to the job in flight. Stdlib only —
+nothing to install beyond `requests`, which the prospector already needs.
+
+Progress is read out of the checkpoint directory rather than by parsing output,
+so the count of tiles, businesses, sites read, and emails found always reflects
+the real state on disk.
+
+### Why not Netlify, Vercel, or Lambda
+
+Serverless functions cap out long before this job finishes — Netlify Functions
+at 10 seconds, Netlify Background Functions at 15 minutes, Vercel and Lambda in
+the same range. A full run is measured in hours. There is also no persistent
+filesystem between invocations, so the checkpoint would not survive, and a
+public endpoint that triggers Places calls is a public endpoint that spends your
+API budget.
+
+If you do want it hosted rather than local, use something with a real
+always-on process and a disk — Railway, Render, Fly.io, or any small VPS —
+and put authentication in front of it. `--host 0.0.0.0` will bind publicly but
+this server has no auth of its own, so do not expose it directly.
+
 ## places_prospector.py
 
 Pulls local businesses out of the Google Places API (New) into a CSV for outreach.
