@@ -23,7 +23,7 @@ python3 tools/places_prospector.py \
     --out window_cleaners_phoenix.csv
 ```
 
-Many metros, with email enrichment:
+Every metro, emails only:
 
 ```bash
 python3 tools/places_prospector.py \
@@ -31,8 +31,29 @@ python3 tools/places_prospector.py \
     --centers-file tools/metros-us-top25.txt \
     --radius-km 40 \
     --out window_cleaners_us.csv \
-    --enrich-emails
+    --enrich-emails --emails-only
 ```
+
+`--emails-only` writes a two-column `email,business` CSV, deduped across the
+whole run, instead of the full business record. Drop the flag to get everything.
+
+### Resuming
+
+Long runs checkpoint as they go, into `<out>.csv.state/` by default. Every
+finished tile and every scraped site is appended immediately, so a run that dies
+at hour six loses at most the tile in flight. Re-run the exact same command to
+resume; it reports what it recovered and skips the completed work.
+
+```
+resuming: 4213 businesses, 892 tiles done, 1150 sites scraped
+```
+
+A tile is only marked done on a clean pass, so a network blip gets retried
+rather than silently dropped. The CSV is also rewritten every 25 sites during
+the email stage, so the partial output is usable while the run continues.
+
+Pass `--restart` to discard the checkpoint, or `--search-only` to gather
+businesses now and run the slow email stage later.
 
 ### Why tiling
 
@@ -56,10 +77,22 @@ large run, because a 25-metro sweep at `--tile-km 5` is several thousand calls.
 
 ### Emails
 
-Places has no email field at any tier. `--enrich-emails` visits each business
-website afterwards, checks the homepage and the usual contact pages, and prefers
-an address on the business's own domain. Expect roughly a third to a half of
-records with a website to yield an address; the rest use contact forms only.
+Places has no email field at any tier, so `--enrich-emails` visits each business
+website afterwards. Per site it reads the homepage, follows whatever
+contact/about links that page advertises, then tries the usual guessed paths,
+stopping at `--pages-per-site` (default 5).
+
+It reads four forms of address:
+
+- plain text and `mailto:` links
+- `data-cfemail` hex, which is how Cloudflare obfuscates addresses
+- `application/ld+json` business schema blocks
+- `info [at] example [dot] com` style hand-obfuscation
+
+Results are filtered against platform noise (Wix, Squarespace, Shopify, Sentry)
+and sorted so an address on the business's own domain comes first. Expect
+roughly a third to a half of records that have a website to yield an address;
+the rest run contact forms with no published address, and no scraper gets those.
 
 ### Before you use the output
 
