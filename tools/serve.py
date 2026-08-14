@@ -452,18 +452,27 @@ def main():
         "endpoint that spends your Places quota",
     )
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument(
+        "--display-url",
+        help="address to print and open, when it differs from the bind address "
+        "(ChromeOS reaches the Linux container by hostname, not loopback)",
+    )
     args = ap.parse_args()
 
     if not os.environ.get("GOOGLE_PLACES_API_KEY"):
         print("warning: GOOGLE_PLACES_API_KEY is not set; runs will fail", file=sys.stderr)
-    if args.host not in ("127.0.0.1", "localhost"):
+
+    # ChromeOS puts the Linux container behind its own NAT, so binding wide
+    # there exposes the server to the browser rather than to the network.
+    on_crostini = Path("/dev/.cros_milestone").exists()
+    if args.host not in ("127.0.0.1", "localhost") and not on_crostini:
         print(
             f"warning: binding to {args.host} — this server has no authentication, "
             "and anyone who can reach it can spend your API quota",
             file=sys.stderr,
         )
 
-    url = f"http://{args.host}:{args.port}"
+    url = args.display_url or f"http://{args.host}:{args.port}"
     print(f"prospector UI on {url}   (ctrl-c to quit)", file=sys.stderr)
     if not args.no_browser:
         threading.Timer(0.5, lambda: webbrowser.open(url)).start()

@@ -1,9 +1,35 @@
 # Prospecting tools
 
+## Quick start
+
+```bash
+bash tools/start.sh
+```
+
+Checks Python, installs the one library needed, asks for your API key once and
+remembers it, then starts the UI and prints the address to open. Safe to re-run;
+after the first time it goes straight to starting the server.
+
+### On a Chromebook
+
+ChromeOS runs Linux in a container that the browser reaches by hostname rather
+than through loopback, so `localhost` will not work. `start.sh` detects this,
+binds accordingly, and prints the right address — **http://penguin.linux.test:8000**.
+
+First time only, turn the Linux container on: Settings → About ChromeOS →
+Developers → Linux development environment → Turn on. School- or work-managed
+Chromebooks often have this disabled by an administrator, in which case none of
+this can run locally.
+
+A Chromebook that sleeps mid-run will interrupt it. Keep it plugged in with the
+lid open, and set Settings → Device → Power → "Keep display on". If it does
+sleep, the checkpoint means re-running the same command resumes rather than
+starting over.
+
 ## serve.py — local UI
 
 A progress bar, an elapsed timer, an ETA, and a download button, served from
-your own machine:
+your own machine. `start.sh` launches this for you; to run it directly:
 
 ```bash
 export GOOGLE_PLACES_API_KEY=...
