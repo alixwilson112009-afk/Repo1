@@ -22,14 +22,21 @@ fail() { printf '\033[31m%s\033[0m\n' "$1" >&2; exit 1; }
 # ChromeOS runs Linux in a container whose loopback the Chrome browser cannot
 # reach, so there we bind to all interfaces and hand out the container's
 # hostname instead of localhost.
-if [ -e /dev/.cros_milestone ]; then
+# The marker file is not present on every ChromeOS release, so check a few
+# things that all point at Crostini rather than relying on any one of them.
+if [ -e /dev/.cros_milestone ] \
+   || [ -d /opt/google/cros-containers ] \
+   || [ "$(hostname 2>/dev/null)" = "penguin" ] \
+   || [ -f /etc/apt/sources.list.d/cros.list ]; then
   IS_CROSTINI=1
   BIND_HOST="0.0.0.0"
-  OPEN_URL="http://penguin.linux.test:$PORT"
+  OPEN_URL="http://127.0.0.1:$PORT"
+  ALT_URL="http://penguin.linux.test:$PORT"
 else
   IS_CROSTINI=0
   BIND_HOST="127.0.0.1"
   OPEN_URL="http://127.0.0.1:$PORT"
+  ALT_URL=""
 fi
 
 bold "Prospector setup"
@@ -127,8 +134,8 @@ echo
 bold "  Open this in your browser:  $OPEN_URL"
 echo
 if [ "$IS_CROSTINI" = "1" ]; then
-  echo "  (On a Chromebook use that address, not localhost — the browser and"
-  echo "   the Linux container are separate.)"
+  echo "  If that does not load, try:  $ALT_URL"
+  echo "  (Older ChromeOS builds do not forward localhost into the container.)"
   echo
 fi
 echo "  Leave this window open while a run is going. Press Ctrl+C to stop."
