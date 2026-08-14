@@ -63,21 +63,60 @@ else
 fi
 
 # ------------------------------------------------------------------- api key
+# Report what landed without putting the whole key in the scrollback.
+describe_key() {
+  local k="$1" n=${#1}
+  if [ "$n" -le 12 ]; then
+    echo "$n characters"
+  else
+    echo "$n characters, ${k:0:6}…${k: -4}"
+  fi
+}
+
+check_key_shape() {
+  # Google API keys are 39 characters starting with AIza. Warn rather than
+  # refuse, in case the format ever changes.
+  case "$1" in
+    AIza*) [ ${#1} -eq 39 ] || warn "  note: usually 39 characters, this is ${#1}." ;;
+    *) warn "  note: Google keys normally start with 'AIza' — double-check this one." ;;
+  esac
+}
+
 if [ -f "$KEY_FILE" ]; then
   GOOGLE_PLACES_API_KEY="$(tr -d '[:space:]' < "$KEY_FILE")"
-  echo "  API key loaded from .places-api-key"
+  echo "  API key loaded from .places-api-key ($(describe_key "$GOOGLE_PLACES_API_KEY"))"
 else
   echo
   bold "Paste your Google Places API key, then press Enter."
-  echo "It is saved to $KEY_FILE so you are only asked once."
-  echo "Nothing is typed to the screen while you paste."
-  printf '  Key: '
-  read -rs GOOGLE_PLACES_API_KEY
   echo
-  [ -n "$GOOGLE_PLACES_API_KEY" ] || fail "No key entered."
+  echo "  To paste in this terminal:  Ctrl+Shift+V   (or right-click -> Paste)"
+  echo "  Plain Ctrl+V does not work here."
+  echo
+  echo "  The key is hidden as you paste, so the screen will not change."
+  echo "  That is normal. Paste, then press Enter anyway."
+  echo
+  printf '  Key: '
+  read -rs GOOGLE_PLACES_API_KEY || true
+  echo
+
+  GOOGLE_PLACES_API_KEY="$(printf '%s' "$GOOGLE_PLACES_API_KEY" | tr -d '[:space:]')"
+
+  if [ -z "$GOOGLE_PLACES_API_KEY" ]; then
+    echo
+    fail "Nothing was entered.
+
+If pasting will not work at all, put the key in a file instead:
+  1. Open the Files app, go to Linux files -> prospector
+  2. Right-click -> New -> Text file, name it  .places-api-key
+  3. Paste the key in, save, close
+  4. Run this again:  bash tools/start.sh"
+  fi
+
   printf '%s' "$GOOGLE_PLACES_API_KEY" > "$KEY_FILE"
   chmod 600 "$KEY_FILE"
-  echo "  Saved. Delete that file to be asked again."
+  echo "  Got it: $(describe_key "$GOOGLE_PLACES_API_KEY")"
+  check_key_shape "$GOOGLE_PLACES_API_KEY"
+  echo "  Saved, so you will not be asked again."
 fi
 export GOOGLE_PLACES_API_KEY
 
